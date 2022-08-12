@@ -36,6 +36,7 @@ export const ItemsNavbar = styled.nav `
     
     ul {
         li {
+            list-style: none;
             margin-bottom: .3rem;
             
             a {
