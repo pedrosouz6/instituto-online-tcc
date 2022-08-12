@@ -6,7 +6,6 @@ export const ContainerNavbar = styled.div `
     max-height: auto;
     background: linear-gradient(0deg, teal 60%, rgba(0, 128, 128, .3));
     padding: 10px;
-    color: white;
 `
 
 export const MenuNavbar = styled.div `
@@ -27,7 +26,6 @@ export const MenuNavbar = styled.div `
         
         i {
             display: block;
-            color: white;
             font-size: 13pt;
         }
     }
