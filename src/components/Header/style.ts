@@ -22,8 +22,9 @@ export const ImageUserHeader = styled.div `
     width: 40px;
     height: 40px;
     border-radius: 5px;
-    background: ${props => props.theme.colors.text}
+    background: ${props => props.theme.colors.text};
 `
+
 export const InfoUserHeader = styled.div `
     p {
         font-size: 10pt;

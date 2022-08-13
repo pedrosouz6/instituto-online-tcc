@@ -10,7 +10,7 @@ export interface toggleThemeType {
   title: string
 }
 
-function Home({ toggleTheme, title }: toggleThemeType) {
+export default function Home({ toggleTheme, title }: toggleThemeType) {
   return (
     <div>
       <Head>
@@ -26,5 +26,3 @@ function Home({ toggleTheme, title }: toggleThemeType) {
     </div>
   )
 }
-
-export default Home

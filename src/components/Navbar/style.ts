@@ -10,6 +10,11 @@ export const ContainerNavbar = styled.div `
     padding: 10px;
 
     border-right: 1px solid ${props => props.theme.colors.border};
+    background-color: red;
+
+    @media (max-width: 1100px) {
+        left: -231px;
+    }
 `
 
 export const MenuNavbar = styled.div `

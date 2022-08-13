@@ -19,36 +19,37 @@ import {
 
 export function Navbar() {
     return (
-        <ContainerNavbar>
-            <h1>logo</h1>
+        <>
             <MenuNavbar>
                 <h4>Menu</h4>
                 <button>
                     <i><AiOutlineMenu /></i>
                 </button>
             </MenuNavbar>
+            <ContainerNavbar>
+                <h1>logo</h1>
 
-            <ItemsNavbar>
-                <ul>
-                    <li> <i><HiHome /></i> Home</li>
-                    <li><a> <i><FaUsers /></i> Usuários</a></li>
-                    <li><a> <i><MdScreenSearchDesktop /></i> Aparência</a></li>
-                    <li><a> <i><AiFillTool /></i> Configurações</a></li>
-                    <li><a> <i><IoMdHelp /></i> Ajuda</a></li>
-                </ul>
-            </ItemsNavbar>
+                <ItemsNavbar>
+                    <ul>
+                        <li> <i><HiHome /></i> Home</li>
+                        <li><a> <i><FaUsers /></i> Usuários</a></li>
+                        <li><a> <i><MdScreenSearchDesktop /></i> Aparência</a></li>
+                        <li><a> <i><AiFillTool /></i> Configurações</a></li>
+                        <li><a> <i><IoMdHelp /></i> Ajuda</a></li>
+                    </ul>
+                </ItemsNavbar>
 
-            <ItemsNavbar>
-                <ul>
-                    <li> <i><TbDeviceAnalytics /></i> Dashboard</li>
-                    <li><a> <i><BsFillCalendarEventFill /></i> Agenda</a></li>
-                    <li><a> <i><HiDocumentDuplicate /></i> Documentos</a></li>
-                    <li><a> <i><SiMinutemailer /></i> Disparos de E-mails</a></li>
-                    <li><a> <i><MdOutlineComputer /></i> Editor de texto</a></li>
-                    <li><a> <i><FaMoneyCheck /></i> Faturamento</a></li>
-                </ul>
-
-            </ItemsNavbar>
-        </ContainerNavbar>
+                <ItemsNavbar>
+                    <ul>
+                        <li> <i><TbDeviceAnalytics /></i> Dashboard</li>
+                        <li><a> <i><BsFillCalendarEventFill /></i> Agenda</a></li>
+                        <li><a> <i><HiDocumentDuplicate /></i> Documentos</a></li>
+                        <li><a> <i><SiMinutemailer /></i> Disparos de E-mails</a></li>
+                        <li><a> <i><MdOutlineComputer /></i> Editor de texto</a></li>
+                        <li><a> <i><FaMoneyCheck /></i> Faturamento</a></li>
+                    </ul>
+                </ItemsNavbar>
+            </ContainerNavbar>
+        </>
     )
 }
