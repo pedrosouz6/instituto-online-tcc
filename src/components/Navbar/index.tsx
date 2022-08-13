@@ -9,6 +9,7 @@ import { MdOutlineComputer } from 'react-icons/md';
 import { FaMoneyCheck } from 'react-icons/fa';
 import { MdScreenSearchDesktop } from 'react-icons/md';
 import { HiHome } from 'react-icons/hi';
+import { TbDeviceAnalytics } from 'react-icons/tb';
 
 import { 
     ContainerNavbar,
@@ -39,7 +40,7 @@ export function Navbar() {
 
             <ItemsNavbar>
                 <ul>
-                    <li>Dashboard</li>
+                    <li> <i><TbDeviceAnalytics /></i> Dashboard</li>
                     <li><a> <i><BsFillCalendarEventFill /></i> Agenda</a></li>
                     <li><a> <i><HiDocumentDuplicate /></i> Documentos</a></li>
                     <li><a> <i><SiMinutemailer /></i> Disparos de E-mails</a></li>

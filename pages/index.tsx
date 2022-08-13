@@ -1,10 +1,16 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { Header } from '../src/components/Header'
 
 import { Navbar } from '../src/components/Navbar'
 
-const Home: NextPage = () => {
+export interface toggleThemeType {
+  toggleTheme(): void,
+  title: string
+}
+
+function Home({ toggleTheme, title }: toggleThemeType) {
   return (
     <div>
       <Head>
@@ -14,6 +20,7 @@ const Home: NextPage = () => {
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></link>
       </Head>
 
+      <Header toggleTheme={toggleTheme} title={title} />
       <Navbar />
 
     </div>

@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
 export const ContainerNavbar = styled.div `
+    position: fixed;
+    top: 0;
+    left: 0;
+
     width: 230px;
-    min-height: 100vh;
-    max-height: auto;
-    background: linear-gradient(0deg, teal 60%, rgba(0, 128, 128, .3));
+    height: 100vh;
     padding: 10px;
+
+    border-right: 1px solid ${props => props.theme.colors.border};
 `
 
 export const MenuNavbar = styled.div `
@@ -27,6 +31,7 @@ export const MenuNavbar = styled.div `
         i {
             display: block;
             font-size: 13pt;
+            color: ${props => props.theme.colors.text};
         }
     }
 `
@@ -37,12 +42,18 @@ export const ItemsNavbar = styled.nav `
     ul {
         li {
             list-style: none;
-            margin-bottom: .3rem;
+            margin-bottom: .4rem;
+            letter-spacing: .3px;
             
             a {
                 display: flex;
+                font-size: 10pt;
                 gap: .5rem;
                 padding-left: 15px;
+
+                i {
+                    font-size: 12pt;
+                }
             }
         }
     }

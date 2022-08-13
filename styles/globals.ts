@@ -1,17 +1,16 @@
 import { createGlobalStyle } from "styled-components";
 
-import { Themes } from "../themes";
-
-const {
-    white
-} = Themes.light;
-
 export default createGlobalStyle `
     * {
         padding: 0;
         margin: 0;
         box-sizing: border-box;
         font-family: Poppins;
-        color: ${white};
+    }
+
+    body {
+        background: ${props => props.theme.colors.background};
+        color: ${props => props.theme.colors.text};
+        transition: .3s ease-in-out;
     }
 `
