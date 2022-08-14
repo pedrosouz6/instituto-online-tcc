@@ -81,6 +81,10 @@ export const ItemsNavbar = styled.nav `
                     font-size: 12pt;
                 }
             }
+
+            .active {
+                color: ${props => props.theme.colors.primary};
+            }
         }
     }
 `

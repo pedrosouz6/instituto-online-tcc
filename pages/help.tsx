@@ -29,7 +29,7 @@ export default function Help() {
                         <label htmlFor='problemTitle'>Títuto do problema</label>
                         <input type='text' id='problemTitle' />
 
-                        <label htmlFor='comment'>Faça um Breve Comentario Sobre Seu Problema</label>
+                        <label htmlFor='comment'>Faça um Breve Comentário Sobre Seu Problema</label>
                         <textarea id='comment' />
 
                         <FormButtonSendComment>

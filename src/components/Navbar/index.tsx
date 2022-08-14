@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -23,6 +24,8 @@ import {
 
 export function Navbar() {
 
+    const { pathname } = useRouter();
+
     const [ menuResponsive, setMenuResponsive ] = useState(false);
 
     return (
@@ -42,22 +45,34 @@ export function Navbar() {
                         <li> <i><HiHome /></i> Home</li>
                         <li>
                             <Link href="/">
-                                <a> <i><FaUsers /></i> Usuários</a>
+                                <a className={pathname === '/users' ? 'active' : ''}> 
+                                    <i><FaUsers /></i>
+                                    Usuários
+                                </a>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/">
-                                <a> <i><MdScreenSearchDesktop /></i> Aparência</a>
+                            <Link href="/appearance">
+                                <a className={pathname === '/appearance' ? 'active' : ''}>  
+                                    <i><MdScreenSearchDesktop /></i> 
+                                    Aparência
+                                </a>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/">
-                                <a> <i><AiFillTool /></i> Configurações</a>
+                            <Link href="/settings">
+                                <a className={pathname === '/settings' ? 'active' : ''}> 
+                                    <i><AiFillTool /></i> 
+                                    Configurações
+                                </a>
                             </Link>
                         </li>
                         <li>
                             <Link href="/help">
-                                <a> <i><IoMdHelp /></i> Ajuda</a>
+                                <a className={pathname === '/help' ? 'active' : ''}>
+                                    <i><IoMdHelp /></i> 
+                                    Ajuda
+                                </a>
                             </Link>
                         </li>
                     </ul>
@@ -68,28 +83,43 @@ export function Navbar() {
                         <li> <i><TbDeviceAnalytics /></i> Dashboard</li>
 
                         <li>
-                            <Link href="/">
-                                <a> <i><BsFillCalendarEventFill /></i> Agenda</a>
+                            <Link href="/calendar">
+                                <a className={pathname === '/calendar' ? 'active' : ''}> 
+                                    <i><BsFillCalendarEventFill /></i> 
+                                    Agenda
+                                </a>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/">
-                                <a> <i><HiDocumentDuplicate /></i> Documentos</a>
+                            <Link href="/docs">
+                                <a className={pathname === '/docs' ? 'active' : ''}> 
+                                    <i><HiDocumentDuplicate /></i> 
+                                    Documentos
+                                </a>
                             </Link>
                         </li>
                         <li>
                             <Link href="/sendEmail"> 
-                                <a> <i><SiMinutemailer /></i> Disparos de E-mails</a>
+                                <a className={pathname === '/sendEmail' ? 'active' : ''}> 
+                                    <i><SiMinutemailer /></i> 
+                                    Disparos de E-mails
+                                </a>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/">
-                                <a> <i><MdOutlineComputer /></i> Editor de texto</a>
+                            <Link href="/textEditor">
+                                <a className={pathname === '/textEditor' ? 'active' : ''}> 
+                                    <i><MdOutlineComputer /></i> 
+                                    Editor de texto
+                                </a>
                             </Link>
                         </li>
                         <li>
-                            <Link href="/">
-                                <a> <i><FaMoneyCheck /></i> Faturamento</a> 
+                            <Link href="/invoicing">
+                                <a className={pathname === 'invoicing' ? 'active' : ''}> 
+                                    <i><FaMoneyCheck /></i> 
+                                    Faturamento
+                                </a> 
                             </Link>
                         </li>
                     </ul>
