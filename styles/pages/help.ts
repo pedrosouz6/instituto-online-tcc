@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export const ContainerSendEmail = styled.section `
+export const ContainerHelp = styled.section `
     max-width: 600px;
     margin: 0 auto;
 
     padding: 25px 0;
-` 
+`
 
-export const FormSendEmail = styled.form `
+export const FormHelp = styled.form `
     width: 100%;
 
     label {
@@ -42,7 +42,7 @@ export const FormSendEmail = styled.form `
     }
 `
 
-export const FormButtonSendEmail = styled.div `
+export const FormButtonSendComment = styled.div `
     width: 100%;
     display: flex;
     justify-content: end;

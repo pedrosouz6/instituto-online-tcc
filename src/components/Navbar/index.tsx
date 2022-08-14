@@ -56,7 +56,7 @@ export function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/">
+                            <Link href="/help">
                                 <a> <i><IoMdHelp /></i> Ajuda</a>
                             </Link>
                         </li>

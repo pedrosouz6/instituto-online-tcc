@@ -2,15 +2,14 @@ import Head from "next/head"
 
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
-
+import { Container } from "../styles/style";
+import { Title } from "../src/components/Title";
+import { Button } from "../src/components/Button";
 import { 
     ContainerSendEmail,
     FormSendEmail,
     FormButtonSendEmail
 } from '../styles/pages/sendEmail';
-
-import { Container } from "../styles/style";
-import { Title } from "../src/components/Title";
 
 export default function sendEmail() {
     return (
@@ -33,7 +32,9 @@ export default function sendEmail() {
                         <textarea id="body" />
 
                         <FormButtonSendEmail>
-                            <button type="submit">Enviar</button>
+                            <Button>
+                                Enviar
+                            </Button>
                         </FormButtonSendEmail>
                     </FormSendEmail>
                 </ContainerSendEmail>
