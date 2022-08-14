@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUsers } from 'react-icons/fa';
@@ -39,21 +40,58 @@ export function Navbar() {
                 <ItemsNavbar>
                     <ul>
                         <li> <i><HiHome /></i> Home</li>
-                        <li><a> <i><FaUsers /></i> Usuários</a></li>
-                        <li><a> <i><MdScreenSearchDesktop /></i> Aparência</a></li>
-                        <li><a> <i><AiFillTool /></i> Configurações</a></li>
-                        <li><a> <i><IoMdHelp /></i> Ajuda</a></li>
+                        <li>
+                            <Link href="/">
+                                <a> <i><FaUsers /></i> Usuários</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/">
+                                <a> <i><MdScreenSearchDesktop /></i> Aparência</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/">
+                                <a> <i><AiFillTool /></i> Configurações</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/">
+                                <a> <i><IoMdHelp /></i> Ajuda</a>
+                            </Link>
+                        </li>
                     </ul>
                 </ItemsNavbar>
 
                 <ItemsNavbar>
                     <ul>
                         <li> <i><TbDeviceAnalytics /></i> Dashboard</li>
-                        <li><a> <i><BsFillCalendarEventFill /></i> Agenda</a></li>
-                        <li><a> <i><HiDocumentDuplicate /></i> Documentos</a></li>
-                        <li><a> <i><SiMinutemailer /></i> Disparos de E-mails</a></li>
-                        <li><a> <i><MdOutlineComputer /></i> Editor de texto</a></li>
-                        <li><a> <i><FaMoneyCheck /></i> Faturamento</a></li>
+
+                        <li>
+                            <Link href="/">
+                                <a> <i><BsFillCalendarEventFill /></i> Agenda</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/">
+                                <a> <i><HiDocumentDuplicate /></i> Documentos</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/sendEmail"> 
+                                <a> <i><SiMinutemailer /></i> Disparos de E-mails</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/">
+                                <a> <i><MdOutlineComputer /></i> Editor de texto</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/">
+                                <a> <i><FaMoneyCheck /></i> Faturamento</a> 
+                            </Link>
+                        </li>
                     </ul>
                 </ItemsNavbar>
             </ContainerNavbar>

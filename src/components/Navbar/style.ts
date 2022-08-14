@@ -13,11 +13,10 @@ export const ContainerNavbar = styled.div `
     width: 230px;
     height: 100vh;
     padding: 10px;
+
     background: ${props => props.theme.colors.background};
-
     border-right: 1px solid ${props => props.theme.colors.border};
-
-    transition: .3s ease-in-out;
+    transition: ${props => props.theme.animation.main};
 
     @media (max-width: 1100px) {
         left: ${(props: Props) => props.isResponsive ? '0' : '-231px'};
@@ -33,7 +32,7 @@ export const MenuNavbar = styled.div `
     position: absolute;
     z-index: 3;
 
-    transition: .3s ease-in-out;
+    transition: ${props => props.theme.animation.main};
     opacity: 0;
     visibility: hidden;
 
@@ -65,9 +64,14 @@ export const ItemsNavbar = styled.nav `
         li {
             list-style: none;
             margin-bottom: .4rem;
+            transition: ${props => props.theme.animation.main};
+            color: ${props => props.theme.colors.text};
             letter-spacing: .3px;
             
             a {
+                text-decoration: none;
+                transition: ${props => props.theme.animation.main};
+                color: ${props => props.theme.colors.text};
                 display: flex;
                 font-size: 10pt;
                 gap: .5rem;

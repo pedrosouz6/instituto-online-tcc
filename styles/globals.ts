@@ -7,10 +7,10 @@ export default createGlobalStyle `
         box-sizing: border-box;
         font-family: Poppins;
     }
-
+    
     body {
         background: ${props => props.theme.colors.background};
         color: ${props => props.theme.colors.text};
-        transition: .3s ease-in-out;
+        transition: ${props => props.theme.animation.main};
     }
 `
