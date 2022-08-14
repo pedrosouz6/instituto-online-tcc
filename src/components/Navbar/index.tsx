@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { AiOutlineMenu } from 'react-icons/ai';
 import { FaUsers } from 'react-icons/fa';
 import { AiFillTool } from 'react-icons/ai';
@@ -10,8 +12,6 @@ import { FaMoneyCheck } from 'react-icons/fa';
 import { MdScreenSearchDesktop } from 'react-icons/md';
 import { HiHome } from 'react-icons/hi';
 import { TbDeviceAnalytics } from 'react-icons/tb';
-
-import { useState } from 'react';
 
 import { 
     ContainerNavbar,

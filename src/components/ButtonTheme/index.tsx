@@ -1,13 +1,9 @@
 import Switch from 'react-switch';
-import { useContext, useEffect, useState } from 'react';
+import { useTheme } from '../../hooks/Theme';
 
-import { ThemeContext } from 'styled-components';
+export function ButtonTheme() {
 
-import { setCookie } from 'nookies';
-
-import { toggleThemeType } from '../../../pages'; 
-
-export function ButtonTheme({ toggleTheme, title }: toggleThemeType) {
+    const { toggleTheme, title } = useTheme();
 
     return (
         <>

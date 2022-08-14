@@ -8,13 +8,12 @@ import {
 import { Container } from "../../../styles/style";
 import { ButtonTheme } from "../ButtonTheme";
 
-import { toggleThemeType } from "../../../pages";
 
-export function Header({ toggleTheme, title }: toggleThemeType) {
+export function Header() {
     return (
         <Container>
             <ContainerHeader>
-                <ButtonTheme toggleTheme={toggleTheme} title={title} />
+                <ButtonTheme/>
                 <UserHeader>
                     <ImageUserHeader>
                     </ImageUserHeader>
