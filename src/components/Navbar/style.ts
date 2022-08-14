@@ -1,30 +1,41 @@
 import styled from "styled-components";
 
+interface Props {
+    isResponsive: boolean
+}
+
 export const ContainerNavbar = styled.div `
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 2;
 
     width: 230px;
     height: 100vh;
     padding: 10px;
+    background: ${props => props.theme.colors.background};
 
     border-right: 1px solid ${props => props.theme.colors.border};
-    background-color: red;
+
+    transition: .3s ease-in-out;
 
     @media (max-width: 1100px) {
-        left: -231px;
+        left: ${(props: Props) => props.isResponsive ? '0' : '-231px'};
     }
 `
 
-export const MenuNavbar = styled.div `
-    margin: 1rem 0;
-    display: flex;
-    justify-content: space-between;
+export const ContainerLogo = styled.div `
+    height: 70px;
+`
 
-    h4 {
-        font-weight: 400;
-    }
+export const MenuNavbar = styled.div `
+    margin: 20px;
+    position: absolute;
+    z-index: 3;
+
+    transition: .3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
 
     button {
         background: none;
@@ -35,9 +46,15 @@ export const MenuNavbar = styled.div `
         
         i {
             display: block;
-            font-size: 13pt;
+            font-size: 15pt;
             color: ${props => props.theme.colors.text};
         }
+    }
+
+    @media (max-width: 1100px) {
+        visibility: visible;
+        opacity: 1;
+        left: ${(props: Props) => props.isResponsive ? '170px' : '0'};
     }
 `
 

@@ -11,23 +11,30 @@ import { MdScreenSearchDesktop } from 'react-icons/md';
 import { HiHome } from 'react-icons/hi';
 import { TbDeviceAnalytics } from 'react-icons/tb';
 
+import { useState } from 'react';
+
 import { 
     ContainerNavbar,
     MenuNavbar,
-    ItemsNavbar
+    ItemsNavbar,
+    ContainerLogo
 } from "./style";
 
 export function Navbar() {
+
+    const [ menuResponsive, setMenuResponsive ] = useState(false);
+
     return (
         <>
-            <MenuNavbar>
-                <h4>Menu</h4>
-                <button>
+            <MenuNavbar isResponsive={menuResponsive}>
+                <button onClick={() => setMenuResponsive(!menuResponsive)}>
                     <i><AiOutlineMenu /></i>
                 </button>
             </MenuNavbar>
-            <ContainerNavbar>
-                <h1>logo</h1>
+            <ContainerNavbar isResponsive={menuResponsive}>
+                <ContainerLogo>
+                    <h1>logo</h1>
+                </ContainerLogo>
 
                 <ItemsNavbar>
                     <ul>
