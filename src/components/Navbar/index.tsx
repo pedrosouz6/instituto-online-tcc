@@ -44,7 +44,7 @@ export function Navbar() {
                     <ul>
                         <li> <i><HiHome /></i> Home</li>
                         <li>
-                            <Link href="/">
+                            <Link href="/users">
                                 <a className={pathname === '/users' ? 'active' : ''}> 
                                     <i><FaUsers /></i>
                                     Usuários
