@@ -1,6 +1,7 @@
 import Head from "next/head";
+import { useState } from "react";
 
-import { IoIosArrowBack } from 'react-icons/io';
+import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { AiTwotoneEdit } from 'react-icons/ai';
@@ -8,6 +9,7 @@ import { AiFillLock } from 'react-icons/ai';
 
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
+import { ModalAddUser } from '../src/components/Modals/AddUser';
 
 import { 
     ContainerUsers, 
@@ -26,6 +28,13 @@ import {
 import { Container } from "../styles/style";
 
 export default function Users() {
+
+    const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
+
+    function toggleModalAddUser() {
+        setIsOpenModalAddUser(!isOpenModalAddUser);
+    }
+ 
     return (
         <>
             <Head>
@@ -35,28 +44,38 @@ export default function Users() {
             <Header />
             <Navbar />
 
+            { isOpenModalAddUser && <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
+
             <Container>
                 <ContainerUsers>
                     <HeaderUsers>
                         <h3>Usuários</h3>
 
                         <HeaderButtonsUsers>
-                            <button><i><IoIosArrowBack /></i> Voltar</button>
-                            <button><i><BsFillPersonPlusFill /></i> Novo</button>
+                            <button><i><HiOutlineArrowLeft /></i> Voltar</button>
+                            <button onClick={() => toggleModalAddUser()}><i><BsFillPersonPlusFill /></i> Novo</button>
                         </HeaderButtonsUsers>
                     </HeaderUsers>
 
                     <ContainerFilterSearchUsers>
                         <FilterUsers>
-
+                            <label>Exibindo</label>
+                            <select>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                            </select>
+                            <label>por página</label>
                         </FilterUsers>
                         <SearchUsers>
-
+                            <label htmlFor="searchUser">Pesquisar</label>
+                            <input type="text" id="searchUser" placeholder="Pesquisar..." />
                         </SearchUsers>
                     </ContainerFilterSearchUsers>
 
                     <ContainerTableUsers>
-
 
                         <TableUsers>
                             <thead>
