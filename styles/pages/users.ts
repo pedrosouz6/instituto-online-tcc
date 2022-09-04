@@ -52,10 +52,11 @@ export const HeaderButtonsUsers = styled.div `
 `
 
 export const ContainerFilterSearchUsers = styled.div `
-    height: 50px;
-    padding: 0 20px;
+    padding: 10px 20px;
 
     display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     justify-content: space-between;
     align-items: center;
 `
@@ -78,6 +79,7 @@ export const SearchUsers = styled.div `
     gap: .5rem;
 
     input {
+        width: 180px;
         border: 1px solid ${props => props.theme.colors.border};
         outline: none;
         padding: 5px;
