@@ -5,6 +5,13 @@ import { IoMdClose } from 'react-icons/io';
 import InputMask from 'react-input-mask';
 
 import { ErrorIndicator } from '../../ErrorIndicator';
+import { NameValidation } from './Validations/Name'; 
+import { EmailValidation } from './Validations/Email';
+import { PasswordValidation } from './Validations/Password';
+import { TelValidation } from './Validations/Tel';
+import { CPFValidation } from './Validations/CPF';
+import { DateValidation } from './Validations/Date';
+import { Button } from '../../Button';
 
 import { 
     ContainerModalAddUser,
@@ -18,9 +25,15 @@ import {
     ErrorMessageModalAddUser
 } from "./style";
 
+
 interface ModalAddUserProps {
     toggleModalAddUser: () => void
 }
+
+export interface ValidationReturn {
+    message: string,
+    error: boolean
+} 
 
 export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
@@ -29,14 +42,14 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
     const [ email, setEmail ] = useState<string>('');
     const [ password, setPassword ] = useState<string>('');
     const [ tel, setTel ] = useState<string>('');
-    const [ cep, setCep ] = useState<string>('');
+    const [ CPF, setCPF ] = useState<string>('');
 
     const [ isNameCorrect, setIsNameCorrect ] = useState<boolean>(true);
     const [ isDateCorrect, setIsDateCorrect ] = useState<boolean>(true);
     const [ isEmailCorrect, setIsEmailCorrect ] = useState<boolean>(true);
     const [ isPasswordCorrect, setIsPasswordCorrect ] = useState<boolean>(true);
     const [ isTelCorrect, setIsTelCorrect ] = useState<boolean>(true);
-    const [ isCepCorrect, setIsCepCorrect ] = useState<boolean>(true);
+    const [ isCPFCorrect, setIsCPFCorrect ] = useState<boolean>(true);
 
     const [ messageInputs, setMessageInputs ] = useState<string>('');  
 
@@ -45,35 +58,59 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
     function createUser(e: FormEvent) {
         e.preventDefault();
 
-        setIsCepCorrect(true);
+        setIsTelCorrect(true);
+        setIsCPFCorrect(true);
         setIsDateCorrect(true);
         setIsEmailCorrect(true);
         setIsNameCorrect(true);
         setIsPasswordCorrect(true);
 
-        const validateEmail: RegExp = /\S+@\S+\.\S+/;
+        // if(!(
+        //     name.trim() && 
+        //     date.trim() && 
+        //     password.trim() && 
+        //     email.trim() && 
+        //     CPF.trim() && 
+        //     tel.trim())) 
+        //     { return setInputsEmpty(true); }  
 
-        if(!(name.trim() && date.trim() && password.trim() && email.trim() && cep.trim() && tel.trim())){
-            return setInputsEmpty(true);
-        } 
+        // setInputsEmpty(false);
 
-        setInputsEmpty(false);
-
-        if(name.length < 2) {
+        const validatedName = NameValidation(name);
+        if(validatedName.error) {
             setIsNameCorrect(false);
-            return setMessageInputs('O nome tem que ter mais de 1 letra');
+            return setMessageInputs(validatedName.message);
         }
 
-        setIsNameCorrect(true);
+        const validatedDate = DateValidation(date);
+        if(validatedDate.error) {
+            setIsDateCorrect(false);
+            return setMessageInputs(validatedDate.message);
+        }
 
-        console.log(validateEmail)
-
-        if(!validateEmail.test(email)) {
+        const validatedEmail = EmailValidation(email);
+        if(validatedEmail.error) {
             setIsEmailCorrect(false);
-            return setMessageInputs('O e-mail não está no seu devido formato');
+            return setMessageInputs(validatedEmail.message);
         }
 
-        setIsEmailCorrect(true);
+        const validatedPassword = PasswordValidation(password);
+        if(validatedPassword.error) {
+            setIsPasswordCorrect(false);
+            return setMessageInputs(validatedPassword.message);
+        }
+
+        const validatedCPF = CPFValidation(CPF);
+        if(validatedCPF.error) {
+            setIsCPFCorrect(false);
+            return setMessageInputs(validatedCPF.message);
+        }
+
+        const validatedTel = TelValidation(tel); 
+        if(validatedTel.error) {
+            setIsTelCorrect(false);
+            return setMessageInputs(validatedTel.message);
+        }
     }
 
     return (
@@ -111,7 +148,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 onChange={e => setDate(e.target.value)}
                                 />
 
-                                <ErrorIndicator text="O nome está errado" />
+                                { !isDateCorrect && <ErrorIndicator text={messageInputs} /> }
                             </FormInputModalAddUser>
                         </FormContainerInputModalAddUser>
 
@@ -139,7 +176,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 value={password}
                                 onChange={e => setPassword(e.target.value)} />
 
-                                <ErrorIndicator text="O senha está errado" />
+                                { !isPasswordCorrect && <ErrorIndicator text={messageInputs} /> }
                             </FormInputModalAddUser>
                         </FormContainerInputModalAddUser>
 
@@ -153,7 +190,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 value={tel}
                                 onChange={e => setTel(e.target.value)} />
 
-                                <ErrorIndicator text="O telefone está errado" />
+                                { !isTelCorrect && <ErrorIndicator text={messageInputs} /> }
                             </FormInputModalAddUser>
                         </FormContainerInputModalAddUser>
 
@@ -164,10 +201,10 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 id='cpf'
                                 placeholder='CPF'
                                 mask="999.999.999-99"
-                                value={cep}
-                                onChange={e => setCep(e.target.value)} />
+                                value={CPF}
+                                onChange={e => setCPF(e.target.value)} />
 
-                                <ErrorIndicator text="O cpf está errado" />
+                                { !isCPFCorrect && <ErrorIndicator text={messageInputs} /> }
                             </FormInputModalAddUser>
                         </FormContainerInputModalAddUser>
                     </FormContainerInputsModalAddUser>
@@ -180,7 +217,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                     } 
 
                     <ContainerButtonSendFormModalAddUser>
-                        <input type="submit" value="Criar" />
+                        <Button type="submit">Criar</Button>
                     </ContainerButtonSendFormModalAddUser>
                 </FormModalAddUser>
             </ModalModalAddUser>

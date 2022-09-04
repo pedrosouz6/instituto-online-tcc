@@ -21,7 +21,8 @@ export const ContainerModalAddUser = styled.div `
 export const ModalModalAddUser = styled.div `
     flex: 1;
     max-width: 800px;
-    height: 500px;
+    height: auto;
+    max-height: 500px;
     overflow-y: auto;
     overflow-x: hidden;
     background-color: ${props => props.theme.colors.background};
@@ -83,9 +84,8 @@ export const FormContainerInputModalAddUser = styled.div `
 
 export const FormInputModalAddUser = styled.div `
     width: 100%;
-    height: 35px;
+    height: 40px;
     position: relative;
-    background-color: blue;
 
     input {
         width: 100%;
@@ -93,6 +93,7 @@ export const FormInputModalAddUser = styled.div `
         padding: 0 35px 0 5px;
         outline: none;
         border: none;
+        border-radius: 3px;
     }
 
 `
@@ -109,4 +110,5 @@ export const FormContainerInputsModalAddUser = styled.div `
 
 export const ErrorMessageModalAddUser = styled.p `
     text-align: center;
+    margin-top: 1rem;
 `
