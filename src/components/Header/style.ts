@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerHeader = styled.header `
-    width: calc(100% - 230px);
+    width: calc(100% );
     height: 70px;
     padding: 0 25px;
     transition: ${props => props.theme.animation.main};
@@ -13,7 +13,6 @@ export const ContainerHeader = styled.header `
     align-items: center;
 
     position: absolute;
-    left: 230px;
 
     @media (max-width: 1100px) {
         left: 0;

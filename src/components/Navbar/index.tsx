@@ -14,40 +14,44 @@ import { FaMoneyCheck } from 'react-icons/fa';
 import { MdScreenSearchDesktop } from 'react-icons/md';
 import { HiHome } from 'react-icons/hi';
 import { TbDeviceAnalytics } from 'react-icons/tb';
+import { IoIosArrowBack } from 'react-icons/io';
+import { IoIosArrowForward } from 'react-icons/io';
 
 import { 
     ContainerNavbar,
     MenuNavbar,
     ItemsNavbar,
-    ContainerLogo
+    ContainerLogo,
+    ContainerMiniNavbar
 } from "./style";
 
 export function Navbar() {
 
     const { pathname } = useRouter();
 
-    const [ menuResponsive, setMenuResponsive ] = useState(false);
+    const [ menuResponsive, setMenuResponsive ] = useState<boolean>(false);
+    const [ isMiniNavbar, setIsMiniNavbar ] = useState<boolean>(false);
 
     return (
         <>
-            <MenuNavbar isResponsive={menuResponsive}>
+            <MenuNavbar isResponsive={menuResponsive} isMiniNavbar={isMiniNavbar} >
                 <button onClick={() => setMenuResponsive(!menuResponsive)}>
                     <i><AiOutlineMenu /></i>
                 </button>
             </MenuNavbar>
-            <ContainerNavbar isResponsive={menuResponsive}>
+            <ContainerNavbar isResponsive={menuResponsive} isMiniNavbar={isMiniNavbar}>
                 <ContainerLogo>
-                    <h1>logo</h1>
+                    <h1>{ isMiniNavbar ? "L" : "Logo" }</h1>
                 </ContainerLogo>
 
-                <ItemsNavbar>
+                <ItemsNavbar isMiniNavbar={isMiniNavbar} >
                     <ul>
-                        <li> <i><HiHome /></i> Home</li>
+                        <li> <i><HiHome /></i> <span>Home</span></li>
                         <li>
                             <Link href="/users">
                                 <a className={pathname === '/users' ? 'active' : ''}> 
                                     <i><FaUsers /></i>
-                                    Usuários
+                                    <span>Usuários</span>
                                 </a>
                             </Link>
                         </li>
@@ -55,7 +59,7 @@ export function Navbar() {
                             <Link href="/appearance">
                                 <a className={pathname === '/appearance' ? 'active' : ''}>  
                                     <i><MdScreenSearchDesktop /></i> 
-                                    Aparência
+                                    <span>Aparência</span>
                                 </a>
                             </Link>
                         </li>
@@ -63,7 +67,7 @@ export function Navbar() {
                             <Link href="/settings">
                                 <a className={pathname === '/settings' ? 'active' : ''}> 
                                     <i><AiFillTool /></i> 
-                                    Configurações
+                                    <span>Configurações</span>
                                 </a>
                             </Link>
                         </li>
@@ -71,22 +75,22 @@ export function Navbar() {
                             <Link href="/help">
                                 <a className={pathname === '/help' ? 'active' : ''}>
                                     <i><IoMdHelp /></i> 
-                                    Ajuda
+                                    <span>Ajuda</span>
                                 </a>
                             </Link>
                         </li>
                     </ul>
                 </ItemsNavbar>
 
-                <ItemsNavbar>
+                <ItemsNavbar isMiniNavbar={isMiniNavbar}>
                     <ul>
-                        <li> <i><TbDeviceAnalytics /></i> Dashboard</li>
+                        <li> <i><TbDeviceAnalytics /></i> <span>Dashboard</span></li>
 
                         <li>
                             <Link href="/calendar">
                                 <a className={pathname === '/calendar' ? 'active' : ''}> 
                                     <i><BsFillCalendarEventFill /></i> 
-                                    Agenda
+                                    <span>Agenda</span>
                                 </a>
                             </Link>
                         </li>
@@ -94,7 +98,7 @@ export function Navbar() {
                             <Link href="/docs">
                                 <a className={pathname === '/docs' ? 'active' : ''}> 
                                     <i><HiDocumentDuplicate /></i> 
-                                    Documentos
+                                    <span>Documentos</span>
                                 </a>
                             </Link>
                         </li>
@@ -102,7 +106,7 @@ export function Navbar() {
                             <Link href="/sendEmail"> 
                                 <a className={pathname === '/sendEmail' ? 'active' : ''}> 
                                     <i><SiMinutemailer /></i> 
-                                    Disparos de E-mails
+                                    <span>Disparos de E-mails</span>
                                 </a>
                             </Link>
                         </li>
@@ -110,7 +114,7 @@ export function Navbar() {
                             <Link href="/textEditor">
                                 <a className={pathname === '/textEditor' ? 'active' : ''}> 
                                     <i><MdOutlineComputer /></i> 
-                                    Editor de texto
+                                    <span>Editor de texto</span>
                                 </a>
                             </Link>
                         </li>
@@ -118,12 +122,19 @@ export function Navbar() {
                             <Link href="/invoicing">
                                 <a className={pathname === 'invoicing' ? 'active' : ''}> 
                                     <i><FaMoneyCheck /></i> 
-                                    Faturamento
-                                </a> 
+                                    <span>Faturamento</span>
+                                </a>
                             </Link>
                         </li>
                     </ul>
                 </ItemsNavbar>
+
+                <ContainerMiniNavbar>
+                    <button onClick={() => setIsMiniNavbar(!isMiniNavbar)}>
+                        <i> { isMiniNavbar ? <IoIosArrowForward /> :  <IoIosArrowBack /> }</i>
+                    </button>
+                </ContainerMiniNavbar>
+
             </ContainerNavbar>
         </>
     )

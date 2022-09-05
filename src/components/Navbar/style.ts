@@ -2,6 +2,11 @@ import styled from "styled-components";
 
 interface Props {
     isResponsive: boolean
+    isMiniNavbar: boolean
+}
+
+interface MiniNavbarProps {
+    isMiniNavbar: boolean
 }
 
 export const ContainerNavbar = styled.div `
@@ -10,7 +15,7 @@ export const ContainerNavbar = styled.div `
     left: 0;
     z-index: 2;
 
-    width: 230px;
+    width: ${(props: Props) => props.isMiniNavbar ? "50px" : "230px"};
     height: 100vh;
     padding: 10px;
 
@@ -33,6 +38,9 @@ export const MenuNavbar = styled.div `
     z-index: 3;
 
     transition: ${props => props.theme.animation.main};
+
+    display: ${(props: Props) => props.isMiniNavbar ? 'none' : 'inline-block'};
+
     opacity: 0;
     visibility: hidden;
 
@@ -67,6 +75,10 @@ export const ItemsNavbar = styled.nav `
             transition: ${props => props.theme.animation.main};
             color: ${props => props.theme.colors.text};
             letter-spacing: .3px;
+
+            span {
+                display: ${(props: MiniNavbarProps) => props.isMiniNavbar ? "none" : "inline-block"};
+            }
             
             a {
                 text-decoration: none;
@@ -75,7 +87,7 @@ export const ItemsNavbar = styled.nav `
                 display: flex;
                 font-size: 10pt;
                 gap: .5rem;
-                padding-left: 15px;
+                padding-left: ${(props: MiniNavbarProps) => props.isMiniNavbar ? "5px" : "15px"};
 
                 i {
                     font-size: 12pt;
@@ -85,6 +97,25 @@ export const ItemsNavbar = styled.nav `
             .active {
                 color: ${props => props.theme.colors.primary};
             }
+        }
+    }
+`
+
+export const ContainerMiniNavbar = styled.div `
+    display: flex;
+    justify-content: end;
+
+    button {
+        border: none;
+        outline: none;
+        background: none;
+        padding: 0 5px;
+        cursor: pointer;
+
+        i {
+            display: block;
+            font-size: 13pt;
+            padding-top: 3px;
         }
     }
 `
