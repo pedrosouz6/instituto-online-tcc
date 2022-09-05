@@ -65,16 +65,16 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
         setIsNameCorrect(true);
         setIsPasswordCorrect(true);
 
-        // if(!(
-        //     name.trim() && 
-        //     date.trim() && 
-        //     password.trim() && 
-        //     email.trim() && 
-        //     CPF.trim() && 
-        //     tel.trim())) 
-        //     { return setInputsEmpty(true); }  
+        if(!(
+            name.trim() && 
+            date.trim() && 
+            password.trim() && 
+            email.trim() && 
+            CPF.trim() && 
+            tel.trim())) 
+            { return setInputsEmpty(true); }  
 
-        // setInputsEmpty(false);
+        setInputsEmpty(false);
 
         const validatedName = NameValidation(name);
         if(validatedName.error) {

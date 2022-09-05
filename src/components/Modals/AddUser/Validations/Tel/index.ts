@@ -11,7 +11,7 @@ export function TelValidation(tel: string): ValidationReturn {
         return { error: true, message: "O telefone deve começar pelo número 9" };
     }
 
-    var codigosDDD: Array<number> = 
+    const codesDDD: Array<number> = 
     [
         11, 12, 13, 14, 15, 16, 17, 18, 19,
         21, 22, 24, 27, 28, 31, 32, 33, 34,
@@ -23,7 +23,7 @@ export function TelValidation(tel: string): ValidationReturn {
         96, 97, 98, 99
     ];
 
-    if (codigosDDD.indexOf(parseInt(tel.substring(0, 2))) == -1) {
+    if (codesDDD.indexOf(parseInt(tel.substring(0, 2))) == -1) {
         return { error: true, message: "O DDD não é válido" };
     }
 
