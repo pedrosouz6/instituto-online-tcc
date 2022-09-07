@@ -2,7 +2,7 @@ import Head from "next/head"
 
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
-import { Container } from "../styles/style";
+import { Container } from "../src/components/Container"; 
 import { Title } from "../src/components/Title";
 import { Button } from "../src/components/Button";
 import { 

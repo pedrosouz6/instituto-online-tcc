@@ -17,6 +17,8 @@ import { TbDeviceAnalytics } from 'react-icons/tb';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
 
+import { useButtonNavbar } from '../../hooks/ButtonNavbar';
+
 import { 
     ContainerNavbar,
     MenuNavbar,
@@ -28,18 +30,23 @@ import {
 export function Navbar() {
 
     const { pathname } = useRouter();
+    const { isMiniNavbar, savePreferenceUser, setIsMiniNavbar } = useButtonNavbar();
 
-    const [ menuResponsive, setMenuResponsive ] = useState<boolean>(false);
-    const [ isMiniNavbar, setIsMiniNavbar ] = useState<boolean>(false);
+    const [ isMenuResponsive, setIsMenuResponsive ] = useState<boolean>(false);
+
+    function toggleMenuResponsive() {
+        setIsMiniNavbar(false);
+        setIsMenuResponsive(!isMenuResponsive);
+    }
 
     return (
         <>
-            <MenuNavbar isResponsive={menuResponsive} isMiniNavbar={isMiniNavbar} >
-                <button onClick={() => setMenuResponsive(!menuResponsive)}>
+            <MenuNavbar isMenuResponsive={isMenuResponsive} isMiniNavbar={isMiniNavbar} >
+                <button onClick={() => toggleMenuResponsive()}>
                     <i><AiOutlineMenu /></i>
                 </button>
             </MenuNavbar>
-            <ContainerNavbar isResponsive={menuResponsive} isMiniNavbar={isMiniNavbar}>
+            <ContainerNavbar isMenuResponsive={isMenuResponsive} isMiniNavbar={isMiniNavbar}>
                 <ContainerLogo>
                     <h1>{ isMiniNavbar ? "L" : "Logo" }</h1>
                 </ContainerLogo>
@@ -129,8 +136,8 @@ export function Navbar() {
                     </ul>
                 </ItemsNavbar>
 
-                <ContainerMiniNavbar>
-                    <button onClick={() => setIsMiniNavbar(!isMiniNavbar)}>
+                <ContainerMiniNavbar isMenuResponsive={isMenuResponsive}>
+                    <button onClick={() => savePreferenceUser()}>
                         <i> { isMiniNavbar ? <IoIosArrowForward /> :  <IoIosArrowBack /> }</i>
                     </button>
                 </ContainerMiniNavbar>

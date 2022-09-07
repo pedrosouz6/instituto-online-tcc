@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 interface Props {
-    isResponsive: boolean
+    isMenuResponsive: boolean
     isMiniNavbar: boolean
 }
 
 interface MiniNavbarProps {
     isMiniNavbar: boolean
+}
+
+interface ContainerMiniNavbarProps {
+    isMenuResponsive: boolean
 }
 
 export const ContainerNavbar = styled.div `
@@ -24,7 +28,7 @@ export const ContainerNavbar = styled.div `
     transition: ${props => props.theme.animation.main};
 
     @media (max-width: 1100px) {
-        left: ${(props: Props) => props.isResponsive ? '0' : '-231px'};
+        left: ${(props: Props) => props.isMenuResponsive ? '0' : '-231px'};
     }
 `
 
@@ -38,8 +42,6 @@ export const MenuNavbar = styled.div `
     z-index: 3;
 
     transition: ${props => props.theme.animation.main};
-
-    display: ${(props: Props) => props.isMiniNavbar ? 'none' : 'inline-block'};
 
     opacity: 0;
     visibility: hidden;
@@ -61,7 +63,7 @@ export const MenuNavbar = styled.div `
     @media (max-width: 1100px) {
         visibility: visible;
         opacity: 1;
-        left: ${(props: Props) => props.isResponsive ? '170px' : '0'};
+        left: ${(props: Props) => props.isMenuResponsive ? '170px' : '0'};
     }
 `
 
@@ -117,5 +119,9 @@ export const ContainerMiniNavbar = styled.div `
             font-size: 13pt;
             padding-top: 3px;
         }
+    }
+
+    @media (max-width: 1100px) {
+        display: ${(props: ContainerMiniNavbarProps) => props.isMenuResponsive && 'none'};
     }
 `

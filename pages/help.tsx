@@ -4,10 +4,11 @@ import { Button } from '../src/components/Button';
 import { Header } from '../src/components/Header';
 import { Navbar } from '../src/components/Navbar';
 import { Title } from '../src/components/Title';
-import { Container } from '../styles/style';
+import { Container } from '../src/components/Container'; 
+
 import { 
     ContainerHelp,
-    FormButtonSendComment  ,
+    FormButtonSendComment,
     FormHelp
 } from '../styles/pages/help';
 

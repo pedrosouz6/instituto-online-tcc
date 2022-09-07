@@ -25,7 +25,7 @@ import {
     ButtonActions,
     ContainerTableUsers
 } from "../styles/pages/users";
-import { Container } from "../styles/style";
+import { Container } from "../src/components/Container"; 
 
 export default function Users() {
 
