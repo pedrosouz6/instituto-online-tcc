@@ -18,7 +18,6 @@ export const ContainerNavbar = styled.div `
     top: 0;
     left: 0;
     z-index: 2;
-
     width: ${(props: Props) => props.isMiniNavbar ? "50px" : "230px"};
     height: 100vh;
     padding: 10px;

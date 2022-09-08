@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
+interface AnimationModalUsersProps {
+    isOpenModalAddUser: boolean
+}
+
 export const ContainerUsers = styled.section `
     max-width: 950px;
     margin: 2rem auto;
 
     border: 1px solid black;
     border-radius: 2px;
-
 `
 
 export const HeaderUsers = styled.div `

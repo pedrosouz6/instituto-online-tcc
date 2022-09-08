@@ -31,7 +31,7 @@ interface ModalAddUserProps {
 }
 
 export interface ValidationReturn {
-    message: string,
+    message: string;
     error: boolean
 } 
 

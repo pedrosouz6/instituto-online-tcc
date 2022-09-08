@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
+interface ModalModalAddUser {
+    isOpenModalAddUser: boolean
+}
 
 export const ContainerModalAddUser = styled.div `
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, .4);
 
     position: fixed;
     top: 0;
@@ -26,7 +28,6 @@ export const ModalModalAddUser = styled.div `
     overflow-y: auto;
     overflow-x: hidden;
     background-color: ${props => props.theme.colors.background};
-
     border-radius: 5px;
 `
 

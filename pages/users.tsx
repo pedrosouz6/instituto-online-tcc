@@ -23,9 +23,11 @@ import {
     ButtonDeleteUsers,
     ButtonEditUsers,
     ButtonActions,
-    ContainerTableUsers
+    ContainerTableUsers,
 } from "../styles/pages/users";
+
 import { Container } from "../src/components/Container"; 
+import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
 
 export default function Users() {
 
@@ -44,7 +46,11 @@ export default function Users() {
             <Header />
             <Navbar />
 
-            { isOpenModalAddUser && <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
+            <ContainerAnimationModal isAnimation={isOpenModalAddUser}>
+                <AnimationModal isAnimation={isOpenModalAddUser}>
+                    { <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
+                </AnimationModal>
+            </ContainerAnimationModal>
 
             <Container>
                 <ContainerUsers>
