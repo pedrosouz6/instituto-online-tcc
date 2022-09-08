@@ -25,7 +25,6 @@ import {
     ErrorMessageModalAddUser
 } from "./style";
 
-
 interface ModalAddUserProps {
     toggleModalAddUser: () => void
 }

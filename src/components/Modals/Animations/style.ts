@@ -19,7 +19,7 @@ export const AnimationModal = styled.div `
 
     opacity: 0;
     opacity: ${(props: AnimationModalProps) => props.isAnimation && "1"};
-    transform: translateX(${(props: AnimationModalProps) => props.isAnimation ? "0%" : "-30%"});
+    transform: translateY(${(props: AnimationModalProps) => props.isAnimation ? "0%" : "-200px"});
 `
 
 export const ContainerAnimationModal = styled.div `

@@ -20,7 +20,7 @@ export const HeaderUsers = styled.div `
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 10px;
     overflow-x: hidden;
 
     h3 {
@@ -55,7 +55,7 @@ export const HeaderButtonsUsers = styled.div `
 `
 
 export const ContainerFilterSearchUsers = styled.div `
-    padding: 10px 20px;
+    padding: 10px;
 
     display: flex;
     flex-wrap: wrap;
@@ -92,7 +92,7 @@ export const SearchUsers = styled.div `
 
 export const ContainerTableUsers = styled.div `
     width: 100%;
-    padding: 0 20px;
+    padding: 0 5px;
     overflow: auto;
 `
 
