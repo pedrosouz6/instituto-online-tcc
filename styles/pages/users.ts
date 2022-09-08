@@ -1,26 +1,22 @@
 import styled from "styled-components";
 
-interface AnimationModalUsersProps {
-    isOpenModalAddUser: boolean
-}
-
 export const ContainerUsers = styled.section `
-    max-width: 950px;
+    max-width: 1200px;
     margin: 2rem auto;
 
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, .2);
+    padding-bottom: 15px;
     border-radius: 2px;
 `
 
 export const HeaderUsers = styled.div `
-    max-width: 950px;
     height: 50px;
     background: ${props => props.theme.colors.primary};
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 15px;
     overflow-x: hidden;
 
     h3 {
@@ -55,7 +51,7 @@ export const HeaderButtonsUsers = styled.div `
 `
 
 export const ContainerFilterSearchUsers = styled.div `
-    padding: 10px;
+    padding: 10px 15px;
 
     display: flex;
     flex-wrap: wrap;
@@ -92,8 +88,18 @@ export const SearchUsers = styled.div `
 
 export const ContainerTableUsers = styled.div `
     width: 100%;
-    padding: 0 5px;
+    padding: 0 15px;
     overflow: auto;
+
+    &::-webkit-scrollbar-thumb {
+        background: #777;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 8px;
+        background-color: #aaa;
+    }
 `
 
 export const TableUsers = styled.table `
@@ -103,13 +109,26 @@ export const TableUsers = styled.table `
     thead {
         td {
             text-align: center;
-            padding: 8px 3px;
+            padding: 6px 3px;
+            background-color: rgb(210, 210, 210);
+            font-weight: 500;
+            border-left: 1px solid rgb(210, 210, 210);
         }
     }
 
+    td {
+        font-size: 10pt;
+    }
+
     tbody {
+        tr:nth-child(odd) {
+            background-color: rgb(240, 240, 240);
+        }
+        
         td {
             padding: 5px;
+            border: 1px solid rgb(210, 210, 210);
+            text-align: center;
         }
 
         button {
@@ -134,18 +153,60 @@ export const TableUsers = styled.table `
 `  
 
 export const ButtonActions = styled.td `
-    display: flex;
-    gap: .2rem;
 `
 
 export const ButtonDeleteUsers = styled.button `
     background-color: red;
+    margin: 2px;
+
 `
 
 export const ButtonEditUsers = styled.button `
     background-color: green;
+    margin: 2px;
 `
 
 export const ButtonLockUsers = styled.button `
     background-color: blue;
+    margin: 2px;
+`
+
+export const ContainerPaginationUsers = styled.div `
+    padding: 0 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 10px;
+
+`
+
+export const InfoPaginationUsers = styled.div `
+    span {
+        font-size: 10pt;
+    }
+`
+
+export const PaginationUsers = styled.div `
+    display: flex;
+
+    button {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        
+    }
+`
+
+export const PaginationButtonActiveUsers = styled.button `
+    background-color: royalblue;
+    border: none;
+`
+
+export const PaginationButtonArrowUsers = styled.button `
+    border: 1px solid rgba(0, 0, 0, .2);
+    background: none;
 `

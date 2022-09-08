@@ -6,6 +6,8 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import { AiFillLock } from 'react-icons/ai';
+import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
+import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
 
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
@@ -24,6 +26,11 @@ import {
     ButtonEditUsers,
     ButtonActions,
     ContainerTableUsers,
+    ContainerPaginationUsers,
+    PaginationUsers,
+    PaginationButtonActiveUsers,
+    PaginationButtonArrowUsers,
+    InfoPaginationUsers
 } from "../styles/pages/users";
 
 import { Container } from "../src/components/Container"; 
@@ -122,10 +129,58 @@ export default function Users() {
                                         <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
                                     </ButtonActions>
                                 </tr>
+                                <tr>
+                                    <td>Pedro Souza</td>
+                                    <td>(11) 958832414</td>
+                                    <td>Administrador</td>
+                                    <td>pedro@gmail.com</td>
+                                    <td>123321123321</td>
+                                    <td>1021340193</td>
+                                    <ButtonActions>
+                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
+                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
+                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
+                                    </ButtonActions>
+                                </tr>
+                                <tr>
+                                    <td>Pedro Souza</td>
+                                    <td>(11) 958832414</td>
+                                    <td>Administrador</td>
+                                    <td>pedro@gmail.com</td>
+                                    <td>123321123321</td>
+                                    <td>1021340193</td>
+                                    <ButtonActions>
+                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
+                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
+                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
+                                    </ButtonActions>
+                                </tr>
+                                <tr>
+                                    <td>Pedro Souza</td>
+                                    <td>(11) 958832414</td>
+                                    <td>Administrador</td>
+                                    <td>pedro@gmail.com</td>
+                                    <td>123321123321</td>
+                                    <td>1021340193</td>
+                                    <ButtonActions>
+                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
+                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
+                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
+                                    </ButtonActions>
+                                </tr>
                             </tbody>
                         </TableUsers>
                     </ContainerTableUsers>
-
+                    <ContainerPaginationUsers>
+                        <InfoPaginationUsers>
+                            <span>Mostrando de 1 até 8 de 8 registros</span>
+                        </InfoPaginationUsers>
+                        <PaginationUsers>
+                            <PaginationButtonArrowUsers><MdOutlineKeyboardArrowLeft /></PaginationButtonArrowUsers>
+                            <PaginationButtonActiveUsers>1</PaginationButtonActiveUsers>
+                            <PaginationButtonArrowUsers><MdOutlineKeyboardArrowRight /></PaginationButtonArrowUsers>
+                        </PaginationUsers>
+                    </ContainerPaginationUsers>
                 </ContainerUsers>
             </Container>
         </>
