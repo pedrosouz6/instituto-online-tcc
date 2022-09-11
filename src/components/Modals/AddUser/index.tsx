@@ -4,6 +4,8 @@ import { IoMdClose } from 'react-icons/io';
 
 import InputMask from 'react-input-mask';
 
+import { axios } from '../../../axios';
+
 import { ErrorIndicator } from '../../ErrorIndicator';
 import { NameValidation } from './Validations/Name'; 
 import { EmailValidation } from './Validations/Email';
@@ -24,6 +26,7 @@ import {
     FormContainerInputsModalAddUser,
     ErrorMessageModalAddUser
 } from "./style";
+import { AxiosError } from 'axios';
 
 interface ModalAddUserProps {
     toggleModalAddUser: () => void
@@ -33,6 +36,12 @@ export interface ValidationReturn {
     message: string;
     error: boolean
 } 
+
+
+interface ErrorType {
+    error: boolean,
+    message: string
+}
 
 export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
@@ -54,7 +63,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
     const [ inputsEmpty, setInputsEmpty ] = useState<boolean>(false);
 
-    function createUser(e: FormEvent) {
+    function dataValidation(e: FormEvent) {
         e.preventDefault();
 
         setIsTelCorrect(true);
@@ -110,6 +119,26 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             setIsTelCorrect(false);
             return setMessageInputs(validatedTel.message);
         }
+
+        createUser();
+    }
+
+
+    async function createUser(): Promise<void> {
+        try {
+            const response = await axios.post('/create-user', {
+                name,
+                email,
+                date,
+                cpf: CPF,
+                tel,
+                password
+            });
+
+        } catch(err) {
+            const error = err as AxiosError<ErrorType>;
+            const datas = error.response?.data;
+        }
     }
 
     return (
@@ -120,7 +149,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                     <button onClick={() => toggleModalAddUser()}><i><IoMdClose /></i></button>
                 </HeaderModalAddUser>
 
-                <FormModalAddUser onSubmit={e => createUser(e)}>
+                <FormModalAddUser onSubmit={e => dataValidation(e)}>
 
                     <FormContainerInputsModalAddUser>
                         <FormContainerInputModalAddUser>

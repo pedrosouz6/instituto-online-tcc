@@ -96,7 +96,6 @@ export const FormInputModalAddUser = styled.div `
         border: none;
         border-radius: 3px;
     }
-
 `
 
 export const FormContainerInputsModalAddUser = styled.div `
