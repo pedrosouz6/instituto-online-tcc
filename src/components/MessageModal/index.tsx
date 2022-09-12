@@ -4,11 +4,11 @@ import { ContainerMessageModal } from "./style";
 
 export function MessageModal() {
 
-    const { messageModal, isMessageModal, toggleIsMessageModal, erroMessageModal } = useMessageModal();
+    const { messageModal, isMessageModal, setIsMessageModal, erroMessageModal } = useMessageModal();
 
     if(isMessageModal) {
         setTimeout(() => {
-            toggleIsMessageModal();
+            setIsMessageModal(false);
         }, 5000);
     }
 

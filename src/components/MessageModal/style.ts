@@ -9,14 +9,15 @@ export const ContainerMessageModal = styled.div `
     width: 200px;
     height: auto;
     position: absolute;
-    right: 20px;
+    top: 20px;
     z-index: 4;
 
     border-radius: 3px;
-    padding: 5px;
-    
-    background-color: ${(props: ContainerMessageModalProps) => props.erroMessageModal ? 'red' : 'green'};
-    top: ${(props: ContainerMessageModalProps) => props.isMessageModal ? "20px" : "0"};
+    padding: 10px;
+    color: white;
+    font-size: 11pt;
+    background-color: ${(props: ContainerMessageModalProps) => props.erroMessageModal ? 'rgb(215, 0, 0)' : 'rgb(50,205,50)'};
+    right: ${(props: ContainerMessageModalProps) => props.isMessageModal ? "50px" : "0"};
     opacity: ${(props: ContainerMessageModalProps) => props.isMessageModal ? "1" : "0"};
     visibility: ${(props: ContainerMessageModalProps) => props.isMessageModal ? "visible" : "hidden"};
     transition: ${props => props.theme.animation.main};

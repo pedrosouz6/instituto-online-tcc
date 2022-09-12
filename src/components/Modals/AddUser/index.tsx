@@ -44,9 +44,17 @@ interface ErrorType {
     message: string
 }
 
+interface RespostAPI {
+    error: boolean,
+    message: string,
+    user: {
+        name: string
+    }
+}
+
 export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
-    const { toggleIsMessageModal, toggleMessageModal, toggleErroMessageModal } = useMessageModal();
+    const { setIsMessageModal, toggleMessageModal, toggleErroMessageModal } = useMessageModal();
 
     const [ name, setName ] = useState<string>('');
     const [ date, setDate ] = useState<string>('');
@@ -126,14 +134,6 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
         createUser();
     }
 
-    interface resp {
-        error: boolean,
-        message: string,
-        user: {
-            name: string
-        }
-    }
-
     async function createUser(): Promise<void> {
         try {
             const response = await axios.post('/create-user', {
@@ -145,18 +145,18 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                 password
             });
 
-            const respost: resp = await response.data;
+            const respost: RespostAPI = await response.data;
 
-            console.log(respost);
             toggleErroMessageModal(respost.error)
-            toggleMessageModal("Usuario criado");
-            toggleIsMessageModal();
+            toggleMessageModal(respost.message);
+            setIsMessageModal(true);
         } catch(err) {
             const error = err as AxiosError<ErrorType>;
             const datas = error.response?.data;
+
             toggleMessageModal(datas?.message);
             toggleErroMessageModal(datas?.error);
-            toggleIsMessageModal();
+            setIsMessageModal(true);
         }
     }
 

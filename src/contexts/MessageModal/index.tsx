@@ -4,7 +4,7 @@ interface ContextMessageModalType {
     messageModal: string | undefined,
     isMessageModal: boolean,
     toggleMessageModal: (message: string | undefined) => void,
-    toggleIsMessageModal: () => void,
+    setIsMessageModal: (isMessageModal: boolean) => void,
     toggleErroMessageModal: (erro: boolean | undefined) => void,
     erroMessageModal: boolean | undefined
 }
@@ -29,16 +29,12 @@ export default function ProviderMessageModal({ children }: ProviderMessageModalP
         setMessageModal(message);
     }
 
-    function toggleIsMessageModal() {
-        setIsMessageModal(!isMessageModal)
-    }
-
     return (
         <ContextMessageModal.Provider value={{
             messageModal,
             isMessageModal,
             toggleMessageModal,
-            toggleIsMessageModal,
+            setIsMessageModal,
             toggleErroMessageModal,
             erroMessageModal
         }}>
