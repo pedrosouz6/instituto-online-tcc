@@ -4,6 +4,7 @@ import { IoMdClose } from 'react-icons/io';
 
 import InputMask from 'react-input-mask';
 
+import { AxiosError } from 'axios';
 import { axios } from '../../../axios';
 
 import { ErrorIndicator } from '../../ErrorIndicator';
@@ -14,6 +15,8 @@ import { TelValidation } from './Validations/Tel';
 import { CPFValidation } from './Validations/CPF';
 import { DateValidation } from './Validations/Date';
 import { Button } from '../../Button';
+
+import { useMessageModal } from '../../../hooks/MessageModal';
 
 import { 
     ContainerModalAddUser,
@@ -26,7 +29,6 @@ import {
     FormContainerInputsModalAddUser,
     ErrorMessageModalAddUser
 } from "./style";
-import { AxiosError } from 'axios';
 
 interface ModalAddUserProps {
     toggleModalAddUser: () => void
@@ -37,13 +39,14 @@ export interface ValidationReturn {
     error: boolean
 } 
 
-
 interface ErrorType {
     error: boolean,
     message: string
 }
 
 export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
+
+    const { toggleIsMessageModal, toggleMessageModal, toggleErroMessageModal } = useMessageModal();
 
     const [ name, setName ] = useState<string>('');
     const [ date, setDate ] = useState<string>('');
@@ -123,6 +126,13 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
         createUser();
     }
 
+    interface resp {
+        error: boolean,
+        message: string,
+        user: {
+            name: string
+        }
+    }
 
     async function createUser(): Promise<void> {
         try {
@@ -135,9 +145,18 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                 password
             });
 
+            const respost: resp = await response.data;
+
+            console.log(respost);
+            toggleErroMessageModal(respost.error)
+            toggleMessageModal("Usuario criado");
+            toggleIsMessageModal();
         } catch(err) {
             const error = err as AxiosError<ErrorType>;
             const datas = error.response?.data;
+            toggleMessageModal(datas?.message);
+            toggleErroMessageModal(datas?.error);
+            toggleIsMessageModal();
         }
     }
 
