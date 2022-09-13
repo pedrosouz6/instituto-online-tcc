@@ -52,11 +52,13 @@ interface UsersResultsProps {
 interface UsersProps {
     respost: {
         error: boolean,
+        message: string,
         results: Array<UsersResultsProps>
     }
 }
 
 export default function Users({ respost }: UsersProps) {
+    console.log(respost);
 
     const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
     const [ isOpenModalDeleteUser, setIsOpenModalDeleteUser ] = useState<boolean>(false);
@@ -143,8 +145,8 @@ export default function Users({ respost }: UsersProps) {
                             </thead>
                             <tbody>
                                 { respost &&
-                                    respost.results.map((item) => (
-                                        <tr>
+                                    respost.results.map((item, key) => (
+                                        <tr key={key}>
                                             <td>{ item.id }</td>
                                             <td>{ item.name }</td>
                                             <td>{ item.email }</td>
@@ -180,11 +182,19 @@ export default function Users({ respost }: UsersProps) {
 }
 
 export async function getServerSideProps() {
-    const response = await axios.get('/get-users');
-    const respost = await response.data;
-    return {
-        props: {
-            respost
+    try {
+        const response = await axios.get('/get-users');
+        const respost = await response.data;
+        return {
+            props: {
+                respost
+            }
+        }
+    } catch(err) {
+        return {
+            props: {}
         }
     }
+
+    
 }
