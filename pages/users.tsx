@@ -6,12 +6,18 @@ import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import { AiFillLock } from 'react-icons/ai';
-import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
-import { MdOutlineKeyboardArrowLeft } from 'react-icons/md'
+import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
+import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 
+import { axios } from "../src/axios";
+
+import { Container } from "../src/components/Container"; 
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
 import { ModalAddUser } from '../src/components/Modals/AddUser';
+import { ModalDeleteUser } from "../src/components/Modals/DeleteUser";
+
+import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
 
 import { 
     ContainerUsers, 
@@ -33,15 +39,41 @@ import {
     InfoPaginationUsers
 } from "../styles/pages/users";
 
-import { Container } from "../src/components/Container"; 
-import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
+interface UsersResultsProps {
+    id: number,
+    name: string,
+    email: string,
+    password: string,
+    telephone: string,
+    cpf: string,
+    date: string
+}
 
-export default function Users() {
+interface UsersProps {
+    respost: {
+        error: boolean,
+        results: Array<UsersResultsProps>
+    }
+}
+
+export default function Users({ respost }: UsersProps) {
 
     const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
+    const [ isOpenModalDeleteUser, setIsOpenModalDeleteUser ] = useState<boolean>(false);
+    const [ userId, setUserId ] = useState<number | null>(null);
 
     function toggleModalAddUser() {
         setIsOpenModalAddUser(!isOpenModalAddUser);
+    }
+
+    function openModalDeleteUser(id: number | null) {
+        setIsOpenModalDeleteUser(true);
+        setUserId(id);
+    }
+
+
+    function closeModalDeleteUser() {
+        setIsOpenModalDeleteUser(false);
     }
  
     return (
@@ -56,6 +88,12 @@ export default function Users() {
             <ContainerAnimationModal isAnimation={isOpenModalAddUser}>
                 <AnimationModal isAnimation={isOpenModalAddUser}>
                     { <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
+                </AnimationModal>
+            </ContainerAnimationModal>
+
+            <ContainerAnimationModal isAnimation={isOpenModalDeleteUser}>
+                <AnimationModal isAnimation={isOpenModalDeleteUser}>
+                    { <ModalDeleteUser closeModalDeleteUser={closeModalDeleteUser} id={userId} /> }
                 </AnimationModal>
             </ContainerAnimationModal>
 
@@ -93,81 +131,35 @@ export default function Users() {
                         <TableUsers>
                             <thead>
                                 <tr>
+                                    <td>ID</td>
                                     <td>Nome</td>
-                                    <td>Telefone</td>
-                                    <td>Cargo/Função</td>
                                     <td>Email</td>
                                     <td>Senha</td>
+                                    <td>Telefone</td>
+                                    <td>Nascimento</td>
                                     <td>CPF</td>
                                     <td>Ações</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Pedro Souza</td>
-                                    <td>(11) 958832414</td>
-                                    <td>Administrador</td>
-                                    <td>pedro@gmail.com</td>
-                                    <td>123321123321</td>
-                                    <td>1021340193</td>
-                                    <ButtonActions>
-                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
-                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
-                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
-                                    </ButtonActions>
-                                </tr>
-                                <tr>
-                                    <td>Pedro Souza</td>
-                                    <td>(11) 958832414</td>
-                                    <td>Administrador</td>
-                                    <td>pedro@gmail.com</td>
-                                    <td>123321123321</td>
-                                    <td>1021340193</td>
-                                    <ButtonActions>
-                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
-                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
-                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
-                                    </ButtonActions>
-                                </tr>
-                                <tr>
-                                    <td>Pedro Souza</td>
-                                    <td>(11) 958832414</td>
-                                    <td>Administrador</td>
-                                    <td>pedro@gmail.com</td>
-                                    <td>123321123321</td>
-                                    <td>1021340193</td>
-                                    <ButtonActions>
-                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
-                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
-                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
-                                    </ButtonActions>
-                                </tr>
-                                <tr>
-                                    <td>Pedro Souza</td>
-                                    <td>(11) 958832414</td>
-                                    <td>Administrador</td>
-                                    <td>pedro@gmail.com</td>
-                                    <td>123321123321</td>
-                                    <td>1021340193</td>
-                                    <ButtonActions>
-                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
-                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
-                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
-                                    </ButtonActions>
-                                </tr>
-                                <tr>
-                                    <td>Pedro Souza</td>
-                                    <td>(11) 958832414</td>
-                                    <td>Administrador</td>
-                                    <td>pedro@gmail.com</td>
-                                    <td>123321123321</td>
-                                    <td>1021340193</td>
-                                    <ButtonActions>
-                                        <ButtonDeleteUsers><i><AiOutlineClose /></i></ButtonDeleteUsers>
-                                        <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
-                                        <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
-                                    </ButtonActions>
-                                </tr>
+                                { 
+                                    respost.results.map((item) => (
+                                        <tr>
+                                            <td>{ item.id }</td>
+                                            <td>{ item.name }</td>
+                                            <td>{ item.email }</td>
+                                            <td>{ item.password }</td>
+                                            <td>{ item.telephone }</td>
+                                            <td>{ item.date }</td>
+                                            <td>{ item.cpf }</td>
+                                            <ButtonActions>
+                                                <ButtonDeleteUsers onClick={() => openModalDeleteUser(item.id)}><i><AiOutlineClose /></i></ButtonDeleteUsers>
+                                                <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
+                                                <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
+                                            </ButtonActions>
+                                        </tr>
+                                    ))
+                                }
                             </tbody>
                         </TableUsers>
                     </ContainerTableUsers>
@@ -185,4 +177,14 @@ export default function Users() {
             </Container>
         </>
     )
+}
+
+export async function getServerSideProps() {
+    const response = await axios.get('/get-users');
+    const respost = await response.data;
+    return {
+        props: {
+            respost
+        }
+    }
 }

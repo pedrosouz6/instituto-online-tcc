@@ -150,6 +150,8 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             toggleErroMessageModal(respost.error)
             toggleMessageModal(respost.message);
             setIsMessageModal(true);
+            cleanInputs();
+            toggleModalAddUser();
         } catch(err) {
             const error = err as AxiosError<ErrorType>;
             const datas = error.response?.data;
@@ -158,6 +160,15 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             toggleErroMessageModal(datas?.error);
             setIsMessageModal(true);
         }
+    }
+
+    function cleanInputs() {
+        setName('');
+        setCPF('');
+        setPassword('');
+        setDate('');
+        setEmail('');
+        setTel('');
     }
 
     return (
