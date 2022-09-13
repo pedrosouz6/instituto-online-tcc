@@ -142,7 +142,7 @@ export default function Users({ respost }: UsersProps) {
                                 </tr>
                             </thead>
                             <tbody>
-                                { 
+                                { respost &&
                                     respost.results.map((item) => (
                                         <tr>
                                             <td>{ item.id }</td>
