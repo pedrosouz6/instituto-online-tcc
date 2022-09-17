@@ -16,7 +16,7 @@ import { CPFValidation } from './Validations/CPF';
 import { DateValidation } from './Validations/Date';
 import { Button } from '../../Button';
 
-import { useMessageModal } from '../../../hooks/MessageModal';
+import { useMessageModal } from '../../../hooks/ModalMessage';
 
 import { 
     ContainerModalAddUser,
@@ -54,7 +54,7 @@ interface RespostAPI {
 
 export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
-    const { setIsMessageModal, toggleMessageModal, toggleErroMessageModal } = useMessageModal();
+    const { ShowModalMessage, ErrorModalMessage, TextModalMessage } = useMessageModal();
 
     const [ name, setName ] = useState<string>('');
     const [ date, setDate ] = useState<string>('');
@@ -147,18 +147,18 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
             const respost: RespostAPI = await response.data;
 
-            toggleErroMessageModal(respost.error)
-            toggleMessageModal(respost.message);
-            setIsMessageModal(true);
+            ShowModalMessage(true);
+            ErrorModalMessage(respost.error)
+            TextModalMessage(respost.message);
             cleanInputs();
             toggleModalAddUser();
         } catch(err) {
             const error = err as AxiosError<ErrorType>;
             const datas = error.response?.data;
 
-            toggleMessageModal(datas?.message);
-            toggleErroMessageModal(datas?.error);
-            setIsMessageModal(true);
+            ErrorModalMessage(datas?.error);
+            TextModalMessage(datas?.message);
+            ShowModalMessage(true);
         }
     }
 

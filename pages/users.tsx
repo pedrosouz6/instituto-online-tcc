@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
@@ -38,6 +38,7 @@ import {
     PaginationButtonArrowUsers,
     InfoPaginationUsers
 } from "../styles/pages/users";
+import { useUsers } from "../src/hooks/Users";
 
 interface UsersResultsProps {
     id: number,
@@ -50,19 +51,21 @@ interface UsersResultsProps {
 }
 
 interface UsersProps {
-    respost: {
-        error: boolean,
-        message: string,
-        results: Array<UsersResultsProps>
-    }
+    error: boolean,
+    results: Array<UsersResultsProps>
 }
 
-export default function Users({ respost }: UsersProps) {
-    console.log(respost);
+type UsersType = UsersProps | undefined;
+
+export default function Users() {
+
+    const { updatedUsers } = useUsers();
 
     const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
     const [ isOpenModalDeleteUser, setIsOpenModalDeleteUser ] = useState<boolean>(false);
     const [ userId, setUserId ] = useState<number | null>(null);
+
+    const [ allUsers, setAllUsers ] = useState<UsersType>(undefined);
 
     function toggleModalAddUser() {
         setIsOpenModalAddUser(!isOpenModalAddUser);
@@ -73,10 +76,19 @@ export default function Users({ respost }: UsersProps) {
         setUserId(id);
     }
 
-
     function closeModalDeleteUser() {
         setIsOpenModalDeleteUser(false);
     }
+
+    useEffect(() => {
+        const getUser = async (): Promise<void> => {
+            const response = await axios.get('/get-user');
+            const respost: UsersProps = await response.data;
+            setAllUsers(respost);
+        }
+
+        getUser();
+    }, [updatedUsers]);
  
     return (
         <>
@@ -144,15 +156,15 @@ export default function Users({ respost }: UsersProps) {
                                 </tr>
                             </thead>
                             <tbody>
-                                { respost &&
-                                    respost.results.map((item, key) => (
+                                { allUsers &&
+                                    allUsers.results.map((item, key) => (
                                         <tr key={key}>
                                             <td>{ item.id }</td>
                                             <td>{ item.name }</td>
                                             <td>{ item.email }</td>
                                             <td>{ item.password }</td>
                                             <td>{ item.telephone }</td>
-                                            <td>{ item.date }</td>
+                                            <td>{ item.date }</td>  
                                             <td>{ item.cpf }</td>
                                             <ButtonActions>
                                                 <ButtonDeleteUsers onClick={() => openModalDeleteUser(item.id)}><i><AiOutlineClose /></i></ButtonDeleteUsers>
@@ -179,22 +191,4 @@ export default function Users({ respost }: UsersProps) {
             </Container>
         </>
     )
-}
-
-export async function getServerSideProps() {
-    try {
-        const response = await axios.get('/get-users');
-        const respost = await response.data;
-        return {
-            props: {
-                respost
-            }
-        }
-    } catch(err) {
-        return {
-            props: {}
-        }
-    }
-
-    
 }

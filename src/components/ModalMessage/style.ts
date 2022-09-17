@@ -8,7 +8,7 @@ interface ContainerMessageModalProps {
 export const ContainerMessageModal = styled.div `
     width: 200px;
     height: auto;
-    position: absolute;
+    position: fixed;
     top: 20px;
     z-index: 4;
 

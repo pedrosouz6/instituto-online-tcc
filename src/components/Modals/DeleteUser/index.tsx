@@ -1,3 +1,7 @@
+import { AxiosError } from "axios";
+import { axios } from "../../../axios";
+import { useMessageModal } from "../../../hooks/ModalMessage";
+import { useUsers } from "../../../hooks/Users";
 import { 
     ContainerModalDeleteUser,
     ModalModalDeleteUser,
@@ -13,7 +17,35 @@ interface ModalDeleteUserProps {
     closeModalDeleteUser: () => void;
 }
 
+interface RespostDeleteUser {
+    error: boolean,
+    message: string
+}
+
 export function ModalDeleteUser({ id, closeModalDeleteUser }: ModalDeleteUserProps) {
+
+    const { ErrorModalMessage, ShowModalMessage, TextModalMessage,  } = useMessageModal();
+    const { toggleUpdatedUsers } = useUsers();
+
+    async function DeleteUser() {
+        try {
+            const response = await axios.get(`/delete-user/${id}`);
+            const respost: RespostDeleteUser = await response.data;
+            ShowModalMessage(true);
+            ErrorModalMessage(respost.error);
+            TextModalMessage(respost.message);
+        } catch(err) {
+            const error = err as AxiosError<RespostDeleteUser>;
+            const datas = error.response?.data;
+            ShowModalMessage(true);
+            ErrorModalMessage(datas?.error);
+            TextModalMessage(datas?.message);
+        }
+
+        closeModalDeleteUser();
+        toggleUpdatedUsers();
+    }
+
     return (
         <ContainerModalDeleteUser>
             <ModalModalDeleteUser>
@@ -26,7 +58,7 @@ export function ModalDeleteUser({ id, closeModalDeleteUser }: ModalDeleteUserPro
 
                 <FooterModalDeleteUser>
                     <ButtonCancelModalDeleteUser onClick={() => closeModalDeleteUser()}>Cancelar</ButtonCancelModalDeleteUser>
-                    <ButtonDeleteModalDeleteUser>Apagar</ButtonDeleteModalDeleteUser>
+                    <ButtonDeleteModalDeleteUser onClick={() => DeleteUser()}>Apagar</ButtonDeleteModalDeleteUser>
                 </FooterModalDeleteUser>
             </ModalModalDeleteUser>
         </ContainerModalDeleteUser>

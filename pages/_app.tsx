@@ -2,22 +2,24 @@ import type { AppProps } from 'next/app';
 
 import ProviderTheme from '../src/contexts/Theme';
 import ProviderButtonNavbar from '../src/contexts/ButtonNavbar';
-import ProviderMessageModal from '../src/contexts/MessageModal';
+import ProviderModalMessage from '../src/contexts/ModalMessage';
+import ProviderUsers from '../src/contexts/Users';
 
-import { MessageModal } from '../src/components/MessageModal';
+import { ModalMessage } from '../src/components/ModalMessage';
 
 import GlobalStyles from '../styles/globals';
-
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ProviderTheme>
       <ProviderButtonNavbar>
-        <ProviderMessageModal>
-          <Component {...pageProps} />
-          <MessageModal />
-          <GlobalStyles />
-        </ProviderMessageModal>
+        <ProviderUsers>
+          <ProviderModalMessage>
+            <Component {...pageProps} />
+            <ModalMessage />
+            <GlobalStyles />
+          </ProviderModalMessage>
+        </ProviderUsers>
       </ProviderButtonNavbar>
     </ProviderTheme>
   )
