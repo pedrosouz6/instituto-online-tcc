@@ -14,8 +14,10 @@ import { axios } from "../src/axios";
 import { Container } from "../src/components/Container"; 
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
+
 import { ModalAddUser } from '../src/components/Modals/AddUser';
 import { ModalDeleteUser } from "../src/components/Modals/DeleteUser";
+import { ModalUpdateUser } from "../src/components/Modals/UpdateUser";
 
 import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
 
@@ -63,6 +65,7 @@ export default function Users() {
 
     const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
     const [ isOpenModalDeleteUser, setIsOpenModalDeleteUser ] = useState<boolean>(false);
+    const [ isOpenModalUpdateUser, setIsOpenModalUpdateUser ] = useState<boolean>(false);
     const [ userId, setUserId ] = useState<number | null>(null);
 
     const [ allUsers, setAllUsers ] = useState<UsersType>(undefined);
@@ -78,6 +81,15 @@ export default function Users() {
 
     function closeModalDeleteUser() {
         setIsOpenModalDeleteUser(false);
+    }
+
+    function openModalUpdateUser(id: number | null) {
+        setIsOpenModalUpdateUser(true);
+        setUserId(id);
+    }
+
+    function closeModalUpdateUser() {
+        setIsOpenModalUpdateUser(false);
     }
 
     useEffect(() => {
@@ -101,13 +113,19 @@ export default function Users() {
 
             <ContainerAnimationModal isAnimation={isOpenModalAddUser}>
                 <AnimationModal isAnimation={isOpenModalAddUser}>
-                    { <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
+                    { isOpenModalAddUser && <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
                 </AnimationModal>
             </ContainerAnimationModal>
 
             <ContainerAnimationModal isAnimation={isOpenModalDeleteUser}>
                 <AnimationModal isAnimation={isOpenModalDeleteUser}>
-                    { <ModalDeleteUser closeModalDeleteUser={closeModalDeleteUser} id={userId} /> }
+                    { isOpenModalDeleteUser && <ModalDeleteUser closeModalDeleteUser={closeModalDeleteUser} id={userId} /> }
+                </AnimationModal>
+            </ContainerAnimationModal>
+
+            <ContainerAnimationModal isAnimation={isOpenModalUpdateUser}>
+                <AnimationModal isAnimation={isOpenModalUpdateUser}>
+                    { isOpenModalUpdateUser && <ModalUpdateUser closeModalUpdateUser={closeModalUpdateUser} id={userId} /> }
                 </AnimationModal>
             </ContainerAnimationModal>
 
@@ -168,7 +186,7 @@ export default function Users() {
                                             <td>{ item.cpf }</td>
                                             <ButtonActions>
                                                 <ButtonDeleteUsers onClick={() => openModalDeleteUser(item.id)}><i><AiOutlineClose /></i></ButtonDeleteUsers>
-                                                <ButtonEditUsers><i><AiTwotoneEdit /></i></ButtonEditUsers>
+                                                <ButtonEditUsers onClick={() => openModalUpdateUser(item.id)}><i><AiTwotoneEdit /></i></ButtonEditUsers>
                                                 <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
                                             </ButtonActions>
                                         </tr>

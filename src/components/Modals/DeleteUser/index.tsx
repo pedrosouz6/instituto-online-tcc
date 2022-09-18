@@ -29,13 +29,13 @@ export function ModalDeleteUser({ id, closeModalDeleteUser }: ModalDeleteUserPro
 
     async function DeleteUser() {
         try {
-            const response = await axios.get(`/delete-user/${id}`);
+            const response = await axios.delete(`/delete-user/${id}`);
             const respost: RespostDeleteUser = await response.data;
             ShowModalMessage(true);
             ErrorModalMessage(respost.error);
             TextModalMessage(respost.message);
         } catch(err) {
-            const error = err as AxiosError<RespostDeleteUser>;
+            const error = await err as AxiosError<RespostDeleteUser>;
             const datas = error.response?.data;
             ShowModalMessage(true);
             ErrorModalMessage(datas?.error);
