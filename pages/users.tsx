@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
@@ -54,6 +54,8 @@ interface UsersResultsProps {
 
 interface UsersProps {
     error: boolean,
+    totalPages: number,
+    totalUsers: number,
     results: Array<UsersResultsProps>
 }
 
@@ -63,12 +65,16 @@ export default function Users() {
 
     const { updatedUsers } = useUsers();
 
+    const [ displayingUser, setDisplayingUser ] = useState<string>("10");
+    const [ pageNumber, setPageNumber ] = useState<number>(1);
+    const [ totalPages, setTotalPages ] = useState<number | null>(null);
+
     const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
     const [ isOpenModalDeleteUser, setIsOpenModalDeleteUser ] = useState<boolean>(false);
     const [ isOpenModalUpdateUser, setIsOpenModalUpdateUser ] = useState<boolean>(false);
     const [ userId, setUserId ] = useState<number | null>(null);
 
-    const [ allUsers, setAllUsers ] = useState<UsersType>(undefined);
+    const [ allUsers, setAllUsers ] = useState<UsersType | undefined>(undefined);
 
     function toggleModalAddUser() {
         setIsOpenModalAddUser(!isOpenModalAddUser);
@@ -92,16 +98,33 @@ export default function Users() {
         setIsOpenModalUpdateUser(false);
     }
 
+    function nextPage() {
+        if(pageNumber >= Number(totalPages)) {
+            return setPageNumber(pageNumber);
+        }
+
+        return setPageNumber(pageNumber + 1);
+    }
+
+    function prevPage() {
+        if(pageNumber <= 1) {
+            return setPageNumber(pageNumber);
+        }
+
+        return setPageNumber(pageNumber - 1);
+    }
+
     useEffect(() => {
         const getUser = async (): Promise<void> => {
-            const response = await axios.get('/get-user');
+            const response = await axios.get(`/get-users/${displayingUser}/${pageNumber}`);
             const respost: UsersProps = await response.data;
+            setTotalPages(respost.totalPages);
             setAllUsers(respost);
         }
 
         getUser();
-    }, [updatedUsers]);
- 
+    }, [updatedUsers, displayingUser, pageNumber]);
+
     return (
         <>
             <Head>
@@ -143,12 +166,12 @@ export default function Users() {
                     <ContainerFilterSearchUsers>
                         <FilterUsers>
                             <label>Exibindo</label>
-                            <select>
+                            <select onChange={e => setDisplayingUser(e.target.value)}>
                                 <option value="2">2</option>
                                 <option value="4">4</option>
                                 <option value="6">6</option>
                                 <option value="8">8</option>
-                                <option value="10">10</option>
+                                <option value="10" selected>10</option>
                             </select>
                             <label>por página</label>
                         </FilterUsers>
@@ -197,12 +220,12 @@ export default function Users() {
                     </ContainerTableUsers>
                     <ContainerPaginationUsers>
                         <InfoPaginationUsers>
-                            <span>Mostrando de 1 até 8 de 8 registros</span>
+                            <span>Mostrando { displayingUser } de { allUsers?.totalUsers } registros</span>
                         </InfoPaginationUsers>
                         <PaginationUsers>
-                            <PaginationButtonArrowUsers><MdOutlineKeyboardArrowLeft /></PaginationButtonArrowUsers>
-                            <PaginationButtonActiveUsers>1</PaginationButtonActiveUsers>
-                            <PaginationButtonArrowUsers><MdOutlineKeyboardArrowRight /></PaginationButtonArrowUsers>
+                            <PaginationButtonArrowUsers onClick={() => prevPage()}><MdOutlineKeyboardArrowLeft /></PaginationButtonArrowUsers>
+                            <PaginationButtonActiveUsers>{ pageNumber }</PaginationButtonActiveUsers>
+                            <PaginationButtonArrowUsers onClick={() => nextPage()}><MdOutlineKeyboardArrowRight /></PaginationButtonArrowUsers>
                         </PaginationUsers>
                     </ContainerPaginationUsers>
                 </ContainerUsers>
