@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { BsFillPersonPlusFill } from 'react-icons/bs';

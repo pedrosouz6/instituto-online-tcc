@@ -14,6 +14,7 @@ import { PasswordValidation } from './Validations/Password';
 import { TelValidation } from './Validations/Tel';
 import { CPFValidation } from './Validations/CPF';
 import { DateValidation } from './Validations/Date';
+import { OfficeValidation } from './Validations/Office';
 import { Button } from '../../Button';
 
 import { useMessageModal } from '../../../hooks/ModalMessage';
@@ -64,6 +65,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
     const [ password, setPassword ] = useState<string>('');
     const [ tel, setTel ] = useState<string>('');
     const [ CPF, setCPF ] = useState<string>('');
+    const [ office, setOffice ] = useState<string>('');
 
     const [ isNameCorrect, setIsNameCorrect ] = useState<boolean>(true);
     const [ isDateCorrect, setIsDateCorrect ] = useState<boolean>(true);
@@ -71,6 +73,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
     const [ isPasswordCorrect, setIsPasswordCorrect ] = useState<boolean>(true);
     const [ isTelCorrect, setIsTelCorrect ] = useState<boolean>(true);
     const [ isCPFCorrect, setIsCPFCorrect ] = useState<boolean>(true);
+    const [ isOfficeCorrect, setIsOfficeCorrect ] = useState<boolean>(true);
 
     const [ messageInputs, setMessageInputs ] = useState<string>('');  
 
@@ -85,6 +88,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
         setIsEmailCorrect(true);
         setIsNameCorrect(true);
         setIsPasswordCorrect(true);
+        setIsOfficeCorrect(true);
 
         if(!(
             name.trim() && 
@@ -92,7 +96,8 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             password.trim() && 
             email.trim() && 
             CPF.trim() && 
-            tel.trim())) 
+            tel.trim() &&
+            office.trim()))
             { return setInputsEmpty(true); }  
 
         setInputsEmpty(false);
@@ -133,6 +138,12 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             return setMessageInputs(validatedTel.message);
         }
 
+        const validatedOffice = OfficeValidation(office);
+        if(validatedOffice.error) {
+            setIsOfficeCorrect(false);
+            return setMessageInputs(validatedOffice.message);
+        }
+
         createUser();
     }
 
@@ -144,7 +155,8 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                 date,
                 cpf: CPF,
                 tel,
-                password
+                password,
+                office
             });
 
             const respost: RespostAPI = await response.data;
@@ -266,6 +278,21 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 onChange={e => setCPF(e.target.value)} />
 
                                 { !isCPFCorrect && <ErrorIndicator text={messageInputs} /> }
+                            </FormInputModalAddUser>
+                        </FormContainerInputModalAddUser>
+
+                        <FormContainerInputModalAddUser>
+                            <label htmlFor="office">Cargo/Função</label>
+                            <FormInputModalAddUser>
+                                <select id='office' onChange={e => setOffice(e.target.value)}>
+                                    <option disabled selected>Escolha o cargo</option>
+                                    <option value="fullstack">fullstack</option>
+                                    <option value="backend">backend</option>
+                                    <option value="frontend">frontend</option>
+                                    <option value="devops">devops</option>
+                                </select>
+
+                                { !isOfficeCorrect && <ErrorIndicator text={messageInputs} /> }
                             </FormInputModalAddUser>
                         </FormContainerInputModalAddUser>
                     </FormContainerInputsModalAddUser>
