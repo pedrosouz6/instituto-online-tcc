@@ -5,7 +5,7 @@ import { IoMdClose } from 'react-icons/io';
 import InputMask from 'react-input-mask';
 
 import { AxiosError } from 'axios';
-import { axios } from '../../../axios';
+import { axios, ErrorAxiosType } from '../../../axios';
 
 import { ErrorIndicator } from '../../ErrorIndicator';
 import { NameValidation } from './Validations/Name'; 
@@ -40,11 +40,6 @@ export interface ValidationReturn {
     message: string;
     error: boolean
 } 
-
-interface ErrorType {
-    error: boolean,
-    message: string
-}
 
 interface UserType {
     name: string,
@@ -165,7 +160,7 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
             closeModalUpdateUser();
             toggleUpdatedUsers();
         } catch(err) {
-            const error = err as AxiosError<ErrorType>;
+            const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;
 
             ShowModalMessage(true);
@@ -198,7 +193,7 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
                 setCPF(respost.results[0].cpf);
                 setTel(respost.results[0].telephone);
             } catch(err) {
-                const error = await err as AxiosError<ErrorType>;
+                const error = await err as AxiosError<ErrorAxiosType>;
                 const datas = error.response?.data;
                 ShowModalMessage(true);
                 ErrorModalMessage(datas?.error);

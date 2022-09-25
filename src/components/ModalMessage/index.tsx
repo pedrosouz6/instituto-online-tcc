@@ -15,6 +15,7 @@ export function ModalMessage() {
     return (
         <ContainerMessageModal erroMessageModal={isErrorModalMessage} isMessageModal={isShowModalMessage}>
             <span>{ textModalMessage }</span>
+            <button onClick={() => ShowModalMessage(false)}>x</button>
         </ContainerMessageModal>
     )
 }

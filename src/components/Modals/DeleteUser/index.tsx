@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { axios } from "../../../axios";
+import { axios, ErrorAxiosType } from "../../../axios";
 import { useMessageModal } from "../../../hooks/ModalMessage";
 import { useUsers } from "../../../hooks/Users";
 import { 
@@ -10,7 +10,7 @@ import {
     FooterModalDeleteUser,
     ButtonCancelModalDeleteUser,
     ButtonDeleteModalDeleteUser
-} from "./style"
+} from "./style";
 
 interface ModalDeleteUserProps {
     id: number | null,
@@ -32,10 +32,10 @@ export function ModalDeleteUser({ id, closeModalDeleteUser }: ModalDeleteUserPro
             const response = await axios.delete(`/delete-user/${id}`);
             const respost: RespostDeleteUser = await response.data;
             ShowModalMessage(true);
-            ErrorModalMessage(respost.error);
+            ErrorModalMessage(respost.error); 
             TextModalMessage(respost.message);
         } catch(err) {
-            const error = await err as AxiosError<RespostDeleteUser>;
+            const error = await err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;
             ShowModalMessage(true);
             ErrorModalMessage(datas?.error);

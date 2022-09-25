@@ -5,7 +5,7 @@ import { IoMdClose } from 'react-icons/io';
 import InputMask from 'react-input-mask';
 
 import { AxiosError } from 'axios';
-import { axios } from '../../../axios';
+import { axios, ErrorAxiosType } from '../../../axios';
 
 import { ErrorIndicator } from '../../ErrorIndicator';
 import { NameValidation } from './Validations/Name'; 
@@ -40,11 +40,6 @@ export interface ValidationReturn {
     message: string;
     error: boolean
 } 
-
-interface ErrorType {
-    error: boolean,
-    message: string
-}
 
 interface RespostAPI {
     error: boolean,
@@ -168,7 +163,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             toggleModalAddUser();
             toggleUpdatedUsers();
         } catch(err) {
-            const error = err as AxiosError<ErrorType>;
+            const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;
 
             ErrorModalMessage(datas?.error);
