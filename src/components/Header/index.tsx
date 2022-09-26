@@ -6,8 +6,12 @@ import {
 } from "./style";
 
 import { ButtonTheme } from "../ButtonTheme";
+import { useUsers } from "../../hooks/Users";
 
 export function Header() {
+
+    const { user } = useUsers();
+
     return (
         <ContainerHeader>
             <ButtonTheme/>
@@ -15,8 +19,8 @@ export function Header() {
                 <ImageUserHeader>
                 </ImageUserHeader>
                 <InfoUserHeader>
-                    <p><strong>Pedro</strong></p>
-                    <p>pedro@gmail.com</p>
+                    <p><strong>{ user.name }</strong></p>
+                    <p>{ user.email }</p>
                 </InfoUserHeader>
             </UserHeader>
         </ContainerHeader>

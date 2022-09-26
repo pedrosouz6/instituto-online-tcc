@@ -1,9 +1,21 @@
-import { createContext, useState, useEffect, ReactNode } from "react";
-import { axios } from "../../axios";
+import { createContext, useState, ReactNode } from "react";
+
+export interface User {
+    id: number,
+    name: string,
+    email: string,
+    password: string,
+    telephone: string,
+    cpf: string,
+    date: string,
+    office: string,
+}
 
 interface ContextUserType {
     toggleUpdatedUsers: () => void,
-    updatedUsers: boolean
+    updatedUsers: boolean,
+    setUser: (user: User) => void,
+    user: User
 }
 
 interface ProviderUsersProps {
@@ -15,6 +27,7 @@ export const ContextUsers = createContext({} as ContextUserType);
 export default function ProviderUsers({ children }: ProviderUsersProps) {
 
     const [ updatedUsers, setUpdatedUsers ] = useState<boolean>(false);
+    const [ user, setUser ] = useState<User>({} as User);
 
     function toggleUpdatedUsers() {
         setUpdatedUsers(!updatedUsers);
@@ -23,7 +36,9 @@ export default function ProviderUsers({ children }: ProviderUsersProps) {
     return (
         <ContextUsers.Provider value={{
             toggleUpdatedUsers,
-            updatedUsers
+            updatedUsers,
+            setUser,
+            user
         }}>
 
             { children }

@@ -6,6 +6,9 @@ import { setCookie } from 'nookies';
 import { AxiosError } from 'axios';
 import { axios, ErrorAxiosType } from '../src/axios';
 
+import { useUsers } from '../src/hooks/Users';
+import { User } from '../src/contexts/Users';
+
 import { Title } from '../src/components/Title';
 import { ErrorIndicator } from '../src/components/ErrorIndicator';
 import { useMessageModal } from '../src/hooks/ModalMessage';
@@ -31,10 +34,13 @@ import {
 interface RespostLogin {
     message: string,
     error: boolean,
-    token: string
+    token: string,
+    results: User[]
 }
 
 export default function Login() {
+    
+    const { setUser } = useUsers();
     
     const router = useRouter();
     const { TextModalMessage, ErrorModalMessage, ShowModalMessage } = useMessageModal();
@@ -85,6 +91,8 @@ export default function Login() {
             });
 
             const respost: RespostLogin = await response.data;
+            setUser(respost.results[0]);
+            console.log(respost.results[0]);
             setCookie(null, 'token_user', respost.token);
             
             router.push('/users');

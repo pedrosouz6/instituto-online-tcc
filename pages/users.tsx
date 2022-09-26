@@ -43,28 +43,31 @@ import {
 import { useUsers } from "../src/hooks/Users";
 import { parseCookies } from "nookies";
 
-interface UsersResultsProps {
-    id: number,
-    name: string,
-    email: string,
-    password: string,
-    telephone: string,
-    cpf: string,
-    date: string
-}
+import { User } from '../src/contexts/Users';
 
-interface UsersProps {
+interface GetUsersResults {
     error: boolean,
     totalPages: number,
     totalUsers: number,
-    results: Array<UsersResultsProps>
+    results: Array<User>
 }
 
-type UsersType = UsersProps | undefined;
+interface ValidateTokenResults {
+    error: boolean,
+    message: string,
+    results: Array<User>
+}
 
-export default function Users() {
+interface UsersProps {
+    results: User
+}
 
-    const { updatedUsers } = useUsers();
+type UsersType = GetUsersResults | undefined;
+
+export default function Users({ results }: UsersProps) {
+    const { updatedUsers, setUser } = useUsers();
+
+    setUser(results);
 
     const [ displayingUser, setDisplayingUser ] = useState<string>("10");
     const [ pageNumber, setPageNumber ] = useState<number>(1);
@@ -118,7 +121,7 @@ export default function Users() {
     useEffect(() => {
         const getUser = async (): Promise<void> => {
             const response = await axios.get(`/get-users/${displayingUser}/${pageNumber}`);
-            const respost: UsersProps = await response.data;
+            const respost: GetUsersResults = await response.data;
             setTotalPages(respost.totalPages);
             setAllUsers(respost);
         }
@@ -190,7 +193,7 @@ export default function Users() {
                                     <td>ID</td>
                                     <td>Nome</td>
                                     <td>Email</td>
-                                    <td>Senha</td>
+                                    <td>Função</td>
                                     <td>Telefone</td>
                                     <td>Nascimento</td>
                                     <td>CPF</td>
@@ -204,7 +207,7 @@ export default function Users() {
                                             <td>{ item.id }</td>
                                             <td>{ item.name }</td>
                                             <td>{ item.email }</td>
-                                            <td>{ item.password }</td>
+                                            <td>{ item.office }</td>
                                             <td>{ item.telephone }</td>
                                             <td>{ item.date }</td>  
                                             <td>{ item.cpf }</td>
@@ -245,7 +248,15 @@ export async function getServerSideProps(ctx: any) {
             token
         });
 
-        const respost: ErrorAxiosType = response.data;
+        const respost: ValidateTokenResults = response.data;
+
+        if(!respost.error) {
+            return {
+                props: {
+                    results: respost.results[0]
+                }
+            }
+        }
     
         if(respost.error) {
             return {
