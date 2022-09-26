@@ -1,9 +1,14 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
+
+import { setCookie } from 'nookies';
+import { AxiosError } from 'axios';
+import { axios, ErrorAxiosType } from '../src/axios';
+
+import { Title } from '../src/components/Title';
 import { ErrorIndicator } from '../src/components/ErrorIndicator';
 import { useMessageModal } from '../src/hooks/ModalMessage';
-import { useRouter } from 'next/router';
-
 import { PasswordValidation } from '../src/components/Modals/AddUser/Validations/Password';
 import { EmailValidation } from '../src/components/Modals/AddUser/Validations/Email';
 
@@ -23,9 +28,11 @@ import {
     FormContainerLogin
 } from '../styles/pages/login';
 
-import { axios, ErrorAxiosType } from '../src/axios';
-import { AxiosError } from 'axios';
-import { Title } from '../src/components/Title';
+interface RespostLogin {
+    message: string,
+    error: boolean,
+    token: string
+}
 
 export default function Login() {
     
@@ -75,8 +82,10 @@ export default function Login() {
             const response = await axios.post('/login', {
                 email,
                 password
-            })
-            const respost: ErrorAxiosType = await response.data;
+            });
+
+            const respost: RespostLogin = await response.data;
+            setCookie(null, 'token_user', respost.token);
             
             router.push('/users');
         } catch(err) {

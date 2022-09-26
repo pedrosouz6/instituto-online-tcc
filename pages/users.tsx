@@ -9,7 +9,7 @@ import { AiFillLock } from 'react-icons/ai';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 
-import { axios } from "../src/axios";
+import { axios, ErrorAxiosType } from "../src/axios";
 
 import { Container } from "../src/components/Container"; 
 import { Header } from "../src/components/Header";
@@ -41,6 +41,7 @@ import {
     InfoPaginationUsers
 } from "../styles/pages/users";
 import { useUsers } from "../src/hooks/Users";
+import { parseCookies } from "nookies";
 
 interface UsersResultsProps {
     id: number,
@@ -233,3 +234,48 @@ export default function Users() {
         </>
     )
 }
+
+export async function getServerSideProps(ctx: any) {
+
+    const { ['token_user']: token } = parseCookies(ctx);
+  
+    if(token) {
+      try {
+        const response = await axios.post('/validate-token', {
+            token
+        });
+
+        const respost: ErrorAxiosType = response.data;
+    
+        if(respost.error) {
+            return {
+                redirect: {
+                  destination: '/login',
+                  permanent: false
+                }
+            }
+        }
+        
+      } catch(error) {
+        return {
+          redirect: {
+            destination: '/login',
+            permanent: false
+          }
+        }
+      }
+    }
+  
+    if(!token) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false
+        }
+      }
+    }
+  
+    return {
+      props: {}
+    }
+  }
