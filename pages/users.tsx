@@ -218,7 +218,7 @@ export default function Users({ results }: UsersProps) {
                                             </ButtonActions>
                                         </tr>
                                     ))
-                                }
+                                }   
                             </tbody>
                         </TableUsers>
                     </ContainerTableUsers>
