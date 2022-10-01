@@ -14,6 +14,7 @@ import { ErrorIndicator } from '../src/components/ErrorIndicator';
 import { useMessageModal } from '../src/hooks/ModalMessage';
 import { PasswordValidation } from '../src/components/Modals/AddUser/Validations/Password';
 import { EmailValidation } from '../src/components/Modals/AddUser/Validations/Email';
+import { Loading } from '../src/components/Loading';
 
 import { FaLock } from 'react-icons/fa';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
@@ -45,6 +46,8 @@ export default function Login() {
     const router = useRouter();
     const { TextModalMessage, ErrorModalMessage, ShowModalMessage } = useMessageModal();
 
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
+
     const [ email, setEmail ] = useState<string>('');
     const [ password, setPassword ] = useState<string>('');
 
@@ -60,9 +63,11 @@ export default function Login() {
         e.preventDefault();
         setIsEmailCorrect(true);
         setIsPasswordCorrect(true);
+        setIsLoading(true);
 
         if(!(email.trim() || password.trim())) {
             setIsInputEmpty(true);
+            setIsLoading(false);
             return setMessage('Preecha o(s) campo(s) acima');
         }
 
@@ -70,12 +75,14 @@ export default function Login() {
 
         const validatedEmail = EmailValidation(email);
         if(validatedEmail.error) {
+            setIsLoading(false);
             setIsEmailCorrect(false);
             return setMessage(validatedEmail.message);
         }
 
         const validatedPassword = PasswordValidation(password);
         if(validatedPassword.error) {
+            setIsLoading(false);
             setIsPasswordCorrect(false);
             return setMessage(validatedPassword.message);
         }
@@ -96,12 +103,14 @@ export default function Login() {
             setCookie(null, 'token_user', respost.token);
             
             router.push('/users');
+            setIsLoading(false);
         } catch(err) {
             const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;
             ShowModalMessage(true);
             ErrorModalMessage(datas?.error);
             TextModalMessage(datas?.message);
+            setIsLoading(false);
         }
     }
 
@@ -161,7 +170,9 @@ export default function Login() {
                         <a href="#">Não lembro a senha</a>
                         { isInputEmpty && <MessageIsInputEmpty>Preecha o(s) campo(s) acima</MessageIsInputEmpty> }
 
-                        <FormButtonLogin type="submit" value="Entrar" />
+                        <FormButtonLogin type="submit">
+                          { isLoading ? <Loading /> : 'Entrar' }
+                        </FormButtonLogin>
                     </FormContainerLogin>
                 </FormLogin>    
             </Containerlogin>

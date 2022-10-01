@@ -85,7 +85,7 @@ export const FormInputIconLogin = styled.div `
     }
 `
 
-export const FormButtonLogin = styled.input `
+export const FormButtonLogin = styled.button `
     width: 100%;
     height: 40px;
     background-color: #FBC000;
