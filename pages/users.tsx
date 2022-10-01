@@ -52,7 +52,7 @@ interface GetUsersResults {
     results: Array<User>
 }
 
-interface ValidateTokenResults {
+export interface ValidateTokenResults {
     error: boolean,
     message: string,
     results: Array<User>
@@ -261,7 +261,7 @@ export async function getServerSideProps(ctx: any) {
         if(respost.error) {
             return {
                 redirect: {
-                  destination: '/login',
+                  destination: '/',
                   permanent: false
                 }
             }
@@ -270,7 +270,7 @@ export async function getServerSideProps(ctx: any) {
       } catch(error) {
         return {
           redirect: {
-            destination: '/login',
+            destination: '/',
             permanent: false
           }
         }
@@ -280,7 +280,7 @@ export async function getServerSideProps(ctx: any) {
     if(!token) {
       return {
         redirect: {
-          destination: '/login',
+          destination: '/',
           permanent: false
         }
       }
@@ -289,4 +289,4 @@ export async function getServerSideProps(ctx: any) {
     return {
       props: {}
     }
-  }
+}

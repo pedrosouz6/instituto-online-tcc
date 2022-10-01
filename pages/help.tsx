@@ -11,6 +11,9 @@ import {
     FormButtonSendComment,
     FormHelp
 } from '../styles/pages/help';
+import { ValidateTokenResults } from './users';
+import { axios } from '../src/axios';
+import { parseCookies } from 'nookies';
 
 export default function Help() {
     return (
@@ -43,4 +46,57 @@ export default function Help() {
             </Container>
         </>
     )
+}
+
+export async function getServerSideProps(ctx: any) {
+
+    const { ['token_user']: token } = parseCookies(ctx);
+  
+    if(token) {
+      try {
+        const response = await axios.post('/validate-token', {
+            token
+        });
+
+        const respost: ValidateTokenResults = response.data;
+
+        if(!respost.error) {
+            return {
+                props: {
+                    results: respost.results[0]
+                }
+            }
+        }
+        
+        if(respost.error) {
+            return {
+                redirect: {
+                  destination: '/',
+                  permanent: false
+                }
+            }
+        }
+        
+      } catch(error) {
+        return {
+          redirect: {
+            destination: '/',
+            permanent: false
+          }
+        }
+      }
+    }
+  
+    if(!token) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false
+        }
+      }
+    }
+  
+    return {
+      props: {}
+    }
 }
