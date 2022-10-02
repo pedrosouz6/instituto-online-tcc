@@ -16,10 +16,8 @@ export const FormSendEmail = styled.form `
     }
 
     input, textarea {
-        transition: ${props => props.theme.animation.main};
         border: 1px solid ${props => props.theme.colors.border};
         background-color: ${props => props.theme.colors.background};
-        color: ${props => props.theme.colors.text};
         
         width: 100%;
         padding: 5px;

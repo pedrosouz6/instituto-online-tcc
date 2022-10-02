@@ -9,8 +9,8 @@ export default createGlobalStyle `
     }
     
     body {
+        transition: ${props => props.theme.animation.main};
         background: ${props => props.theme.colors.background};
         color: ${props => props.theme.colors.text};
-        transition: ${props => props.theme.animation.main};
     }
 `

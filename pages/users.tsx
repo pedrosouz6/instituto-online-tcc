@@ -1,15 +1,13 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-import { HiOutlineArrowLeft } from 'react-icons/hi';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { AiTwotoneEdit } from 'react-icons/ai';
-import { AiFillLock } from 'react-icons/ai';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 
-import { axios, ErrorAxiosType } from "../src/axios";
+import { axios } from "../src/axios";
 
 import { Container } from "../src/components/Container"; 
 import { Header } from "../src/components/Header";
@@ -29,7 +27,6 @@ import {
     TableUsers,
     FilterUsers,
     SearchUsers,
-    ButtonLockUsers,
     ButtonDeleteUsers,
     ButtonEditUsers,
     ButtonActions,
@@ -162,7 +159,6 @@ export default function Users({ results }: UsersProps) {
                         <h3>Usuários</h3>
 
                         <HeaderButtonsUsers>
-                            <button><i><HiOutlineArrowLeft /></i> Voltar</button>
                             <button onClick={() => toggleModalAddUser()}><i><BsFillPersonPlusFill /></i> Novo</button>
                         </HeaderButtonsUsers>
                     </HeaderUsers>
@@ -214,7 +210,6 @@ export default function Users({ results }: UsersProps) {
                                             <ButtonActions>
                                                 <ButtonDeleteUsers onClick={() => openModalDeleteUser(item.id)}><i><AiOutlineClose /></i></ButtonDeleteUsers>
                                                 <ButtonEditUsers onClick={() => openModalUpdateUser(item.id)}><i><AiTwotoneEdit /></i></ButtonEditUsers>
-                                                <ButtonLockUsers><i><AiFillLock /></i></ButtonLockUsers>
                                             </ButtonActions>
                                         </tr>
                                     ))
@@ -248,10 +243,10 @@ export async function getServerSideProps(ctx: any) {
             token
         });
 
-        const respost: ValidateTokenResults = response.data;
+        const respost: ValidateTokenResults = await response.data;
 
         if(!respost.error) {
-            return {
+            return {    
                 props: {
                     results: respost.results[0]
                 }

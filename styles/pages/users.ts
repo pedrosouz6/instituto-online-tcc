@@ -41,8 +41,10 @@ export const HeaderButtonsUsers = styled.div `
         border-radius: 5px;
         border: none;
         cursor: pointer;
+        color: #333;
 
         i {
+            color: #333;
             display: block;
             padding-top: 3px;
             font-size: 11pt;
@@ -110,9 +112,9 @@ export const TableUsers = styled.table `
         td {
             text-align: center;
             padding: 6px 3px;
-            background-color: rgb(210, 210, 210);
+            background-color: ${props => props.theme.colors.backgroundTable};
             font-weight: 500;
-            border-left: 1px solid rgb(210, 210, 210);
+            border-left: 1px solid ${props => props.theme.colors.backgroundTable};
         }
     }
 
@@ -122,12 +124,16 @@ export const TableUsers = styled.table `
 
     tbody {
         tr:nth-child(odd) {
-            background-color: rgb(240, 240, 240);
+            background-color: ${props => props.theme.colors.backgroundTableTd};
+        }
+
+        tr:nth-child(even) {
+            background-color: ${props => props.theme.colors.background};
         }
         
         td {
             padding: 5px;
-            border: 1px solid rgb(210, 210, 210);
+            border: 1px solid ${props => props.theme.colors.backgroundTable};
             text-align: center;
         }
 
@@ -137,8 +143,6 @@ export const TableUsers = styled.table `
             cursor: pointer;
             padding: 4px 7px 1px 7px;
             border-radius: 3px;
-
-            transition: ${props => props.theme.animation.main};
 
             &:hover {
                 opacity: .9;
@@ -158,16 +162,10 @@ export const ButtonActions = styled.td `
 export const ButtonDeleteUsers = styled.button `
     background-color: red;
     margin: 2px;
-
 `
 
 export const ButtonEditUsers = styled.button `
     background-color: green;
-    margin: 2px;
-`
-
-export const ButtonLockUsers = styled.button `
-    background-color: blue;
     margin: 2px;
 `
 
@@ -197,7 +195,6 @@ export const PaginationUsers = styled.div `
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        
     }
 `
 

@@ -8,6 +8,8 @@ declare module 'styled-components' {
             primary: string,
             background: string,
             text: string,
+            backgroundTableTd: string,
+            backgroundTable: string,
             border: string
         },
         animation: {

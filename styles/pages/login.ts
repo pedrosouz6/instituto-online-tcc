@@ -12,6 +12,8 @@ export const Containerlogin = styled.main `
     align-items: center;
     justify-content: center;
 
+    background-color: white;
+
     padding: 20px;
 `
 
@@ -30,12 +32,13 @@ export const FormLogin = styled.form `
 
     h1 {
         text-align: center;
+        color: #333;
     }
 `
 
 export const FormContainerLogin = styled.div `
     width: 100%;
-    background-color: white;
+    background-color: #f5f5f5;
     height: 100%;
     padding: 20px;
 
@@ -57,7 +60,7 @@ export const FormInputLogin = styled.div `
     position: relative;
 
     input {
-        background: rgba(245, 245, 245);
+        background: white;
         width: 100%;
         height: 100%;
         padding: 0 65px 0 35px;
@@ -94,8 +97,6 @@ export const FormButtonLogin = styled.button `
     border: none;
     border-radius: 3px;
 
-    transition: ${props => props.theme.animation.main};
-
     &:hover {
         opacity: .9;
     }
@@ -113,8 +114,6 @@ export const FormEyeLogin = styled.div `
     display: flex;
     align-items: center;
     justify-content: center;
-
-    transition: ${props => props.theme.animation.main};
 
     i {
         display: block;

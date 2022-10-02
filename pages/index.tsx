@@ -122,7 +122,7 @@ export default function Login() {
 
             <Containerlogin>    
                 <FormLogin onSubmit={e => validateForm(e)}>
-                    <Title text="Entrar na sua conta" />
+                    <h1>Entrar na sua conta</h1>
 
                     <FormContainerLogin>
                         <FormContainerInputLogin>

@@ -24,7 +24,6 @@ export const ContainerNavbar = styled.div `
 
     background: ${props => props.theme.colors.background};
     border-right: 1px solid ${props => props.theme.colors.border};
-    transition: ${props => props.theme.animation.main};
 
     @media (max-width: 1100px) {
         left: ${(props: Props) => props.isMenuResponsive ? '0' : '-231px'};
@@ -40,8 +39,6 @@ export const MenuNavbar = styled.div `
     position: absolute;
     z-index: 3;
 
-    transition: ${props => props.theme.animation.main};
-
     opacity: 0;
     visibility: hidden;
 
@@ -55,7 +52,6 @@ export const MenuNavbar = styled.div `
         i {
             display: block;
             font-size: 15pt;
-            color: ${props => props.theme.colors.text};
         }
     }
 
@@ -68,13 +64,11 @@ export const MenuNavbar = styled.div `
 
 export const ItemsNavbar = styled.nav `
     margin-bottom: 1rem;
-    
+
     ul {
         li {
             list-style: none;
             margin-bottom: .4rem;
-            transition: ${props => props.theme.animation.main};
-            color: ${props => props.theme.colors.text};
             letter-spacing: .3px;
 
             span {
@@ -83,12 +77,11 @@ export const ItemsNavbar = styled.nav `
             
             a {
                 text-decoration: none;
-                transition: ${props => props.theme.animation.main};
-                color: ${props => props.theme.colors.text};
                 display: flex;
                 font-size: 10pt;
                 gap: .5rem;
                 padding-left: ${(props: MiniNavbarProps) => props.isMiniNavbar ? "5px" : "15px"};
+                color: ${props => props.theme.colors.text};
 
                 i {
                     font-size: 12pt;
@@ -117,6 +110,7 @@ export const ContainerMiniNavbar = styled.div `
             display: block;
             font-size: 13pt;
             padding-top: 3px;
+            color: ${props => props.theme.colors.text};
         }
     }
 

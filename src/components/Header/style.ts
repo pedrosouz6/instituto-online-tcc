@@ -4,7 +4,6 @@ export const ContainerHeader = styled.header `
     width: calc(100% );
     height: 70px;
     padding: 0 25px;
-    transition: ${props => props.theme.animation.main};
     border-bottom: 1px solid ${props => props.theme.colors.border};
 
     display: flex;
@@ -30,14 +29,11 @@ export const ImageUserHeader = styled.div `
     width: 40px;
     height: 40px;
     border-radius: 5px;
-    transition: ${props => props.theme.animation.main};
     background: ${props => props.theme.colors.text};
 `
 
 export const InfoUserHeader = styled.div `
     p {
-        transition: ${props => props.theme.animation.main};
-        color: ${props => props.theme.colors.text};
         font-size: 10pt;
     }
 `
