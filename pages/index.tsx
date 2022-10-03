@@ -9,7 +9,6 @@ import { axios, ErrorAxiosType } from '../src/axios';
 import { useUsers } from '../src/hooks/Users';
 import { User } from '../src/contexts/Users';
 
-import { Title } from '../src/components/Title';
 import { ErrorIndicator } from '../src/components/ErrorIndicator';
 import { useMessageModal } from '../src/hooks/ModalMessage';
 import { PasswordValidation } from '../src/components/Modals/AddUser/Validations/Password';
@@ -99,11 +98,12 @@ export default function Login() {
 
             const respost: RespostLogin = await response.data;
             setUser(respost.results[0]);
-            console.log(respost.results[0]);
             setCookie(null, 'token_user', respost.token);
             
-            router.push('/users');
-            setIsLoading(false);
+            setTimeout(() => {
+                router.push('/users');
+                setIsLoading(false);
+            }, 400);
         } catch(err) {
             const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;

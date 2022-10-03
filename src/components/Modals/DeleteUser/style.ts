@@ -27,10 +27,18 @@ export const HeaderModalDeleteUser = styled.div `
     padding: 0 10px;
     line-height: 40px;
     border-bottom: 1px solid silver;
+    
+    h3 {
+        color: #333;
+    }
 `
 
 export const MainModalDeleteUser = styled.div `
     padding: 10px;
+
+    span {
+        color: #333;
+    }
 `
 
 export const FooterModalDeleteUser = styled.div `
@@ -43,8 +51,6 @@ export const FooterModalDeleteUser = styled.div `
         padding: 4px 8px;
         border-radius: 3px;
         cursor: pointer;
-
-        transition: ${props => props.theme.animation.main};
 
         &:hover {
             opacity: .9;

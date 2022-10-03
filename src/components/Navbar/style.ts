@@ -50,6 +50,7 @@ export const MenuNavbar = styled.div `
         cursor: pointer;
         
         i {
+            color: ${props => props.theme.colors.text};
             display: block;
             font-size: 15pt;
         }

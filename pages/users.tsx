@@ -198,21 +198,24 @@ export default function Users({ results }: UsersProps) {
                             </thead>
                             <tbody>
                                 { allUsers &&
-                                    allUsers.results.map((item, key) => (
-                                        <tr key={key}>
+                                    allUsers.results.map((item, key) => {
+                                        const date = item.date.split('T')[0];
+                                        const dateArray = date.split('-');
+                                        
+                                        return <tr key={key}>
                                             <td>{ item.id }</td>
                                             <td>{ item.name }</td>
                                             <td>{ item.email }</td>
                                             <td>{ item.office }</td>
                                             <td>{ item.telephone }</td>
-                                            <td>{ item.date }</td>  
+                                            <td>{ dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0] }</td>  
                                             <td>{ item.cpf }</td>
                                             <ButtonActions>
                                                 <ButtonDeleteUsers onClick={() => openModalDeleteUser(item.id)}><i><AiOutlineClose /></i></ButtonDeleteUsers>
                                                 <ButtonEditUsers onClick={() => openModalUpdateUser(item.id)}><i><AiTwotoneEdit /></i></ButtonEditUsers>
                                             </ButtonActions>
                                         </tr>
-                                    ))
+                                    })
                                 }   
                             </tbody>
                         </TableUsers>

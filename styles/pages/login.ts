@@ -51,6 +51,7 @@ export const FormContainerInputLogin = styled.div `
     label {
         margin-bottom: 5px;
         display: block;
+        color: #333;
     }
 `
 
@@ -120,6 +121,7 @@ export const FormEyeLogin = styled.div `
         padding: 0 2px;
         padding-top: 5px;
         font-size: 13pt;
+        color: #333;
         cursor: pointer;
     }
 `

@@ -1,27 +1,30 @@
+import { useState } from "react";
+
+import { ButtonTheme } from "../ButtonTheme";
+import { ItemsHeader } from "./ItemsHeader";
+
+import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowUp } from 'react-icons/io';
+
 import { 
     ContainerHeader,
     UserHeader,
     ImageUserHeader,
-    InfoUserHeader
 } from "./style";
-
-import { ButtonTheme } from "../ButtonTheme";
-import { useUsers } from "../../hooks/Users";
 
 export function Header() {
 
-    const { user } = useUsers();
+    const [ isItemsHeader, setisItemsHeader ] = useState<boolean>(false);
 
     return (
         <ContainerHeader>
             <ButtonTheme/>
             <UserHeader>
-                <ImageUserHeader>
-                </ImageUserHeader>
-                <InfoUserHeader>
-                    <p><strong>{ user.name }</strong></p>
-                    <p>{ user.email }</p>
-                </InfoUserHeader>
+                <ImageUserHeader />
+                <button onClick={() => setisItemsHeader(!isItemsHeader)}>
+                    { isItemsHeader ? <IoIosArrowUp /> : <IoIosArrowDown />} 
+                </button>
+                { isItemsHeader && <ItemsHeader /> }
             </UserHeader>
         </ContainerHeader>
     )

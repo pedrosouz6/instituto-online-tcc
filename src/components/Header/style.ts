@@ -22,13 +22,23 @@ export const ContainerHeader = styled.header `
 export const UserHeader = styled.div `
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: .3rem;
+    position: relative;
+
+    button {
+        background: none;
+        color: ${props => props.theme.colors.text};
+        border: none;
+        padding-top: 3px;
+        font-size: 12pt;
+        cursor: pointer;
+    }
 `
 
 export const ImageUserHeader = styled.div `
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     background: ${props => props.theme.colors.text};
 `
 
