@@ -17,6 +17,10 @@ import { ModalAddUser } from '../src/components/Modals/AddUser';
 import { ModalDeleteUser } from "../src/components/Modals/DeleteUser";
 import { ModalUpdateUser } from "../src/components/Modals/UpdateUser";
 
+import { useUsers } from "../src/hooks/Users";
+import { parseCookies } from "nookies";
+
+import { User } from '../src/contexts/Users';
 import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
 
 import { 
@@ -37,10 +41,6 @@ import {
     PaginationButtonArrowUsers,
     InfoPaginationUsers
 } from "../styles/pages/users";
-import { useUsers } from "../src/hooks/Users";
-import { parseCookies } from "nookies";
-
-import { User } from '../src/contexts/Users';
 
 interface GetUsersResults {
     error: boolean,
@@ -177,7 +177,11 @@ export default function Users({ results }: UsersProps) {
                         </FilterUsers>
                         <SearchUsers>
                             <label htmlFor="searchUser">Pesquisar</label>
-                            <input type="text" id="searchUser" placeholder="Pesquisar..." />
+                            <input 
+                            type="text" 
+                            id="searchUser" 
+                            placeholder="Pesquisar..."
+                            />
                         </SearchUsers>
                     </ContainerFilterSearchUsers>
 

@@ -20,6 +20,7 @@ export const Containerlogin = styled.main `
 export const FormLogin = styled.form `
     flex: 1;
     max-width: 400px;
+    margin: 0 auto;
     height: auto;
 
     a {
@@ -35,6 +36,12 @@ export const FormLogin = styled.form `
         color: #333;
     }
 `
+
+export const FormLogo = styled.div `
+    display: flex;
+    justify-content: center;
+`
+
 
 export const FormContainerLogin = styled.div `
     width: 100%;

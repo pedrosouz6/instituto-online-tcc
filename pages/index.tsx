@@ -28,7 +28,8 @@ import {
     FormButtonLogin,
     FormEyeLogin,
     MessageIsInputEmpty,
-    FormContainerLogin
+    FormContainerLogin,
+    FormLogo
 } from '../styles/pages/login';
 
 interface RespostLogin {
@@ -122,6 +123,10 @@ export default function Login() {
 
             <Containerlogin>    
                 <FormLogin onSubmit={e => validateForm(e)}>
+                    <FormLogo>
+                        <img src='/logogg.png' width='150px' />
+                    </FormLogo>
+
                     <h1>Entrar na sua conta</h1>
 
                     <FormContainerLogin>
