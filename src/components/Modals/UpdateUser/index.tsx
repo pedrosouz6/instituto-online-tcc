@@ -30,6 +30,7 @@ import {
     ErrorMessageModalUpdateUser
 } from "./style";
 import { useUsers } from '../../../hooks/Users';
+import { OfficeValidation } from './Validations/Office';
 
 interface ModalAddUserProps {
     closeModalUpdateUser: () => void,
@@ -67,6 +68,7 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
     const [ password, setPassword ] = useState<string>('');
     const [ tel, setTel ] = useState<string>('');
     const [ CPF, setCPF ] = useState<string>('');
+    const [ office, setOffice ] = useState<string>('');
 
     const [ isNameCorrect, setIsNameCorrect ] = useState<boolean>(true);
     const [ isDateCorrect, setIsDateCorrect ] = useState<boolean>(true);
@@ -74,6 +76,7 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
     const [ isPasswordCorrect, setIsPasswordCorrect ] = useState<boolean>(true);
     const [ isTelCorrect, setIsTelCorrect ] = useState<boolean>(true);
     const [ isCPFCorrect, setIsCPFCorrect ] = useState<boolean>(true);
+    const [ isOfficeCorrect, setIsOfficeCorrect ] = useState<boolean>(true);
 
     const [ messageInputs, setMessageInputs ] = useState<string>('');  
 
@@ -88,6 +91,7 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
         setIsEmailCorrect(true);
         setIsNameCorrect(true);
         setIsPasswordCorrect(true);
+        setIsOfficeCorrect(true);
 
         if(!(
             name.trim() && 
@@ -95,7 +99,8 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
             password.trim() && 
             email.trim() && 
             CPF.trim() && 
-            tel.trim())) 
+            tel.trim() &&
+            office.trim()))
             { return setInputsEmpty(true); }  
 
         setInputsEmpty(false);
@@ -136,6 +141,12 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
             return setMessageInputs(validatedTel.message);
         }
 
+        const validatedOffice = OfficeValidation(office);
+        if(validatedOffice.error) {
+            setIsOfficeCorrect(false);
+            return setMessageInputs(validatedOffice.message);
+        }
+
         createUser();
     }
 
@@ -148,7 +159,8 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
                 date,
                 cpf: CPF,
                 tel,
-                password
+                password,
+                office
             });
 
             const respost: RespostAPI = await response.data;
@@ -297,6 +309,23 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
                                 onChange={e => setCPF(e.target.value)} />
 
                                 { !isCPFCorrect && <ErrorIndicator text={messageInputs} /> }
+                            </FormInputModalUpdateUser>
+                        </FormContainerInputModalUpdateUser>
+
+                        <FormContainerInputModalUpdateUser>
+                            <label htmlFor="office">Cargo/Função</label>
+                            <FormInputModalUpdateUser>
+                                <select id='office' onChange={e => setOffice(e.target.value)}>
+                                    <option disabled selected>Escolha o cargo</option>
+                                    <option value="diretor">Diretor</option>
+                                    <option value="gestor">Gestor/Gerente</option>
+                                    <option value="rh">RH</option>
+                                    <option value="ti">TI</option>
+                                    <option value="usuario">Usuário externo</option>
+                                    <option value="administrador">Administrador</option>
+                                </select>
+
+                                { !isOfficeCorrect && <ErrorIndicator text={messageInputs} /> }
                             </FormInputModalUpdateUser>
                         </FormContainerInputModalUpdateUser>
                     </FormContainerInputsModalUpdateUser>

@@ -88,7 +88,7 @@ export const FormInputModalUpdateUser = styled.div `
     height: 40px;
     position: relative;
 
-    input {
+    input, select {
         width: 100%;
         height: 100%;
         padding: 0 35px 0 5px;

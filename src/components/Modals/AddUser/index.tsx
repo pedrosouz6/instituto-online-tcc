@@ -281,10 +281,12 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                             <FormInputModalAddUser>
                                 <select id='office' onChange={e => setOffice(e.target.value)}>
                                     <option disabled selected>Escolha o cargo</option>
-                                    <option value="fullstack">fullstack</option>
-                                    <option value="backend">backend</option>
-                                    <option value="frontend">frontend</option>
-                                    <option value="devops">devops</option>
+                                    <option value="diretor">Diretor</option>
+                                    <option value="gestor">Gestor/Gerente</option>
+                                    <option value="rh">RH</option>
+                                    <option value="ti">TI</option>
+                                    <option value="usuario">Usuário externo</option>
+                                    <option value="administrador">Administrador</option>
                                 </select>
 
                                 { !isOfficeCorrect && <ErrorIndicator text={messageInputs} /> }
