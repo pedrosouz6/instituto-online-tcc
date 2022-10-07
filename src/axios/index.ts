@@ -6,5 +6,5 @@ export interface ErrorAxiosType {
 }
 
 export const axios = Axios.create({
-    baseURL: "https://backend-instituto-online.herokuapp.com/api"
+    baseURL: process.env.NEXT_PUBLIC_API_URL
 })

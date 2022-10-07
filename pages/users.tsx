@@ -66,6 +66,8 @@ export default function Users({ results }: UsersProps) {
 
     setUser(results);
 
+    console.log(process.env.NEXT_PUBLIC_API_URL);
+    
     const [ displayingUser, setDisplayingUser ] = useState<string>("10");
     const [ pageNumber, setPageNumber ] = useState<number>(1);
     const [ totalPages, setTotalPages ] = useState<number | null>(null);
