@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { FormEvent, useState } from 'react';
 
 import { setCookie } from 'nookies';
@@ -91,7 +92,6 @@ export default function Login() {
     }
 
     async function makeLogin() {
-        console.log(process.env.NEXT_PUBLIC_API_URL);
         try {
             const response = await axios.post('/login', {
                 email,
@@ -125,7 +125,10 @@ export default function Login() {
             <Containerlogin>    
                 <FormLogin onSubmit={e => validateForm(e)}>
                     <FormLogo>
-                        <img src='/logogg.png' width='150px' />
+                        <Image src='/logogg.png'
+                        alt="Logo Instituto Manasses"
+                        width={150}
+                        height={60} />
                     </FormLogo>
 
                     <h1>Entrar na sua conta</h1>

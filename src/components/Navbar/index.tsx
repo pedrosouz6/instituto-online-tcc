@@ -118,14 +118,6 @@ export function Navbar() {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/textEditor">
-                                <a className={pathname === '/textEditor' ? 'active' : ''}> 
-                                    <i><MdOutlineComputer /></i> 
-                                    <span>Editor de texto</span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
                             <Link href="/invoicing">
                                 <a className={pathname === 'invoicing' ? 'active' : ''}> 
                                     <i><FaMoneyCheck /></i> 

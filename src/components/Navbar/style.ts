@@ -22,6 +22,8 @@ export const ContainerNavbar = styled.div `
     height: 100vh;
     padding: 10px;
 
+    transition: ${props => props.theme.animation.main};
+
     background: ${props => props.theme.colors.background};
     border-right: 1px solid ${props => props.theme.colors.border};
 

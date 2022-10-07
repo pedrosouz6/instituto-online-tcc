@@ -34,6 +34,7 @@ export const FormLogin = styled.form `
     h1 {
         text-align: center;
         color: #333;
+        font-size: 18pt;
     }
 `
 
