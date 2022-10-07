@@ -91,6 +91,7 @@ export default function Login() {
     }
 
     async function makeLogin() {
+        console.log(process.env.NEXT_PUBLIC_API_URL);
         try {
             const response = await axios.post('/login', {
                 email,
