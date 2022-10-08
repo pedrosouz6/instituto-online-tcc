@@ -17,6 +17,7 @@ import { TbDeviceAnalytics } from 'react-icons/tb';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
 
+import { useUsers } from '../../hooks/Users';
 import { useButtonNavbar } from '../../hooks/ButtonNavbar';
 
 import { 
@@ -30,7 +31,10 @@ import {
 export function Navbar() {
 
     const { pathname } = useRouter();
+
     const { isMiniNavbar, savePreferenceUser, setIsMiniNavbar } = useButtonNavbar();
+    const { userType } = useUsers();
+    console.log(userType); 
 
     const [ isMenuResponsive, setIsMenuResponsive ] = useState<boolean>(false);
 
@@ -54,14 +58,17 @@ export function Navbar() {
                 <ItemsNavbar isMiniNavbar={isMiniNavbar} >
                     <ul>
                         <li> <i><HiHome /></i> <span>Home</span></li>
-                        <li>
-                            <Link href="/users">
-                                <a className={pathname === '/users' ? 'active' : ''}> 
-                                    <i><FaUsers /></i>
-                                    <span>Usuários</span>
-                                </a>
-                            </Link>
-                        </li>
+                        {
+                            userType === 'administrador' &&
+                            <li>
+                                <Link href="/users">
+                                    <a className={pathname === '/users' ? 'active' : ''}> 
+                                        <i><FaUsers /></i>
+                                        <span>Usuários</span>
+                                    </a>
+                                </Link>
+                            </li>
+                        }
                         <li>
                             <Link href="/appearance">
                                 <a className={pathname === '/appearance' ? 'active' : ''}>  

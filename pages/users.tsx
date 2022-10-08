@@ -62,12 +62,11 @@ interface UsersProps {
 type UsersType = GetUsersResults | undefined;
 
 export default function Users({ results }: UsersProps) {
-    const { updatedUsers, setUser } = useUsers();
+    const { updatedUsers, setUser, setUserType } = useUsers();
 
     setUser(results);
+    setUserType(results.office);
 
-    console.log(process.env.NEXT_PUBLIC_API_URL);
-    
     const [ displayingUser, setDisplayingUser ] = useState<string>("10");
     const [ pageNumber, setPageNumber ] = useState<number>(1);
     const [ totalPages, setTotalPages ] = useState<number | null>(null);
@@ -254,13 +253,23 @@ export async function getServerSideProps(ctx: any) {
 
         const respost: ValidateTokenResults = await response.data;
 
-        if(!respost.error) {
+        if(respost.results[0].office !== 'administrador') {
             return {    
+                redirect: {
+                    destination: '/without-permission',
+                    permanent: false
+                  }
+            }
+        }
+
+        if(!respost.error) {
+            return {
                 props: {
                     results: respost.results[0]
                 }
             }
         }
+
     
         if(respost.error) {
             return {

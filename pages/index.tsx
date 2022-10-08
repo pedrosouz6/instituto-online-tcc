@@ -103,9 +103,15 @@ export default function Login() {
             setCookie(null, 'token_user', respost.token);
             
             setTimeout(() => {
-                router.push('/users');
-                setIsLoading(false);
-            }, 400);
+                if(respost.results[0].office === 'administrador') {
+                    router.push('/users');
+                    return setIsLoading(false);
+                } 
+
+                router.push('/help');
+                return setIsLoading(false);
+                
+            }, 1000);
         } catch(err) {
             const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;

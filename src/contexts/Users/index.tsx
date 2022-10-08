@@ -15,7 +15,9 @@ interface ContextUserType {
     toggleUpdatedUsers: () => void,
     updatedUsers: boolean,
     setUser: (user: User) => void,
-    user: User
+    user: User,
+    userType: string | null,
+    setUserType: (userType: string | null) => void
 }
 
 interface ProviderUsersProps {
@@ -28,6 +30,7 @@ export default function ProviderUsers({ children }: ProviderUsersProps) {
 
     const [ updatedUsers, setUpdatedUsers ] = useState<boolean>(false);
     const [ user, setUser ] = useState<User>({} as User);
+    const [ userType, setUserType ] = useState<string | null>(null);
 
     function toggleUpdatedUsers() {
         setUpdatedUsers(!updatedUsers);
@@ -38,7 +41,9 @@ export default function ProviderUsers({ children }: ProviderUsersProps) {
             toggleUpdatedUsers,
             updatedUsers,
             setUser,
-            user
+            user,
+            setUserType,
+            userType
         }}>
 
             { children }
