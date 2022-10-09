@@ -6,13 +6,16 @@ export interface ErrorAxiosType {
     message: string
 }
 
-const { ['token_user']: token } = parseCookies(null);
-
 export const axios = Axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL
 })
 
-axios.interceptors.request.use(function (config: any) {
-    config.headers.Authorization =  token ? `Bearer ${token}` : '';
-    return config;
-});
+axios.interceptors.request.use((config: any | undefined) => {
+    const { ['token_user']: token } = parseCookies(null);
+
+    if(token) {
+        config.headers['Authorization'] =  token ? `Bearer ${token}` : '';
+    }
+
+    return config
+})
