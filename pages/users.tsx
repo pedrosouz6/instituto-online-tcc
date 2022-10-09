@@ -7,7 +7,7 @@ import { AiTwotoneEdit } from 'react-icons/ai';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
 
-import { axios } from "../src/axios";
+import { axios, ErrorAxiosType } from "../src/axios";
 
 import { Container } from "../src/components/Container"; 
 import { Header } from "../src/components/Header";
@@ -41,8 +41,12 @@ import {
     PaginationButtonArrowUsers,
     InfoPaginationUsers
 } from "../styles/pages/users";
+import { useMessageModal } from "../src/hooks/ModalMessage";
+import { AxiosError } from "axios";
+import { Loading } from "../src/components/Loading";
 
 interface GetUsersResults {
+    message: string,
     error: boolean,
     totalPages: number,
     totalUsers: number,
@@ -63,6 +67,7 @@ type UsersType = GetUsersResults | undefined;
 
 export default function Users({ results }: UsersProps) {
     const { updatedUsers, setUser, setUserType } = useUsers();
+    const { ErrorModalMessage, TextModalMessage, ShowModalMessage } = useMessageModal();
 
     setUser(results);
     setUserType(results.office);
@@ -70,6 +75,8 @@ export default function Users({ results }: UsersProps) {
     const [ displayingUser, setDisplayingUser ] = useState<string>("10");
     const [ pageNumber, setPageNumber ] = useState<number>(1);
     const [ totalPages, setTotalPages ] = useState<number | null>(null);
+
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
     const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
     const [ isOpenModalDeleteUser, setIsOpenModalDeleteUser ] = useState<boolean>(false);
@@ -118,10 +125,31 @@ export default function Users({ results }: UsersProps) {
 
     useEffect(() => {
         const getUser = async (): Promise<void> => {
-            const response = await axios.get(`/get-users/${displayingUser}/${pageNumber}`);
-            const respost: GetUsersResults = await response.data;
-            setTotalPages(respost.totalPages);
-            setAllUsers(respost);
+            setIsLoading(true);
+
+            try {
+                const response = await axios.get(`/get-users/${displayingUser}/${pageNumber}`);
+                const respost: GetUsersResults = await response.data;
+
+                if(respost.error) {
+                    ErrorModalMessage(respost.error);
+                    TextModalMessage(respost.message);
+                    ShowModalMessage(respost.error);
+                    return setIsLoading(false);
+                }
+
+                setTotalPages(respost.totalPages);
+                setAllUsers(respost);
+                return setIsLoading(false);
+
+            } catch(err) {
+                const error = err as AxiosError<ErrorAxiosType>;
+                const datas = error.response?.data;
+                ShowModalMessage(true);
+                ErrorModalMessage(datas?.error);
+                TextModalMessage(datas?.message);
+                setIsLoading(false);
+            }
         }
 
         getUser();
@@ -132,6 +160,8 @@ export default function Users({ results }: UsersProps) {
             <Head>
                 <title>Usuários</title>
             </Head>
+
+            { isLoading && <Loading /> }
 
             <Header />
             <Navbar />

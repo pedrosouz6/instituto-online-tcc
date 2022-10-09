@@ -43,6 +43,7 @@ export const MenuNavbar = styled.div `
 
     opacity: 0;
     visibility: hidden;
+    transition: ${props => props.theme.animation.main};
 
     button {
         background: none;
@@ -101,6 +102,7 @@ export const ItemsNavbar = styled.nav `
 export const ContainerMiniNavbar = styled.div `
     display: flex;
     justify-content: end;
+    transition: ${props => props.theme.animation.main};
 
     button {
         border: none;

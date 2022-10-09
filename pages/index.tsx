@@ -128,6 +128,8 @@ export default function Login() {
                 <title>Login</title>
             </Head>
 
+            { isLoading && <Loading /> }
+
             <Containerlogin>    
                 <FormLogin onSubmit={e => validateForm(e)}>
                     <FormLogo>
@@ -185,9 +187,7 @@ export default function Login() {
                         <a href="#">Não lembro a senha</a>
                         { isInputEmpty && <MessageIsInputEmpty>Preecha o(s) campo(s) acima</MessageIsInputEmpty> }
 
-                        <FormButtonLogin type="submit">
-                          { isLoading ? <Loading /> : 'Entrar' }
-                        </FormButtonLogin>
+                        <FormButtonLogin type="submit">Entrar</FormButtonLogin>
                     </FormContainerLogin>
                 </FormLogin>    
             </Containerlogin>
