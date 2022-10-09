@@ -111,7 +111,7 @@ export default function Login() {
                 router.push('/help');
                 return setIsLoading(false);
                 
-            }, 1000);
+            }, 500);
         } catch(err) {
             const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;

@@ -66,6 +66,7 @@ interface UsersProps {
 type UsersType = GetUsersResults | undefined;
 
 export default function Users({ results }: UsersProps) {
+    
     const { updatedUsers, setUser, setUserType } = useUsers();
     const { ErrorModalMessage, TextModalMessage, ShowModalMessage } = useMessageModal();
 
@@ -75,6 +76,7 @@ export default function Users({ results }: UsersProps) {
     const [ displayingUser, setDisplayingUser ] = useState<string>("10");
     const [ pageNumber, setPageNumber ] = useState<number>(1);
     const [ totalPages, setTotalPages ] = useState<number | null>(null);
+    const [ searchUser, setSearchUser ] = useState<string>('');
 
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
@@ -128,7 +130,7 @@ export default function Users({ results }: UsersProps) {
             setIsLoading(true);
 
             try {
-                const response = await axios.get(`/get-users/${displayingUser}/${pageNumber}`);
+                const response = await axios.get(`/get-users/${displayingUser}/${pageNumber}/${searchUser ? searchUser : 'null'}`);
                 const respost: GetUsersResults = await response.data;
 
                 if(respost.error) {
@@ -153,7 +155,7 @@ export default function Users({ results }: UsersProps) {
         }
 
         getUser();
-    }, [updatedUsers, displayingUser, pageNumber]);
+    }, [updatedUsers, displayingUser, pageNumber, searchUser]);
 
     return (
         <>
@@ -211,7 +213,9 @@ export default function Users({ results }: UsersProps) {
                             <input 
                             type="text" 
                             id="searchUser" 
+                            value={searchUser}
                             placeholder="Pesquisar..."
+                            onChange={e => setSearchUser(e.target.value)}
                             />
                         </SearchUsers>
                     </ContainerFilterSearchUsers>

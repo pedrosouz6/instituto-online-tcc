@@ -31,6 +31,7 @@ import {
 } from "./style";
 import { useUsers } from '../../../hooks/Users';
 import { OfficeValidation } from './Validations/Office';
+import { Loading } from '../../Loading';
 
 interface ModalAddUserProps {
     closeModalUpdateUser: () => void,
@@ -69,6 +70,8 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
     const [ tel, setTel ] = useState<string>('');
     const [ CPF, setCPF ] = useState<string>('');
     const [ office, setOffice ] = useState<string>('');
+
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
     const [ isNameCorrect, setIsNameCorrect ] = useState<boolean>(true);
     const [ isDateCorrect, setIsDateCorrect ] = useState<boolean>(true);
@@ -151,6 +154,8 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
     }
 
     async function createUser(): Promise<void> {
+        setIsLoading(true);
+
         try {
             const response = await axios.put('/update-user', {
                 id,
@@ -171,6 +176,8 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
             cleanInputs();
             closeModalUpdateUser();
             toggleUpdatedUsers();
+
+            setIsLoading(false);
         } catch(err) {
             const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;
@@ -179,7 +186,7 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
             ErrorModalMessage(datas?.error);
             TextModalMessage(datas?.message);
             closeModalUpdateUser();
-
+            setIsLoading(false);
         }
     }
 
@@ -219,6 +226,8 @@ export function ModalUpdateUser({ closeModalUpdateUser, id }: ModalAddUserProps)
 
     return (
         <ContainerModalUpdateUser>
+            { isLoading && <Loading /> }
+
             <ModalModalUpdateUser>
                 <HeaderModalUpdateUser>
                     <h3>Atualizar o usuário #{id}</h3>

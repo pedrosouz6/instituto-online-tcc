@@ -31,6 +31,7 @@ import {
     ErrorMessageModalAddUser
 } from "./style";
 import { useUsers } from '../../../hooks/Users';
+import { Loading } from '../../Loading';
 
 interface ModalAddUserProps {
     toggleModalAddUser: () => void
@@ -53,6 +54,8 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
     const { ShowModalMessage, ErrorModalMessage, TextModalMessage } = useMessageModal();
     const { toggleUpdatedUsers } = useUsers();
+
+    const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
     const [ name, setName ] = useState<string>('');
     const [ date, setDate ] = useState<string>('');
@@ -143,6 +146,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
     }
 
     async function createUser(): Promise<void> {
+        setIsLoading(true);
         try {
             const response = await axios.post('/create-user', {
                 name,
@@ -162,6 +166,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             cleanInputs();
             toggleModalAddUser();
             toggleUpdatedUsers();
+            setIsLoading(false);
         } catch(err) {
             const error = err as AxiosError<ErrorAxiosType>;
             const datas = error.response?.data;
@@ -169,6 +174,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             ErrorModalMessage(datas?.error);
             TextModalMessage(datas?.message);
             ShowModalMessage(true);
+            setIsLoading(true);
         }
     }
 
@@ -183,6 +189,8 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
 
     return (
         <ContainerModalAddUser>
+            { isLoading && <Loading /> }
+            
             <ModalModalAddUser>
                 <HeaderModalAddUser>
                     <h3>Criar um novo usuário</h3>

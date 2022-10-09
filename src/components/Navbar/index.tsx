@@ -34,7 +34,6 @@ export function Navbar() {
 
     const { isMiniNavbar, savePreferenceUser, setIsMiniNavbar } = useButtonNavbar();
     const { userType } = useUsers();
-    console.log(userType); 
 
     const [ isMenuResponsive, setIsMenuResponsive ] = useState<boolean>(false);
 
