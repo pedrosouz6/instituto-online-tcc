@@ -10,6 +10,7 @@ export const AnimationModal = styled.div `
 
     position: fixed;
     top: 0;
+    left: 0;
     
     z-index: 3;
 
@@ -28,6 +29,7 @@ export const ContainerAnimationModal = styled.div `
 
     position: fixed;
     top: 0;
+    left: 0;
 
     z-index: 3;
 

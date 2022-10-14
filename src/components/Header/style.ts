@@ -24,20 +24,22 @@ export const UserHeader = styled.div `
     align-items: center;
     gap: .3rem;
     position: relative;
+`
 
-    button {
-        background: none;
-        color: ${props => props.theme.colors.text};
-        border: none;
-        padding-top: 3px;
-        font-size: 12pt;
-        cursor: pointer;
-    }
+
+export const UserHeaderButton = styled.button `
+    background: none;
+    color: ${props => props.theme.colors.text};
+    border: none;
+    cursor: pointer;
+    padding-top: 3px;
+    font-size: 12pt;
 `
 
 export const ImageUserHeader = styled.div `
     width: 30px;
     height: 30px;
+    cursor: pointer;
     border-radius: 50%;
     background: ${props => props.theme.colors.text};
 `

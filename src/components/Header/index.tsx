@@ -10,6 +10,7 @@ import {
     ContainerHeader,
     UserHeader,
     ImageUserHeader,
+    UserHeaderButton
 } from "./style";
 
 export function Header() {
@@ -20,10 +21,10 @@ export function Header() {
         <ContainerHeader>
             <ButtonTheme/>
             <UserHeader>
-                <ImageUserHeader />
-                <button onClick={() => setisItemsHeader(!isItemsHeader)}>
+                <ImageUserHeader onClick={() => setisItemsHeader(!isItemsHeader)} />
+                <UserHeaderButton onClick={() => setisItemsHeader(!isItemsHeader)}>
                     { isItemsHeader ? <IoIosArrowUp /> : <IoIosArrowDown />} 
-                </button>
+                </UserHeaderButton>
                 { isItemsHeader && <ItemsHeader /> }
             </UserHeader>
         </ContainerHeader>

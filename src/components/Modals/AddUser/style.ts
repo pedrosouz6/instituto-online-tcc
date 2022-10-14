@@ -75,7 +75,6 @@ export const ContainerButtonSendFormModalAddUser = styled.div `
     justify-content: end;
 `
 
-
 export const FormContainerInputModalAddUser = styled.div `
     label {
         margin-bottom: 5px;

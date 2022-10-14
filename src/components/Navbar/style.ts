@@ -17,7 +17,7 @@ export const ContainerNavbar = styled.div `
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 1;
     width: ${(props: Props) => props.isMiniNavbar ? "50px" : "230px"};
     height: 100vh;
     padding: 10px;
@@ -39,7 +39,7 @@ export const ContainerLogo = styled.div `
 export const MenuNavbar = styled.div `
     margin: 20px;
     position: absolute;
-    z-index: 3;
+    z-index: 2;
 
     opacity: 0;
     visibility: hidden;

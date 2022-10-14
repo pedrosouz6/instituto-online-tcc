@@ -1,21 +1,28 @@
 import { useRouter } from "next/router";
 
-import { useUsers } from "../../../hooks/Users";
+import { destroyCookie } from "nookies";
+import { useState } from "react";
+
 import { IoMdArrowDropup } from 'react-icons/io';
+
+import { useUsers } from "../../../hooks/Users";
+
+import { ModalEditProfile } from "../../Modals/EditProfile";
+import { AnimationModal, ContainerAnimationModal } from "../../Modals/Animations/style";
 
 import { 
     ContainerItemsHeader, 
     InfoUserItemsHeader, 
     ItemsItemsHeader 
 } from "./style";
-import { destroyCookie } from "nookies";
-import { useState } from "react";
 
 export function ItemsHeader() {
 
     const router = useRouter();
 
     const [ isGoingOut, setIsGoingOut ] = useState<boolean>(false);
+
+    const [ isShowModalEditProfile, setIsShowModalEditProfile ] = useState<boolean>(false);
 
     const { user } = useUsers();
 
@@ -29,13 +36,24 @@ export function ItemsHeader() {
         }, 400)
     }
 
+    function closeModalEditProfile() {
+        setIsShowModalEditProfile(false);
+    }
+
     return (
         <ContainerItemsHeader>
+
+            <ContainerAnimationModal isAnimation={isShowModalEditProfile}>
+                <AnimationModal isAnimation={isShowModalEditProfile}>
+                    { isShowModalEditProfile && <ModalEditProfile closeModalEditProfile={closeModalEditProfile}></ModalEditProfile> }
+                </AnimationModal>
+            </ContainerAnimationModal>
+
             <InfoUserItemsHeader>
                 <span>Logado com { user.email }</span>
             </InfoUserItemsHeader>
             <ItemsItemsHeader>
-                <button>Editar perfil</button>
+                <button onClick={() => setIsShowModalEditProfile(true)}>Editar perfil</button>
                 <button onClick={() => SignOut()}>{ isGoingOut ? 'Saindo...' : 'Sair' }</button>
             </ItemsItemsHeader>
             <i><IoMdArrowDropup /></i>

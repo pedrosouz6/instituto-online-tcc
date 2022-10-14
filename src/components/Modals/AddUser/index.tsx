@@ -174,7 +174,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             ErrorModalMessage(datas?.error);
             TextModalMessage(datas?.message);
             ShowModalMessage(true);
-            setIsLoading(true);
+            setIsLoading(false);
         }
     }
 

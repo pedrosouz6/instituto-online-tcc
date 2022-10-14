@@ -36,4 +36,16 @@ export const ItemsItemsHeader = styled.div `
     align-items: start;
     flex-direction: column;
     gap: 5px;
+
+    button {
+        display: block;
+        border: none;
+        outline: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        padding: 2px 0;
+        cursor: pointer;
+        color: ${props => props.theme.colors.text};
+    }
 `
