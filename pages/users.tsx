@@ -292,7 +292,7 @@ export async function getServerSideProps(ctx: any) {
                 redirect: {
                     destination: '/without-permission',
                     permanent: false
-                  }
+                }
             }
         }
 
