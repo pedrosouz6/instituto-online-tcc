@@ -82,6 +82,8 @@ export default function Help({ results }: HelpProps) {
                       <i>{ showUpCalled ? <IoIosArrowUp /> : <IoIosArrowDown /> }</i>
                     </button>
                 </ContainerHeaderTableHelp>
+
+                
                   
                 <TableHelp>
                   <thead>

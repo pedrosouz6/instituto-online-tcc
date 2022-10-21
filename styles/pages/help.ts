@@ -24,10 +24,6 @@ export const ContainerButtonNewCalledHelp = styled.div `
     }
 `
 
-export const ContainerTableHelp = styled.div `
-    margin-top: 2rem;
-`
-
 export const ContainerHeaderTableHelp = styled.div `
     display: flex;
     justify-content: space-between;
@@ -76,6 +72,23 @@ export const ToViewTableHelp = styled.td `
         font-size: 9pt;
         text-transform: uppercase;
         text-align: center;
+    }
+`
+
+export const ContainerTableHelp = styled.div `
+margin-top: 2rem;
+    width: 100%;
+    padding: 0 15px;
+    overflow: auto;
+
+    &::-webkit-scrollbar-thumb {
+        background: #777;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 8px;
+        background-color: #aaa;
     }
 `
 
