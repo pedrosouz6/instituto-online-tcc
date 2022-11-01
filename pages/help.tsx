@@ -28,6 +28,7 @@ import {
   StatusTableHelp,
   DescriptionTableHelp
 } from '../styles/pages/help';
+import { useHelp } from '../src/hooks/Help';
 
 interface HelpProps {
   results: User
@@ -36,6 +37,7 @@ interface HelpProps {
 export default function Help({ results }: HelpProps) {
   
   const { setUser, setUserType } = useUsers();
+  const { help } = useHelp();
 
   setUser(results);
   setUserType(results.office);
@@ -94,25 +96,22 @@ export default function Help({ results }: HelpProps) {
                   </thead>
                   { showUpCalled &&
                     <tbody>
-                      <tr>
-                        <td>3213213</td>
-                        <DescriptionTableHelp>
-                          <span>Bug</span>
-                          <span>Data de solitação</span>
-                        </DescriptionTableHelp>
-                        <StatusTableHelp><span>em andamento</span></StatusTableHelp>
-                        <ToViewTableHelp><p>visualizado</p></ToViewTableHelp>
-                      </tr>
+                      {
+                        help.map((item, key) => {
+                          const date = item.date.split('T')[0];
+                          const dateArray = date.split('-');
 
-                      <tr>
-                        <td>3213213</td>
-                        <DescriptionTableHelp>
-                          <span>Bug</span>
-                          <span>Data de solitação</span>
-                        </DescriptionTableHelp>
-                        <StatusTableHelp><span>em</span></StatusTableHelp>
-                        <ToViewTableHelp><p>visualizado</p></ToViewTableHelp>
-                      </tr>
+                          return <tr key={key}>
+                            <td>{ item.id }</td>
+                            <DescriptionTableHelp>
+                              <span>{ item.description }</span>
+                              <span>Data da solitação - { dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0] }</span>
+                            </DescriptionTableHelp>
+                            <StatusTableHelp><span>em andamento</span></StatusTableHelp>
+                            <ToViewTableHelp><p>visualizado</p></ToViewTableHelp>
+                          </tr>
+                        })
+                      }
                     </tbody> 
                   }
                 </TableHelp>

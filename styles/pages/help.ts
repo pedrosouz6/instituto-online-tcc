@@ -115,7 +115,9 @@ export const StatusTableHelp = styled.td `
 `
 
 export const DescriptionTableHelp = styled.td `
+    width: 400px;
     span {
         display: block;
+        font-size: 10pt;
     }
 `

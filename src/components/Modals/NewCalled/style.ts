@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+interface FormModalNewCalledProps {
+    wrongDescription: string | null,
+    wrongTitle: string | null
+}
+
 export const ContainerModalNewCalled = styled.div `
     width: 100%;
     height: 100vh;
@@ -50,9 +55,17 @@ export const FormModalNewCalled = styled.form `
         margin: 2rem 0 .3rem 0;
     }
 
+    p {
+        font-size: 10pt;
+        color: red;
+    }
+
     input, textarea {
         border: 1px solid ${props => props.theme.colors.border};
+        color: ${props => props.theme.colors.text};
         background-color: ${props => props.theme.colors.background};
+
+        border: ${(props: FormModalNewCalledProps) => props.wrongTitle && '1px solid red' };
         
         width: 100%;
         padding: 5px;
@@ -68,18 +81,20 @@ export const FormModalNewCalled = styled.form `
     input {
         height: 40px;
     }
-
+    
     textarea {
+        border: ${(props: FormModalNewCalledProps) => props.wrongDescription && '1px solid red' };
         resize: none;
         height: 100px;
     }
 `
 
 export const FormButtonModalNewCalled = styled.button `
-    padding: 5px 25px;
+    padding: 6px 25px;
     border: none;
     border-radius: 25px;
     background-color: ${props => props.theme.colors.primary};
     color: white;
     margin-top: 1rem;
+    cursor: pointer;
 `
