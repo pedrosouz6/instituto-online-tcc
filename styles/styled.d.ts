@@ -7,6 +7,7 @@ declare module 'styled-components' {
         colors: {
             primary: string,
             background: string,
+            backgroundDesigner: string,
             text: string,
             backgroundTableTd: string,
             backgroundTable: string,

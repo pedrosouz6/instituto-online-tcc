@@ -20,15 +20,15 @@ export const ContainerNavbar = styled.div `
     z-index: 1;
     width: ${(props: Props) => props.isMiniNavbar ? "50px" : "230px"};
     height: 100vh;
-    padding: 10px;
 
     transition: ${props => props.theme.animation.main};
 
-    background: ${props => props.theme.colors.background};
-    border-right: 1px solid ${props => props.theme.colors.border};
+    background: teal;
+    color: #cbd2d6;
 
     @media (max-width: 1100px) {
-        left: ${(props: Props) => props.isMenuResponsive ? '0' : '-231px'};
+        left: ${(props: Props) => props.isMenuResponsive ? '0' : '-230px'};
+        border-right: ${(props: Props) => props.isMenuResponsive && '1px solid rgb(0, 92, 92)'};
     }
 `
 
@@ -63,7 +63,17 @@ export const MenuNavbar = styled.div `
         visibility: visible;
         opacity: 1;
         left: ${(props: Props) => props.isMenuResponsive ? '170px' : '0'};
+
+        button {
+            i {
+                color: ${(props: Props) => props.isMenuResponsive && '#cbd2d6'};
+            }
+        }
     }
+`
+
+export const ItemTitleNavbar = styled.li `
+    padding: 0 10px;
 `
 
 export const ItemsNavbar = styled.nav `
@@ -81,11 +91,14 @@ export const ItemsNavbar = styled.nav `
             
             a {
                 text-decoration: none;
+                width: 100%;
+                border-radius: 25px 0 0 25px;
                 display: flex;
                 font-size: 10pt;
+                padding-top: 5px;
                 gap: .5rem;
-                padding-left: ${(props: MiniNavbarProps) => props.isMiniNavbar ? "5px" : "15px"};
-                color: ${props => props.theme.colors.text};
+                padding-left: ${(props: MiniNavbarProps) => props.isMiniNavbar ? "15px" : "20px"};
+                color: #cbd2d6;
 
                 i {
                     font-size: 12pt;
@@ -93,7 +106,8 @@ export const ItemsNavbar = styled.nav `
             }
 
             .active {
-                color: ${props => props.theme.colors.primary};
+                background-color: rgb(0, 92, 92);
+                color: #cbd2d6;
             }
         }
     }
@@ -115,7 +129,7 @@ export const ContainerMiniNavbar = styled.div `
             display: block;
             font-size: 13pt;
             padding-top: 3px;
-            color: ${props => props.theme.colors.text};
+            color: #cbd2d6;
         }
     }
 

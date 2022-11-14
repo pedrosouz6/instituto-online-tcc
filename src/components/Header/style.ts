@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ContainerHeader = styled.header `
-    width: calc(100% );
+    width: calc(100%);
     height: 70px;
     padding: 0 25px;
     border-bottom: 1px solid ${props => props.theme.colors.border};

@@ -25,7 +25,8 @@ import {
     MenuNavbar,
     ItemsNavbar,
     ContainerLogo,
-    ContainerMiniNavbar
+    ContainerMiniNavbar,
+    ItemTitleNavbar
 } from "./style";
 
 export function Navbar() {
@@ -56,7 +57,7 @@ export function Navbar() {
 
                 <ItemsNavbar isMiniNavbar={isMiniNavbar} >
                     <ul>
-                        <li> <i><HiHome /></i> <span>Home</span></li>
+                        <ItemTitleNavbar> <i><HiHome /></i> <span>Home</span></ItemTitleNavbar>
                         {
                             userType === 'administrador' &&
                             <li>
@@ -97,7 +98,7 @@ export function Navbar() {
 
                 <ItemsNavbar isMiniNavbar={isMiniNavbar}>
                     <ul>
-                        <li> <i><TbDeviceAnalytics /></i> <span>Dashboard</span></li>
+                        <ItemTitleNavbar> <i><TbDeviceAnalytics /></i> <span>Dashboard</span></ItemTitleNavbar>
 
                         <li>
                             <Link href="/calendar">

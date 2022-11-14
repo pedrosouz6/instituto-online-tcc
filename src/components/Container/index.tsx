@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { useButtonNavbar } from '../../hooks/ButtonNavbar';
 
-import { ContainerCenter } from "./style";
+import { ContainerCenter, DesignerContainer } from "./style";
 
 interface ContainerProps {
     children: ReactNode
@@ -15,6 +15,7 @@ export function Container({ children }: ContainerProps) {
     return (
         <ContainerCenter isMiniNavbar={isMiniNavbar}>
             { children }
+            <DesignerContainer isMiniNavbar={isMiniNavbar} />
         </ContainerCenter>
     )
 }

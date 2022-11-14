@@ -10,7 +10,8 @@ import {
     ContainerHeader,
     UserHeader,
     ImageUserHeader,
-    UserHeaderButton
+    UserHeaderButton,
+ 
 } from "./style";
 
 export function Header() {
@@ -27,6 +28,7 @@ export function Header() {
                 </UserHeaderButton>
                 { isItemsHeader && <ItemsHeader /> }
             </UserHeader>
+            
         </ContainerHeader>
     )
 }
