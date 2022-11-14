@@ -24,6 +24,12 @@ export const ContainerHeader = styled.header `
     }
 `
 
+export const GreetingMessageHeader = styled.p `
+    @media (max-width: 1100px) {
+        visibility: hidden;
+    }
+`
+
 export const UserHeader = styled.div `
     display: flex;
     align-items: center;

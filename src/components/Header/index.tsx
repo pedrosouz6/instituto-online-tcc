@@ -10,7 +10,8 @@ import { FaUserCog } from 'react-icons/fa';
 import { 
     ContainerHeader,
     UserHeader,
-    UserButtonHeader
+    UserButtonHeader,
+    GreetingMessageHeader
 } from "./style";
 import { useUsers } from "../../hooks/Users";
 
@@ -42,7 +43,7 @@ export function Header() {
 
     return (
         <ContainerHeader isMiniNavbar={isMiniNavbar}>
-            <p>{ greetingMessage }, { user.name }</p>
+            <GreetingMessageHeader>{ greetingMessage }, { user.name }</GreetingMessageHeader>
             <UserHeader>
                 <UserButtonHeader>
                     <button onClick={() => setisItemsThemeHeader(!isItemsThemeHeader)}>
