@@ -7,7 +7,7 @@ import dark from '../../../styles/themes/dark';
 
 interface ContextThemeType {
     title: string,
-    toggleTheme(): void
+    toggleTheme(themeChoose: string): void
 }
 
 interface ProviderThemeProps {
@@ -20,12 +20,12 @@ export default function ProviderTheme({ children }: ProviderThemeProps) {
 
     const [ theme, setTheme ] = useState(light);
 
-    function toggleTheme() {
-        setCookie(null, 'theme', theme.title === 'light' ? 'light' : 'dark', {
+    function toggleTheme(themeChoose: string) {
+        setCookie(null, 'theme', themeChoose, {
             maxAge: 30 * 24 * 60 * 60
         })
 
-        setTheme(theme.title === 'light' ? dark : light);
+        setTheme(themeChoose === 'dark' ? dark : light);
     }
 
     useEffect(() => {

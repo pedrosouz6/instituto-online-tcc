@@ -5,7 +5,7 @@ export const ContainerItemsHeader = styled.div `
     background-color: ${props => props.theme.colors.backgroundTable};
     border-radius: 3px;
     position: absolute;
-    top: 36px;
+    top: 40px;
     right: 0;
     z-index: 3;
 
@@ -13,11 +13,11 @@ export const ContainerItemsHeader = styled.div `
         display: block;
 
         position: absolute;
-        top: -15px;
-        right: 25px;
+        top: -12px;
+        right: 9px;
         color: ${props => props.theme.colors.backgroundTable};
 
-        font-size: 16pt;
+        font-size: 14pt;
     }
 `
 

@@ -117,6 +117,7 @@ export const ContainerMiniNavbar = styled.div `
     display: flex;
     justify-content: end;
     transition: ${props => props.theme.animation.main};
+    padding: 0 5px 0 2px;
 
     button {
         border: none;

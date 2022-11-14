@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 
+interface ContainerHeaderProps {
+    isMiniNavbar: boolean
+}
+
 export const ContainerHeader = styled.header `
-    width: calc(100%);
+    width: ${(props: ContainerHeaderProps) => props.isMiniNavbar ? 'calc(100% - 50px)' : 'calc(100% - 230px)'};
     height: 70px;
     padding: 0 25px;
     border-bottom: 1px solid ${props => props.theme.colors.border};
 
     display: flex;
     gap: 1rem;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
 
     position: absolute;
+    right: 0;
 
     @media (max-width: 1100px) {
         left: 0;
@@ -24,24 +29,40 @@ export const UserHeader = styled.div `
     align-items: center;
     gap: .3rem;
     position: relative;
+
+    button {
+        border: none;
+        outline: none;
+
+        i {
+            font-size: 14pt;
+            display: block;
+            color: ${props => props.theme.colors.text};
+        }
+    }
 `
 
+export const UserButtonHeader = styled.div `
+    display: flex;
+    gap: .7rem;
 
-export const UserHeaderButton = styled.button `
-    background: none;
-    color: ${props => props.theme.colors.text};
-    border: none;
-    cursor: pointer;
-    padding-top: 3px;
-    font-size: 12pt;
-`
+    button {
+        border: none;
+        outline: none;
+        background-color: ${props => props.theme.colors.background};
+        cursor: pointer;
+        width: 37px;
+        height: 37px;
+        border-radius: 50%;
 
-export const ImageUserHeader = styled.div `
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    border-radius: 50%;
-    background: ${props => props.theme.colors.text};
+
+        i {
+            font-size: 14pt;
+            display: block;
+            color: ${props => props.theme.colors.text};
+            padding-top: 3px;   
+        }
+    }
 `
 
 export const InfoUserHeader = styled.div `
