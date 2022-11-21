@@ -32,7 +32,7 @@ export default function ProviderTheme({ children }: ProviderThemeProps) {
         const { ['theme']: isThemeExist } = parseCookies(null);
 
         if(isThemeExist) {
-            setTheme(isThemeExist === 'light' ? dark : light);
+            setTheme(isThemeExist === 'light' ? light : dark);
         }
     }, []);
 

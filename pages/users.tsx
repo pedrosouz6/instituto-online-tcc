@@ -6,6 +6,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import { BsCalendarEvent } from 'react-icons/bs';
 
 import { axios, ErrorAxiosType } from "../src/axios";
 
@@ -125,6 +126,38 @@ export default function Users({ results }: UsersProps) {
         return setPageNumber(pageNumber - 1);
     }
 
+    function monthName(month: string) {
+        let name = '';
+        switch (month) {
+            case '1':
+                return name = "Janeiro";
+            case '2':
+                return name = "Fevereiro";
+            case '3':
+                return name = "Março";
+            case '4':
+                return name = "Abril";
+            case '5':
+                return name = "Maio";
+            case '6':
+                return name = "Junho";
+            case '7':
+                return name = "Julho";
+            case '8':
+                return name = "Agosto";
+            case '9':
+                return name = "Setembro";
+            case '10':
+                return name = "Outubro";
+            case '11':
+                return name = "Novembro";
+            case '12':
+                return name = "Dezembro";
+            default:
+                return name = "Mês inexistente";
+        }
+    }
+
     useEffect(() => {
         const getUser = async (): Promise<void> => {
             setIsLoading(true);
@@ -238,8 +271,9 @@ export default function Users({ results }: UsersProps) {
                             <tbody>
                                 { allUsers &&
                                     allUsers.results.map((item, key) => {
-                                        const date = item.date.split('T')[0];
+                                        const date: any = item.date.split('T')[0];
                                         const dateArray = date.split('-');
+                                        const month = monthName(dateArray[1]);
                                         
                                         return <tr key={key}>
                                             <td>{ item.id }</td>
@@ -247,7 +281,7 @@ export default function Users({ results }: UsersProps) {
                                             <td>{ item.email }</td>
                                             <td>{ item.office }</td>
                                             <td>{ item.telephone }</td>
-                                            <td>{ dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0] }</td>  
+                                            <td> <i><BsCalendarEvent /></i> { dateArray[2] + ' de ' + month + ', ' + dateArray[0] }</td>  
                                             <td>{ item.cpf }</td>
                                             <ButtonActions>
                                                 <ButtonDeleteUsers onClick={() => openModalDeleteUser(item.id)}><i><AiOutlineClose /></i></ButtonDeleteUsers>

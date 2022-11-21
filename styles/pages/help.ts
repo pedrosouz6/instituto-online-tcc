@@ -76,7 +76,7 @@ export const ToViewTableHelp = styled.td `
 `
 
 export const ContainerTableHelp = styled.div `
-margin-top: 2rem;
+    margin-top: 2rem;
     width: 100%;
     padding: 0 15px;
     overflow: auto;

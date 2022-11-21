@@ -4,14 +4,14 @@ export const ContainerUsers = styled.section `
     max-width: 1200px;
     margin: 2rem auto;
 
-    border: 1px solid rgba(0, 0, 0, .2);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
     padding-bottom: 15px;
     border-radius: 2px;
 `
 
 export const HeaderUsers = styled.div `
     height: 50px;
-    background: ${props => props.theme.colors.primary};
+    background-color: ${props => props.theme.colors.primary};
 
     display: flex;
     justify-content: space-between;
@@ -66,6 +66,10 @@ export const FilterUsers = styled.div `
     display: flex;
     gap: 6px;
 
+    label {
+        font-size: 10pt;
+    }
+
     select {
         width: 50px;
         border: none;
@@ -79,12 +83,15 @@ export const SearchUsers = styled.div `
     align-items: center;
     gap: .5rem;
 
+    label {
+        font-size: 10pt;
+    }
+
     input {
-        width: 180px;
-        border: 1px solid ${props => props.theme.colors.border};
+        width: 170px;
+        border: 1px solid rgba(0, 0, 0, .2);
         outline: none;
-        padding: 5px;
-        border-radius: 3px;
+        padding: 4px 5px;
     }
 `
 
@@ -111,13 +118,13 @@ export const TableUsers = styled.table `
     thead {
         td {
             text-align: center;
-            padding: 6px 3px;
+            padding: 10px 3px;
             background-color: ${props => props.theme.colors.backgroundTable};
             font-weight: 500;
             border-left: 1px solid ${props => props.theme.colors.backgroundTable};
         }
     }
-
+    
     td {
         font-size: 10pt;
     }
@@ -132,8 +139,7 @@ export const TableUsers = styled.table `
         }
         
         td {
-            padding: 5px;
-            border: 1px solid ${props => props.theme.colors.backgroundTable};
+            padding: 8px 5px;
             text-align: center;
         }
 
