@@ -60,7 +60,7 @@ export const TableDocs = styled.table `
     }
 
     td {
-        padding: 5px 15px;
+        padding: 10px 15px;
         font-size: 10pt;
 
         button {
@@ -84,5 +84,56 @@ export const TableDocs = styled.table `
 
     tbody tr {
         border-bottom: 1px solid ${props => props.theme.colors.border};
+    }
+`
+
+export const TdButtonAddDocs = styled.td `
+    position: relative;
+
+    button {
+        display: block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &:hover {
+        div {
+            opacity: 1;
+            visibility: visible;
+            top: 8px;
+        }
+    }
+
+    div {
+        background-color: ${props => props.theme.colors.background};
+        border: 1px solid ${props => props.theme.colors.backgroundDesigner};
+        padding: 5px;
+        border-radius: 4px;
+        opacity: 0;
+        visibility: hidden;
+        display: flex;
+        gap: .2rem;
+        position: absolute;
+        top: 0px;
+        left: -130px;
+        transition: .3s ease-out;
+    }
+
+    button {
+        border: none;
+        outline: none;
+        background: ${props => props.theme.colors.primary};
+        color: white;
+        font-size: 8pt;
+
+        padding: 5px 30px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: .3s ease-in-out;
+
+        &:hover {
+            opacity: .8;
+        }
     }
 `

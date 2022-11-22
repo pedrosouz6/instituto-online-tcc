@@ -6,6 +6,7 @@ import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
 import { Title } from "../src/components/Title";
 
+import { ModalViewProfile } from "../src/components/Modals/ViewProfile";
 import { ModalAddDocs } from "../src/components/Modals/AddDocs";
 
 import { 
@@ -14,8 +15,10 @@ import {
     HeaderProjectDocs,
     HeaderButtonAddDocs,
     ContainerTableDocs,
-    TableDocs
+    TableDocs,
+    TdButtonAddDocs
 } from "../styles/docs";
+
 import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
 import { parseCookies } from "nookies";
 import { axios, ErrorAxiosType } from "../src/axios";
@@ -25,12 +28,19 @@ import { useMessageModal } from "../src/hooks/ModalMessage";
 import { AxiosError } from "axios";
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 
+interface ProjectUser {
+    id: number,
+    name: string,
+    name_projects: string,
+    id_project_user: string
+}
+
 interface GetUsersResults {
     message: string,
     error: boolean,
     totalPages: number,
     totalUsers: number,
-    results: Array<User>
+    results: Array<ProjectUser>
 }
 
 export interface ValidateTokenResults {
@@ -39,20 +49,27 @@ export interface ValidateTokenResults {
     results: Array<User>
 }
 
+interface AddProjectUserResponse {
+    error: boolean,
+    message: string
+}
+
 type UsersType = GetUsersResults | undefined;
 
 export default function Docs() {
 
     const { ErrorModalMessage, TextModalMessage, ShowModalMessage } = useMessageModal();
 
+    const [ isModalViewProfile, setIsModalViewProfile ] = useState<boolean>(false);
+    const [ filterProject, setFilterProject ] = useState<string | null>(null);
 
     const [ openModalAddDocs, setOpenModalAddDocs ] = useState<boolean>(false);
+    const [ id, setId ] = useState<number | null>(null); 
 
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
     const [ pageNumber, setPageNumber ] = useState<number>(1);
     const [ totalPages, setTotalPages ] = useState<number | null>(null);
-    const [ searchUser, setSearchUser ] = useState<string>('');
 
     const [ allUsers, setAllUsers ] = useState<UsersType | undefined>(undefined);
 
@@ -77,12 +94,35 @@ export default function Docs() {
         return setPageNumber(pageNumber - 1);
     }
 
+    function openModalViewProfile(id: number | null) {
+        setIsModalViewProfile(true);
+        setId(id);
+    }
+
+    function closeModalViewProfile() {
+        setIsModalViewProfile(false);
+    }
+
+    async function addProjectUser(idProject: number, idUser: number) {
+        setIsLoading(true);
+        const response = await axios.post(`/add-projectUser`, {
+            id_user: idUser,
+            id_project: idProject
+        });
+
+        const respost: AddProjectUserResponse = await response.data;
+        ErrorModalMessage(respost.error);
+        TextModalMessage(respost.message);
+        ShowModalMessage(true);
+        return setIsLoading(false);
+    }
+
     useEffect(() => {
         const getUser = async (): Promise<void> => {
             setIsLoading(true);
 
             try {
-                const response = await axios.get(`/get-docs/10/${pageNumber}/${searchUser ? searchUser : 'null'}`);
+                const response = await axios.get(`/get-projectUser/${filterProject ? filterProject : 'null'}/${pageNumber}`);
                 const respost: GetUsersResults = await response.data;
 
                 if(respost.error) {
@@ -94,7 +134,6 @@ export default function Docs() {
 
                 setTotalPages(respost.totalPages);
                 setAllUsers(respost);
-                console.log(respost)
                 return setIsLoading(false);
 
             } catch(err) {
@@ -108,7 +147,7 @@ export default function Docs() {
         }
 
         getUser();
-    }, [pageNumber, searchUser]);
+    }, [pageNumber, filterProject]);
 
     return (
         <>
@@ -116,6 +155,12 @@ export default function Docs() {
             <ContainerAnimationModal isAnimation={openModalAddDocs}>
                 <AnimationModal isAnimation={openModalAddDocs}>
                     { openModalAddDocs && <ModalAddDocs toggleModalCloseDocs={toggleModalCloseDocs} /> }
+                </AnimationModal>
+            </ContainerAnimationModal>
+
+            <ContainerAnimationModal isAnimation={isModalViewProfile}>
+                <AnimationModal isAnimation={isModalViewProfile}>
+                    { isModalViewProfile && <ModalViewProfile closeModalViewProfile={closeModalViewProfile} id={id} /> }
                 </AnimationModal>
             </ContainerAnimationModal>
 
@@ -131,8 +176,12 @@ export default function Docs() {
                     <HeaderDocs>
                         <HeaderProjectDocs>
                             <label htmlFor="project">Projetos</label>
-                            <select name="project" id="project">
-                                <option value="ballet">Balé</option>
+                            <select name="project" id="project" onChange={e => setFilterProject(e.target.value)}>
+                                <option selected disabled>Escolha o projeto</option>
+                                <option value="Balé">Balé</option>
+                                <option value="Judô">Judô</option>
+                                <option value="Creches comunitárias">Creches comunitárias</option>
+                                <option value="Horta">Horta</option>
                             </select>
                         </HeaderProjectDocs>
 
@@ -147,21 +196,25 @@ export default function Docs() {
                             <thead>
                                 <tr>
                                     <td>Nome</td>
-                                    <td>Projeto Participantes</td>
-                                    <td colSpan={2}>Data de criação</td>
+                                    <td colSpan={3}>Projeto Participantes</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 { allUsers &&
                                     allUsers.results.map((item, key) => {
-                                        const date: any = item.date.split('T')[0];
-                                        const dateArray = date.split('-');
-                                        
                                         return <tr key={key}>
                                             <td>{ item.name }</td>
-                                            <td>{ item.office }</td>
-                                            <td>{ dateArray[2] + ' de ' + dateArray[1] + ', ' + dateArray[0] }</td>  
-                                            <td><button>Ver perfil</button></td>
+                                            <td>{ item.name_projects }</td>
+                                            <td><button onClick={() => openModalViewProfile(item.id)}>Ver perfil</button></td>
+                                            <TdButtonAddDocs>
+                                                <span>Adicionar projeto</span>
+                                                <div>
+                                                    <button onClick={() => addProjectUser(1, item.id)}>Balé</button>
+                                                    <button onClick={() => addProjectUser(2, item.id)}>Judô</button>
+                                                    <button onClick={() => addProjectUser(3, item.id)}>Creches</button>
+                                                    <button onClick={() => addProjectUser(4, item.id)}>Horta</button>
+                                                </div>
+                                            </TdButtonAddDocs>
                                         </tr>
                                     })
                                 }   
