@@ -60,12 +60,12 @@ export function ModalViewProfile({ id, closeModalViewProfile }: ModalDeleteUserP
                 <MainModalDeleteUser>
                     <span>Nome: { user?.results[0].name }</span>
                     <span>Projetos participante: { user?.results.map((item, key) => (
-                        <p>{item.name_projects}</p>   
+                        <p key={key}>{item.name_projects}</p>   
                     )) }</span>
                 </MainModalDeleteUser>
 
                 <FooterModalDeleteUser>
-                    <ButtonCancelModalDeleteUser onClick={() => closeModalViewProfile()}>Cancelar</ButtonCancelModalDeleteUser>
+                    <ButtonCancelModalDeleteUser onClick={() => closeModalViewProfile()}>Fechar</ButtonCancelModalDeleteUser>
                 </FooterModalDeleteUser>
             </ModalModalDeleteUser>
         </ContainerModalDeleteUser>
