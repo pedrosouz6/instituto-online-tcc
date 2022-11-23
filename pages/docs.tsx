@@ -35,18 +35,12 @@ interface ProjectUser {
     id_project_user: string
 }
 
-interface Pro {
-    id_project_user: string,
-    id_user: number,
-    id_project: string
-}
-
 interface GetUsersResults {
     message: string,
     error: boolean,
     totalPages: number,
     totalUsers: number,
-    results: Array<Pro>
+    results: Array<ProjectUser>
 }
 
 export interface ValidateTokenResults {
@@ -209,16 +203,16 @@ export default function Docs() {
                                 { allUsers &&
                                     allUsers.results.map((item, key) => {
                                         return <tr key={key}>
-                                            <td>{ item.id_project }</td>
-                                            <td>{ item.id_project_user }</td>
-                                            <td><button onClick={() => openModalViewProfile(item.id_user)}>Ver perfil</button></td>
+                                            <td>{ item.name }</td>
+                                            <td>{ item.name_projects }</td>
+                                            <td><button onClick={() => openModalViewProfile(item.id)}>Ver perfil</button></td>
                                             <TdButtonAddDocs>
                                                 <span>Adicionar projeto</span>
                                                 <div>
-                                                    <button onClick={() => addProjectUser(1, item.id_user)}>Balé</button>
-                                                    <button onClick={() => addProjectUser(2, item.id_user)}>Judô</button>
-                                                    <button onClick={() => addProjectUser(3, item.id_user)}>Creches</button>
-                                                    <button onClick={() => addProjectUser(4, item.id_user)}>Horta</button>
+                                                    <button onClick={() => addProjectUser(1, item.id)}>Balé</button>
+                                                    <button onClick={() => addProjectUser(2, item.id)}>Judô</button>
+                                                    <button onClick={() => addProjectUser(3, item.id)}>Creches</button>
+                                                    <button onClick={() => addProjectUser(4, item.id)}>Horta</button>
                                                 </div>
                                             </TdButtonAddDocs>
                                         </tr>
