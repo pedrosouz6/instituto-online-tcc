@@ -61,7 +61,7 @@ export function Navbar() {
                         <Image src='/logo_final.png'
                         alt="Logo Instituto Manasses"
                         width={150}
-                        height={60} /> 
+                        height={35} /> 
                     }
                 </ContainerLogo>
 
