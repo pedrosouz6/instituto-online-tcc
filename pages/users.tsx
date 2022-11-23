@@ -129,23 +129,23 @@ export default function Users({ results }: UsersProps) {
     function monthName(month: string) {
         let name = '';
         switch (month) {
-            case '1':
+            case '01':
                 return name = "Janeiro";
-            case '2':
+            case '02':
                 return name = "Fevereiro";
-            case '3':
+            case '03':
                 return name = "Março";
-            case '4':
+            case '04':
                 return name = "Abril";
-            case '5':
+            case '05':
                 return name = "Maio";
-            case '6':
+            case '06':
                 return name = "Junho";
-            case '7':
+            case '07':
                 return name = "Julho";
-            case '8':
+            case '08':
                 return name = "Agosto";
-            case '9':
+            case '09':
                 return name = "Setembro";
             case '10':
                 return name = "Outubro";

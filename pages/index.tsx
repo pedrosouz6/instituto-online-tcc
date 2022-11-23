@@ -184,7 +184,6 @@ export default function Login() {
                             </FormInputLogin>
                         </FormContainerInputLogin>
 
-                        <a href="#">Não lembro a senha</a>
                         { isInputEmpty && <MessageIsInputEmpty>Preecha o(s) campo(s) acima</MessageIsInputEmpty> }
 
                         <FormButtonLogin type="submit">Entrar</FormButtonLogin>
