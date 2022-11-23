@@ -70,22 +70,6 @@ export function Navbar() {
                             </li>
                         }
                         <li>
-                            <Link href="/appearance">
-                                <a className={pathname === '/appearance' ? 'active' : ''}>  
-                                    <i><MdScreenSearchDesktop /></i> 
-                                    <span>Aparência</span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/settings">
-                                <a className={pathname === '/settings' ? 'active' : ''}> 
-                                    <i><AiFillTool /></i> 
-                                    <span>Configurações</span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
                             <Link href="/help">
                                 <a className={pathname === '/help' ? 'active' : ''}>
                                     <i><IoMdHelp /></i> 
