@@ -42,19 +42,6 @@ export function ModalEditProfile({ closeModalEditProfile }: ModalEditProfileProp
     return (
         <ContainerModalEditProfile>
             <ModalModalEditProfile>
-                <LeftModalEditProfile>
-                    <ImageLeftModalEditProfile>
-
-                    </ImageLeftModalEditProfile>
-                    <NameLeftModalEditProfile>
-                        { user.name }
-                    </NameLeftModalEditProfile>
-                    <OfficeLeftModalEditProfile>
-                        { user.office }
-                    </OfficeLeftModalEditProfile>
-                    <label htmlFor="editPhoto">Mudar foto</label>
-                    <ButtonChangePhotoLeftModalEditProfile id="editPhoto" type="file" />
-                </LeftModalEditProfile> 
                 <RightModalEditProfile>
                     <RightHeaderModalEditProfile>
                         <h2>Minha conta</h2>

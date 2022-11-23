@@ -34,6 +34,10 @@ export const ContainerNavbar = styled.div `
 
 export const ContainerLogo = styled.div `
     height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
 `
 
 export const MenuNavbar = styled.div `

@@ -44,7 +44,7 @@ export const HeaderButtonsUsers = styled.div `
         color: white;
 
         i {
-            color: ${props => props.theme.colors.background};
+            color: white;
             display: block;
             padding-top: 3px;
             font-size: 11pt;

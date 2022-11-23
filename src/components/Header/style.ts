@@ -12,7 +12,7 @@ export const ContainerHeader = styled.header `
 
     display: flex;
     gap: 1rem;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
 
     position: absolute;
@@ -21,12 +21,6 @@ export const ContainerHeader = styled.header `
     @media (max-width: 1100px) {
         left: 0;
         width: 100%;
-    }
-`
-
-export const GreetingMessageHeader = styled.p `
-    @media (max-width: 1100px) {
-        visibility: hidden;
     }
 `
 

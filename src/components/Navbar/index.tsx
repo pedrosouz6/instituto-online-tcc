@@ -28,6 +28,7 @@ import {
     ContainerMiniNavbar,
     ItemTitleNavbar
 } from "./style";
+import Image from 'next/image';
 
 export function Navbar() {
 
@@ -52,12 +53,33 @@ export function Navbar() {
             </MenuNavbar>
             <ContainerNavbar isMenuResponsive={isMenuResponsive} isMiniNavbar={isMiniNavbar}>
                 <ContainerLogo>
-                    <h1>{ isMiniNavbar ? "L" : "Logo" }</h1>
+                    { isMiniNavbar ? 
+                    <Image src='/logo_final_pq.png'
+                        alt="Logo Instituto Manasses"
+                        width={40}
+                        height={40} /> : 
+                        <Image src='/logo_final.png'
+                        alt="Logo Instituto Manasses"
+                        width={150}
+                        height={60} /> 
+                    }
                 </ContainerLogo>
 
                 <ItemsNavbar isMiniNavbar={isMiniNavbar} >
                     <ul>
-                        <ItemTitleNavbar> <i><HiHome /></i> <span>Home</span></ItemTitleNavbar>
+
+
+                        {
+                            userType === 'administrador' &&
+                            <li>
+                                <Link href="/home">
+                                    <a className={pathname === '/home' ? 'active' : ''}> 
+                                        <i><HiHome /></i> <span>Home</span>
+                                    </a>
+                                </Link>
+                            </li>
+                        }
+
                         {
                             userType === 'administrador' &&
                             <li>
@@ -92,30 +114,17 @@ export function Navbar() {
                                 </a>
                             </Link>
                         </li>
-                        <li>
-                            <Link href="/docs">
-                                <a className={pathname === '/docs' ? 'active' : ''}> 
-                                    <i><HiDocumentDuplicate /></i> 
-                                    <span>Documentos</span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/sendEmail"> 
-                                <a className={pathname === '/sendEmail' ? 'active' : ''}> 
-                                    <i><SiMinutemailer /></i> 
-                                    <span>Disparos de E-mails</span>
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/invoicing">
-                                <a className={pathname === 'invoicing' ? 'active' : ''}> 
-                                    <i><FaMoneyCheck /></i> 
-                                    <span>Faturamento</span>
-                                </a>
-                            </Link>
-                        </li>
+                        {
+                            userType === 'administrador' &&
+                                <li>
+                                    <Link href="/docs">
+                                        <a className={pathname === '/docs' ? 'active' : ''}> 
+                                            <i><HiDocumentDuplicate /></i> 
+                                            <span>Documentos</span>
+                                        </a>
+                                    </Link>
+                                </li>
+                        }
                     </ul>
                 </ItemsNavbar>
 

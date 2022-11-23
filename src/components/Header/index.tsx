@@ -11,7 +11,6 @@ import {
     ContainerHeader,
     UserHeader,
     UserButtonHeader,
-    GreetingMessageHeader
 } from "./style";
 import { useUsers } from "../../hooks/Users";
 
@@ -43,7 +42,6 @@ export function Header() {
 
     return (
         <ContainerHeader isMiniNavbar={isMiniNavbar}>
-            <GreetingMessageHeader>{ greetingMessage }, { user.name }</GreetingMessageHeader>
             <UserHeader>
                 <UserButtonHeader>
                     <button onClick={() => setisItemsThemeHeader(!isItemsThemeHeader)}>

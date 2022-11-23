@@ -104,7 +104,7 @@ export default function Login() {
             
             setTimeout(() => {
                 if(respost.results[0].office === 'administrador') {
-                    router.push('/users');
+                    router.push('/home');
                     return setIsLoading(false);
                 } 
 
