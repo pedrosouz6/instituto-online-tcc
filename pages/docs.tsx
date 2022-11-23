@@ -1,46 +1,58 @@
 import Head from "next/head";
-import { useState, useEffect } from 'react'; 
+import { useEffect, useState } from "react";
 
-import { Container } from "../src/components/Container";
+import { BsFillPersonPlusFill } from 'react-icons/bs';
+import { AiOutlineClose } from 'react-icons/ai';
+import { AiTwotoneEdit } from 'react-icons/ai';
+import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
+import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import { BsCalendarEvent } from 'react-icons/bs';
+
+import { axios, ErrorAxiosType } from "../src/axios";
+
+import { Container } from "../src/components/Container"; 
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
-import { Title } from "../src/components/Title";
 
-import { ModalViewProfile } from "../src/components/Modals/ViewProfile";
-import { ModalAddDocs } from "../src/components/Modals/AddDocs";
+import { ModalAddUser } from '../src/components/Modals/AddDocs';
+import { ModalDeleteUser } from "../src/components/Modals/DeleteUser";
+import { ModalUpdateUser } from "../src/components/Modals/UpdateUser";
+
+import { useUsers } from "../src/hooks/Users";
+import { parseCookies } from "nookies";
+
+import { User } from '../src/contexts/Users';
+import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
 
 import { 
-    ContainerDocs,
-    HeaderDocs,
-    HeaderProjectDocs,
-    HeaderButtonAddDocs,
-    ContainerTableDocs,
-    TableDocs,
-    TdButtonAddDocs
-} from "../styles/docs";
+    ContainerUsers, 
+    HeaderUsers,
+    HeaderButtonsUsers,
+    ContainerFilterSearchUsers,
+    TableUsers,
+    FilterUsers,
+    SearchUsers,
+    ButtonDeleteUsers,
+    ButtonEditUsers,
+    ButtonActions,
+    ContainerTableUsers,
+    ContainerPaginationUsers,
+    PaginationUsers,
+    PaginationButtonActiveUsers,
+    PaginationButtonArrowUsers,
+    InfoPaginationUsers
+} from "../styles/pages/docs";
 
-import { AnimationModal, ContainerAnimationModal } from "../src/components/Modals/Animations/style";
-import { parseCookies } from "nookies";
-import { axios, ErrorAxiosType } from "../src/axios";
-import { ContainerPaginationUsers, InfoPaginationUsers, PaginationButtonActiveUsers, PaginationButtonArrowUsers, PaginationUsers } from "../styles/pages/users";
-import { User } from "../src/contexts/Users";
 import { useMessageModal } from "../src/hooks/ModalMessage";
 import { AxiosError } from "axios";
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
-
-interface ProjectUser {
-    id: number,
-    name: string,
-    name_projects: string,
-    id_project_user: string
-}
+import { Loading } from "../src/components/Loading";
 
 interface GetUsersResults {
     message: string,
     error: boolean,
     totalPages: number,
     totalUsers: number,
-    results: Array<ProjectUser>
+    results: Array<User>
 }
 
 export interface ValidateTokenResults {
@@ -49,33 +61,54 @@ export interface ValidateTokenResults {
     results: Array<User>
 }
 
-interface AddProjectUserResponse {
-    error: boolean,
-    message: string
+interface UsersProps {
+    results: User
 }
 
 type UsersType = GetUsersResults | undefined;
 
-export default function Docs() {
-
+export default function Users({ results }: UsersProps) {
+    
+    const { updatedUsers, setUser, setUserType } = useUsers();
     const { ErrorModalMessage, TextModalMessage, ShowModalMessage } = useMessageModal();
 
-    const [ isModalViewProfile, setIsModalViewProfile ] = useState<boolean>(false);
-    const [ filterProject, setFilterProject ] = useState<string | null>(null);
+    setUser(results);
+    setUserType(results.office);
 
-    const [ openModalAddDocs, setOpenModalAddDocs ] = useState<boolean>(false);
-    const [ id, setId ] = useState<number | null>(null); 
+    const [ displayingUser, setDisplayingUser ] = useState<string>("10");
+    const [ pageNumber, setPageNumber ] = useState<number>(1);
+    const [ totalPages, setTotalPages ] = useState<number | null>(null);
+    const [ searchUser, setSearchUser ] = useState<string>('');
 
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
-    const [ pageNumber, setPageNumber ] = useState<number>(1);
-    const [ totalPages, setTotalPages ] = useState<number | null>(null);
+    const [ isOpenModalAddUser, setIsOpenModalAddUser ] = useState<boolean>(false);
+    const [ isOpenModalDeleteUser, setIsOpenModalDeleteUser ] = useState<boolean>(false);
+    const [ isOpenModalUpdateUser, setIsOpenModalUpdateUser ] = useState<boolean>(false);
+    const [ userId, setUserId ] = useState<number | null>(null);
 
     const [ allUsers, setAllUsers ] = useState<UsersType | undefined>(undefined);
 
+    function toggleModalAddUser() {
+        setIsOpenModalAddUser(!isOpenModalAddUser);
+    }
 
-    function toggleModalCloseDocs() {
-        setOpenModalAddDocs(false);
+    function openModalDeleteUser(id: number | null) {
+        setIsOpenModalDeleteUser(true);
+        setUserId(id);
+    }
+
+    function closeModalDeleteUser() {
+        setIsOpenModalDeleteUser(false);
+    }
+
+    function openModalUpdateUser(id: number | null) {
+        setIsOpenModalUpdateUser(true);
+        setUserId(id);
+    }
+
+    function closeModalUpdateUser() {
+        setIsOpenModalUpdateUser(false);
     }
 
     function nextPage() {
@@ -94,27 +127,36 @@ export default function Docs() {
         return setPageNumber(pageNumber - 1);
     }
 
-    function openModalViewProfile(id: number | null) {
-        setIsModalViewProfile(true);
-        setId(id);
-    }
-
-    function closeModalViewProfile() {
-        setIsModalViewProfile(false);
-    }
-
-    async function addProjectUser(idProject: number, idUser: number) {
-        setIsLoading(true);
-        const response = await axios.post(`/add-projectUser`, {
-            id_user: idUser,
-            id_project: idProject
-        });
-
-        const respost: AddProjectUserResponse = await response.data;
-        ErrorModalMessage(respost.error);
-        TextModalMessage(respost.message);
-        ShowModalMessage(true);
-        return setIsLoading(false);
+    function monthName(month: string) {
+        let name = '';
+        switch (month) {
+            case '1':
+                return name = "Janeiro";
+            case '2':
+                return name = "Fevereiro";
+            case '3':
+                return name = "Março";
+            case '4':
+                return name = "Abril";
+            case '5':
+                return name = "Maio";
+            case '6':
+                return name = "Junho";
+            case '7':
+                return name = "Julho";
+            case '8':
+                return name = "Agosto";
+            case '9':
+                return name = "Setembro";
+            case '10':
+                return name = "Outubro";
+            case '11':
+                return name = "Novembro";
+            case '12':
+                return name = "Dezembro";
+            default:
+                return name = "Mês inexistente";
+        }
     }
 
     useEffect(() => {
@@ -122,7 +164,7 @@ export default function Docs() {
             setIsLoading(true);
 
             try {
-                const response = await axios.get(`/get-projectUser/${filterProject ? filterProject : 'null'}/${pageNumber}`);
+                const response = await axios.get(`/get-usersProjects/${displayingUser}/${pageNumber}/${searchUser ? searchUser : 'null'}`);
                 const respost: GetUsersResults = await response.data;
 
                 if(respost.error) {
@@ -147,83 +189,112 @@ export default function Docs() {
         }
 
         getUser();
-    }, [pageNumber, filterProject]);
+    }, [updatedUsers, displayingUser, pageNumber, searchUser]);
 
     return (
         <>
-
-            <ContainerAnimationModal isAnimation={openModalAddDocs}>
-                <AnimationModal isAnimation={openModalAddDocs}>
-                    { openModalAddDocs && <ModalAddDocs toggleModalCloseDocs={toggleModalCloseDocs} /> }
-                </AnimationModal>
-            </ContainerAnimationModal>
-
-            <ContainerAnimationModal isAnimation={isModalViewProfile}>
-                <AnimationModal isAnimation={isModalViewProfile}>
-                    { isModalViewProfile && <ModalViewProfile closeModalViewProfile={closeModalViewProfile} id={id} /> }
-                </AnimationModal>
-            </ContainerAnimationModal>
-
             <Head>
-                <title>Documentos</title>
+                <title>Usuários</title>
             </Head>
-            <Navbar />
+
+            { isLoading && <Loading /> }
+
             <Header />
+            <Navbar />
+
+            <ContainerAnimationModal isAnimation={isOpenModalAddUser}>
+                <AnimationModal isAnimation={isOpenModalAddUser}>
+                    { isOpenModalAddUser && <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
+                </AnimationModal>
+            </ContainerAnimationModal>
+
+            <ContainerAnimationModal isAnimation={isOpenModalDeleteUser}>
+                <AnimationModal isAnimation={isOpenModalDeleteUser}>
+                    { isOpenModalDeleteUser && <ModalDeleteUser closeModalDeleteUser={closeModalDeleteUser} id={userId} /> }
+                </AnimationModal>
+            </ContainerAnimationModal>
+
+            <ContainerAnimationModal isAnimation={isOpenModalUpdateUser}>
+                <AnimationModal isAnimation={isOpenModalUpdateUser}>
+                    { isOpenModalUpdateUser && <ModalUpdateUser closeModalUpdateUser={closeModalUpdateUser} id={userId} /> }
+                </AnimationModal>
+            </ContainerAnimationModal>
+
             <Container>
-                <ContainerDocs>
-                    <Title text='Documentos' />
-                    
-                    <HeaderDocs>
-                        <HeaderProjectDocs>
-                            <label htmlFor="project">Projetos</label>
-                            <select name="project" id="project" onChange={e => setFilterProject(e.target.value)}>
-                                <option selected disabled>Escolha o projeto</option>
-                                <option value="Balé">Balé</option>
-                                <option value="Judô">Judô</option>
-                                <option value="Creches comunitárias">Creches comunitárias</option>
-                                <option value="Horta">Horta</option>
+                <HeaderUsers>
+                    <h3>Documentos</h3>
+
+                    <HeaderButtonsUsers>
+                        <button onClick={() => toggleModalAddUser()}><i><BsFillPersonPlusFill /></i> Novo</button>
+                    </HeaderButtonsUsers>
+                </HeaderUsers>
+                <ContainerUsers>
+
+                    <ContainerFilterSearchUsers>
+                        <FilterUsers>
+                            <label>Exibindo</label>
+                            <select onChange={e => setDisplayingUser(e.target.value)}>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="10" selected>10</option>
                             </select>
-                        </HeaderProjectDocs>
+                            <label>por página</label>
+                        </FilterUsers>
+                        <SearchUsers>
+                            <label htmlFor="searchUser">Pesquisar</label>
+                            <input 
+                            type="text" 
+                            id="searchUser" 
+                            value={searchUser}
+                            placeholder="Pesquisar..."
+                            onChange={e => setSearchUser(e.target.value)}
+                            />
+                        </SearchUsers>
+                    </ContainerFilterSearchUsers>
 
-                        <HeaderButtonAddDocs>
-                            <button onClick={() => setOpenModalAddDocs(true)}>Adicionar</button>
-                        </HeaderButtonAddDocs>
-                    </HeaderDocs>
+                    <ContainerTableUsers>
 
-                    <ContainerTableDocs>
-
-                        <TableDocs>
+                        <TableUsers>
                             <thead>
                                 <tr>
                                     <td>Nome</td>
-                                    <td colSpan={3}>Projeto Participantes</td>
+                                    <td>Email</td>
+                                    <td>Projeto</td>
+                                    <td>Telefone</td>
+                                    <td>Nascimento</td>
+                                    <td>CPF</td>
+                                    <td>Ações</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 { allUsers &&
                                     allUsers.results.map((item, key) => {
+                                        const date: any = item.date.split('T')[0];
+                                        const dateArray = date.split('-');
+                                        const month = monthName(dateArray[1]);
+                                        
                                         return <tr key={key}>
                                             <td>{ item.name }</td>
-                                            <td>{ item.name_projects }</td>
-                                            <td><button onClick={() => openModalViewProfile(item.id)}>Ver perfil</button></td>
-                                            <TdButtonAddDocs>
-                                                <span>Adicionar projeto</span>
-                                                <div>
-                                                    <button onClick={() => addProjectUser(1, item.id)}>Balé</button>
-                                                    <button onClick={() => addProjectUser(2, item.id)}>Judô</button>
-                                                    <button onClick={() => addProjectUser(3, item.id)}>Creches</button>
-                                                    <button onClick={() => addProjectUser(4, item.id)}>Horta</button>
-                                                </div>
-                                            </TdButtonAddDocs>
+                                            <td>{ item.email }</td>
+                                            <td>{ item.office }</td>
+                                            <td>{ item.telephone }</td>
+                                            <td> <i><BsCalendarEvent /></i> { dateArray[2] + ' de ' + month + ', ' + dateArray[0] }</td>  
+                                            <td>{ item.cpf }</td>
+                                            <ButtonActions>
+                                                <ButtonDeleteUsers onClick={() => openModalDeleteUser(item.id)}><i><AiOutlineClose /></i></ButtonDeleteUsers>
+                                                <ButtonEditUsers onClick={() => openModalUpdateUser(item.id)}><i><AiTwotoneEdit /></i></ButtonEditUsers>
+                                            </ButtonActions>
                                         </tr>
                                     })
                                 }   
-                            </tbody> 
-                        </TableDocs>
-                    </ContainerTableDocs>
+                            </tbody>
+                        </TableUsers>
+                    </ContainerTableUsers>
                     <ContainerPaginationUsers>
                         <InfoPaginationUsers>
-                            <span>Mostrando 10 de { allUsers?.totalUsers } registros</span>
+                            <span>Mostrando { displayingUser } de { allUsers?.totalUsers } registros</span>
                         </InfoPaginationUsers>
                         <PaginationUsers>
                             <PaginationButtonArrowUsers onClick={() => prevPage()}><MdOutlineKeyboardArrowLeft /></PaginationButtonArrowUsers>
@@ -231,7 +302,7 @@ export default function Docs() {
                             <PaginationButtonArrowUsers onClick={() => nextPage()}><MdOutlineKeyboardArrowRight /></PaginationButtonArrowUsers>
                         </PaginationUsers>
                     </ContainerPaginationUsers>
-                </ContainerDocs>
+                </ContainerUsers>
             </Container>
         </>
     )

@@ -8,7 +8,6 @@ import {
     MainModalDeleteUser,
     FooterModalDeleteUser,
     ButtonCancelModalDeleteUser,
-    ButtonDeleteModalDeleteUser
 } from "./style";
 
 interface ModalDeleteUserProps {
