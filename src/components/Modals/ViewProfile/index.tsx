@@ -1,8 +1,6 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { axios, ErrorAxiosType } from "../../../axios";
-import { useMessageModal } from "../../../hooks/ModalMessage";
-import { useUsers } from "../../../hooks/Users";
 import { 
     ContainerModalDeleteUser,
     ModalModalDeleteUser,
