@@ -16,8 +16,8 @@ export const ModalModalEditProfile = styled.div `
 
     position: relative;
 
-    max-width: 900px;
-    height: 90vh;
+    max-width: 600px;
+    height: auto;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;

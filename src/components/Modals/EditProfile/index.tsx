@@ -42,67 +42,29 @@ export function ModalEditProfile({ closeModalEditProfile }: ModalEditProfileProp
     return (
         <ContainerModalEditProfile>
             <ModalModalEditProfile>
-                <RightModalEditProfile>
                     <RightHeaderModalEditProfile>
                         <h2>Minha conta</h2>
-                        <p>Visualize e edite as suas informações pessoais abaixo</p>
+                        <p>Visualize as suas informações pessoais abaixo</p>
                     </RightHeaderModalEditProfile>
 
                     <RightInfoModalEditProfile>
-                        <label>Email</label>
+
+                        <label><strong>Nome</strong></label>
+                        <span>{ user.name }</span>
+
+                        <label><strong>Email</strong></label>
                         <span>{ user.email }</span>
 
-                        <label>CPF</label>
+                        <label><strong>Telefone</strong></label>
+                        <span>{ user.telephone }</span>
+
+                        <label><strong>CPF</strong></label>
                         <span>{ user.cpf }</span>
 
+                        <label><strong>Cargo</strong></label>
+                        <span>{ user.office }</span>
+
                     </RightInfoModalEditProfile>
-
-                    <RightFormModalEditProfile>
-                        <RightFormContainerInputModalEditProfile>
-                            <label htmlFor="name">Nome</label>
-                            <FormInputModalEditProfile>
-                                <input 
-                                    type="text" 
-                                    id="name" 
-                                    value={name}
-                                    placeholder='Nome'
-                                />
-
-                            </FormInputModalEditProfile>
-                        </RightFormContainerInputModalEditProfile>
-
-                        <RightFormContainerInputModalEditProfile>
-                            <label htmlFor="password">Senha</label>
-                            <FormInputModalEditProfile>
-                                <input 
-                                    type="password" 
-                                    id="password" 
-                                    value={password}
-                                    placeholder='Senha'
-                                />
-
-                            </FormInputModalEditProfile>
-                        </RightFormContainerInputModalEditProfile>
-
-                        <RightFormContainerInputModalEditProfile>
-                            <label htmlFor="tel">Telefone</label>
-                            <FormInputModalEditProfile>
-                                <InputMask
-                                    id='tel'
-                                    placeholder='Telefone'
-                                    value={tel}
-                                    mask="(99) 99999-9999"
-                                />
-
-                            </FormInputModalEditProfile>
-                        </RightFormContainerInputModalEditProfile>
-
-                        <RightFormButtonModalEditProfile type="submit">
-                            Editar
-                        </RightFormButtonModalEditProfile>
-
-                    </RightFormModalEditProfile>
-                </RightModalEditProfile>
 
                 <ButtonCloseModalEditProfile onClick={() => closeModalEditProfile()}>
                     x

@@ -71,6 +71,7 @@ export const ToViewTableHelp = styled.td `
         padding: 3px;
         font-size: 9pt;
         text-transform: uppercase;
+        cursor: pointer;
         text-align: center;
     }
 `
@@ -93,25 +94,18 @@ export const ContainerTableHelp = styled.div `
 `
 
 export const StatusTableHelp = styled.td `
-    width: 180px;
     margin: 0 auto;
 
-    span {
-        position: relative;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -15px;
-            transform: translateY(-50%);
-            display: block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: red;
-        }
+    button {
+        background-color: ${props => props.theme.colors.primary};
+        color: white;
+        cursor: pointer;
+        padding: 3px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
     }
+
 `
 
 export const DescriptionTableHelp = styled.td `

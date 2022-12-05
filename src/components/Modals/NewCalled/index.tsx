@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { axios } from "../../../axios";
 import { useHelp } from "../../../hooks/Help";
 import { useMessageModal } from "../../../hooks/ModalMessage";
+import { useUsers } from "../../../hooks/Users";
 import { Title } from "../../Title";
 import { 
     ContainerModalNewCalled,
@@ -13,7 +14,8 @@ import {
 } from "./style";
 
 interface ModalNewCalledProps {
-    closeModalNewCalled: () => void    
+    closeModalNewCalled: () => void,
+    toggleRepeatCallApi: () => void
 }
 
 interface RespostApiNewCall {
@@ -21,11 +23,12 @@ interface RespostApiNewCall {
     message: string,
 }
 
-export function ModalNewCalled({ closeModalNewCalled }: ModalNewCalledProps) {
+export function ModalNewCalled({ closeModalNewCalled, toggleRepeatCallApi }: ModalNewCalledProps) {
+
+    const { user } = useUsers();
 
     const { ErrorModalMessage, ShowModalMessage, TextModalMessage } = useMessageModal();
-    const { help, toggleRepeatCallApi } = useHelp();
-
+    
     const [ title, setTitle ] = useState<string>('');
     const [ description, setDescription ] = useState<string>('');
 
@@ -64,10 +67,12 @@ export function ModalNewCalled({ closeModalNewCalled }: ModalNewCalledProps) {
 
     async function createNewCall() {
         try {
-            const response = await axios.post('/new-called', {
+            const response = await axios.post(`/new-called/`, {
+                id: user.id,
                 description,
                 title
             });
+
             const respost: RespostApiNewCall = await response.data;
 
             ShowModalMessage(true);

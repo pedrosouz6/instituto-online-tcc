@@ -53,7 +53,7 @@ export function ItemsHeader() {
                 <span>Logado com { user.email }</span>
             </InfoUserItemsHeader>
             <ItemsItemsHeader>
-                <button onClick={() => setIsShowModalEditProfile(true)}>Editar perfil</button>
+                <button onClick={() => setIsShowModalEditProfile(true)}>Ver meus dados</button>
                 <button onClick={() => SignOut()}>{ isGoingOut ? 'Saindo...' : 'Sair' }</button>
             </ItemsItemsHeader>
             <i><IoMdArrowDropup /></i>
