@@ -164,7 +164,7 @@ export default function Users({ results }: UsersProps) {
             setIsLoading(true);
 
             try {
-                const response = await axios.get(`/get-usersProjects/${displayingUser}/${pageNumber}/${searchUser ? searchUser : 'null'}`);
+                const response = await axios.get(`/get-docs/${displayingUser}/${pageNumber}/${searchUser ? searchUser : 'null'}`);
                 const respost: GetUsersResults = await response.data;
 
                 if(respost.error) {
