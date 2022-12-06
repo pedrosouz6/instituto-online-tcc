@@ -14,7 +14,7 @@ import { Container } from "../src/components/Container";
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
 
-import { ModalAddUser } from '../src/components/Modals/AddDocs';
+import { ModalAddDocs } from '../src/components/Modals/AddDocs';
 import { ModalDeleteUser } from "../src/components/Modals/DeleteUser";
 import { ModalUpdateUser } from "../src/components/Modals/UpdateDocs";
 
@@ -204,7 +204,7 @@ export default function Users({ results }: UsersProps) {
 
             <ContainerAnimationModal isAnimation={isOpenModalAddUser}>
                 <AnimationModal isAnimation={isOpenModalAddUser}>
-                    { isOpenModalAddUser && <ModalAddUser toggleModalAddUser={toggleModalAddUser} /> }
+                    { isOpenModalAddUser && <ModalAddDocs toggleModalAddDocs={toggleModalAddUser} /> }
                 </AnimationModal>
             </ContainerAnimationModal>
 

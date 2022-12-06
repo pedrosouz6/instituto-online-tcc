@@ -20,21 +20,21 @@ import { Button } from '../../Button';
 import { useMessageModal } from '../../../hooks/ModalMessage';
 
 import { 
-    ContainerModalAddUser,
-    ModalModalAddUser,
-    HeaderModalAddUser,
-    FormModalAddUser,
-    ContainerButtonSendFormModalAddUser,
-    FormInputModalAddUser,
-    FormContainerInputModalAddUser,
-    FormContainerInputsModalAddUser,
-    ErrorMessageModalAddUser
-} from "../AddUser/style";
+    ContainerModalAddDocs,
+    ModalModalAddDocs,
+    HeaderModalAddDocs,
+    FormModalAddDocs,
+    ContainerButtonSendFormModalAddDocs,
+    FormInputModalAddDocs,
+    FormContainerInputModalAddDocs,
+    FormContainerInputsModalAddDocs,
+    ErrorMessageModalAddDocs
+} from "./style";
 import { useUsers } from '../../../hooks/Users';
 import { Loading } from '../../Loading';
 
-interface ModalAddUserProps {
-    toggleModalAddUser: () => void
+interface ModalAddDocsProps {
+    toggleModalAddDocs: () => void
 }
 
 export interface ValidationReturn {
@@ -50,7 +50,7 @@ interface RespostAPI {
     }
 }
 
-export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
+export function ModalAddDocs({ toggleModalAddDocs }: ModalAddDocsProps) {
 
     const { ShowModalMessage, ErrorModalMessage, TextModalMessage } = useMessageModal();
     const { toggleUpdatedUsers } = useUsers();
@@ -164,7 +164,7 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
             ErrorModalMessage(respost.error)
             TextModalMessage(respost.message);
             cleanInputs();
-            toggleModalAddUser();
+            toggleModalAddDocs();
             toggleUpdatedUsers();
             setIsLoading(false);
         } catch(err) {
@@ -188,21 +188,24 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
     }
 
     return (
-        <ContainerModalAddUser>
+        <ContainerModalAddDocs>
             { isLoading && <Loading /> }
             
-            <ModalModalAddUser>
-                <HeaderModalAddUser>
+            <ModalModalAddDocs>
+                <HeaderModalAddDocs>
                     <h3>Criar um novo documento</h3>
-                    <button onClick={() => toggleModalAddUser()}><i><IoMdClose /></i></button>
-                </HeaderModalAddUser>
+                    <button onClick={() => toggleModalAddDocs()}><i><IoMdClose /></i></button>
+                </HeaderModalAddDocs>
 
-                <FormModalAddUser onSubmit={e => dataValidation(e)}>
+                <FormModalAddDocs onSubmit={e => dataValidation(e)}>
 
-                    <FormContainerInputsModalAddUser>
-                        <FormContainerInputModalAddUser>
+                    <fieldset>
+                        <legend>Dados Pessoais</legend>
+
+                    <FormContainerInputsModalAddDocs>
+                        <FormContainerInputModalAddDocs>
                             <label htmlFor="name">Nome</label>
-                            <FormInputModalAddUser>
+                            <FormInputModalAddDocs>
                                 <input 
                                 type="text" 
                                 id="name" 
@@ -211,12 +214,12 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 onChange={e => setName(e.target.value)} />
 
                                 { !isNameCorrect && <ErrorIndicator text={messageInputs} /> }
-                            </FormInputModalAddUser>
-                        </FormContainerInputModalAddUser>
+                            </FormInputModalAddDocs>
+                        </FormContainerInputModalAddDocs>
 
-                        <FormContainerInputModalAddUser>
+                        <FormContainerInputModalAddDocs>
                             <label htmlFor="date">Data de nascimento</label> 
-                            <FormInputModalAddUser>
+                            <FormInputModalAddDocs>
                                 <input 
                                 type="date" 
                                 id='date' 
@@ -225,12 +228,12 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 />
 
                                 { !isDateCorrect && <ErrorIndicator text={messageInputs} /> }
-                            </FormInputModalAddUser>
-                        </FormContainerInputModalAddUser>
+                            </FormInputModalAddDocs>
+                        </FormContainerInputModalAddDocs>
 
-                        <FormContainerInputModalAddUser>
+                        <FormContainerInputModalAddDocs>
                             <label htmlFor="email">E-mail</label>
-                            <FormInputModalAddUser>
+                            <FormInputModalAddDocs>
                                 <input 
                                 type="email" 
                                 id="email" 
@@ -239,12 +242,12 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 onChange={e => setEmail(e.target.value)} />
 
                                 { !isEmailCorrect && <ErrorIndicator text={messageInputs} /> }
-                            </FormInputModalAddUser>
-                        </FormContainerInputModalAddUser>
+                            </FormInputModalAddDocs>
+                        </FormContainerInputModalAddDocs>
 
-                        <FormContainerInputModalAddUser>
+                        <FormContainerInputModalAddDocs>
                             <label htmlFor="password">Senha</label>
-                            <FormInputModalAddUser>
+                            <FormInputModalAddDocs>
                                 <input 
                                 type="password" 
                                 id="password" 
@@ -253,12 +256,12 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 onChange={e => setPassword(e.target.value)} />
 
                                 { !isPasswordCorrect && <ErrorIndicator text={messageInputs} /> }
-                            </FormInputModalAddUser>
-                        </FormContainerInputModalAddUser>
+                            </FormInputModalAddDocs>
+                        </FormContainerInputModalAddDocs>
 
-                        <FormContainerInputModalAddUser>
+                        <FormContainerInputModalAddDocs>
                             <label htmlFor="tel">Telefone</label>
-                            <FormInputModalAddUser>
+                            <FormInputModalAddDocs>
                                 <InputMask
                                 id='tel'
                                 placeholder='Telefone'
@@ -267,12 +270,12 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 onChange={e => setTel(e.target.value)} />
 
                                 { !isTelCorrect && <ErrorIndicator text={messageInputs} /> }
-                            </FormInputModalAddUser>
-                        </FormContainerInputModalAddUser>
+                            </FormInputModalAddDocs>
+                        </FormContainerInputModalAddDocs>
 
-                        <FormContainerInputModalAddUser>
+                        <FormContainerInputModalAddDocs>
                             <label htmlFor="cpf">CPF</label>
-                            <FormInputModalAddUser>
+                            <FormInputModalAddDocs>
                                 <InputMask
                                 id='cpf'
                                 placeholder='CPF'
@@ -281,14 +284,14 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 onChange={e => setCPF(e.target.value)} />
 
                                 { !isCPFCorrect && <ErrorIndicator text={messageInputs} /> }
-                            </FormInputModalAddUser>
-                        </FormContainerInputModalAddUser>
+                            </FormInputModalAddDocs>
+                        </FormContainerInputModalAddDocs>
 
-                        <FormContainerInputModalAddUser>
+                        <FormContainerInputModalAddDocs>
                             <label htmlFor="office">Projetos</label>
-                            <FormInputModalAddUser>
+                            <FormInputModalAddDocs>
                                 <select id='office' onChange={e => setOffice(e.target.value)}>
-                                    <option disabled selected>Escolha o cargo</option>
+                                    <option disabled selected>Escolha o projeto</option>
                                     <option value="Balé">Balé</option>
                                     <option value="Creches comunitárias">Creches comunitárias</option>
                                     <option value="Horta">Horta</option>
@@ -296,22 +299,86 @@ export function ModalAddUser({ toggleModalAddUser }: ModalAddUserProps) {
                                 </select>
 
                                 { !isOfficeCorrect && <ErrorIndicator text={messageInputs} /> }
-                            </FormInputModalAddUser>
-                        </FormContainerInputModalAddUser>
-                    </FormContainerInputsModalAddUser>
+                            </FormInputModalAddDocs>
+                        </FormContainerInputModalAddDocs>
+                    </FormContainerInputsModalAddDocs>
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Endereço</legend>
+                        <FormContainerInputsModalAddDocs>
+                            <FormContainerInputModalAddDocs>
+                                <label htmlFor="name">Endereço</label>
+                                <FormInputModalAddDocs>
+                                    <input 
+                                    type="text" 
+                                    id="name" 
+                                    placeholder='Endereço'
+                                    onChange={e => setName(e.target.value)} />
+
+                                    { !isNameCorrect && <ErrorIndicator text={messageInputs} /> }
+                                </FormInputModalAddDocs>
+                            </FormContainerInputModalAddDocs>
+
+                            <FormContainerInputModalAddDocs>
+                                <label htmlFor="name">Nome</label>
+                                <FormInputModalAddDocs>
+                                    <input 
+                                    type="text" 
+                                    id="name" 
+                                    placeholder='Nome'
+                                    value={name}
+                                    onChange={e => setName(e.target.value)} />
+
+                                    { !isNameCorrect && <ErrorIndicator text={messageInputs} /> }
+                                </FormInputModalAddDocs>
+                            </FormContainerInputModalAddDocs>
+
+                            <FormContainerInputModalAddDocs>
+                                <label htmlFor="name">Nome</label>
+                                <FormInputModalAddDocs>
+                                    <input 
+                                    type="text" 
+                                    id="name" 
+                                    placeholder='Nome'
+                                    value={name}
+                                    onChange={e => setName(e.target.value)} />
+
+                                    { !isNameCorrect && <ErrorIndicator text={messageInputs} /> }
+                                </FormInputModalAddDocs>
+                            </FormContainerInputModalAddDocs>
+
+                            <FormContainerInputModalAddDocs>
+                                <label htmlFor="name">Nome</label>
+                                <FormInputModalAddDocs>
+                                    <input 
+                                    type="text" 
+                                    id="name" 
+                                    placeholder='Nome'
+                                    value={name}
+                                    onChange={e => setName(e.target.value)} />
+
+                                    { !isNameCorrect && <ErrorIndicator text={messageInputs} /> }
+                                </FormInputModalAddDocs>
+                            </FormContainerInputModalAddDocs>
+                        </FormContainerInputsModalAddDocs>
+
+                    </fieldset>
+
 
                     { 
                         inputsEmpty && 
-                        <ErrorMessageModalAddUser> 
+                        <ErrorMessageModalAddDocs> 
                             Preencha o(s) campo(s) acima 
-                        </ErrorMessageModalAddUser> 
+                        </ErrorMessageModalAddDocs> 
                     } 
 
-                    <ContainerButtonSendFormModalAddUser>
+                    <ContainerButtonSendFormModalAddDocs>
                         <Button type="submit">Criar</Button>
-                    </ContainerButtonSendFormModalAddUser>
-                </FormModalAddUser>
-            </ModalModalAddUser>
-        </ContainerModalAddUser>
+                    </ContainerButtonSendFormModalAddDocs>
+                </FormModalAddDocs>
+            </ModalModalAddDocs>
+        </ContainerModalAddDocs>
     )
 }

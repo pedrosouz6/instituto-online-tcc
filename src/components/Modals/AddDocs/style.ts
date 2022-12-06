@@ -29,6 +29,16 @@ export const ModalModalAddDocs = styled.div `
     overflow-x: hidden;
     background-color: ${props => props.theme.colors.background};
     border-radius: 5px;
+
+    &::-webkit-scrollbar-thumb {
+        background: #777;
+    }
+
+    &::-webkit-scrollbar {
+        width: 7px;
+        height: 8px;
+        background-color: #aaa;
+    }
 `
 
 export const HeaderModalAddDocs = styled.div `
@@ -66,7 +76,18 @@ export const HeaderModalAddDocs = styled.div `
 
 export const FormModalAddDocs = styled.form `
     width: 100%;
-    padding: 20px;
+    padding: 10px;
+
+    legend {
+        display: block;
+        margin-left: 10px;
+        padding: 0 5px;
+    }
+
+    fieldset {
+        padding: 10px;
+        margin-bottom: 1rem;
+    }
 `
 
 export const ContainerButtonSendFormModalAddDocs = styled.div `
