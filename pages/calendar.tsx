@@ -1,9 +1,24 @@
 import Head from "next/head";
+import { parseCookies } from "nookies";
+import { axios } from "../src/axios";
 import { Container } from "../src/components/Container";
 import { Header } from "../src/components/Header";
 import { Navbar } from "../src/components/Navbar";
+import { User } from "../src/contexts/Users";
+import { useUsers } from "../src/hooks/Users";
+import { ValidateTokenResults } from "./users";
 
-export default function Calender() {
+interface HelpCalender {
+    results: User
+  }
+
+export default function Calender({ results }: HelpCalender) {
+
+    const { setUser, setUserType } = useUsers();
+
+    setUser(results);
+    setUserType(results.office);
+
     return (
         <>
             <Head>
@@ -21,4 +36,56 @@ export default function Calender() {
             </Container>
         </>
     )
+}
+
+export async function getServerSideProps(ctx: any) {
+    const { ['token_user']: token } = parseCookies(ctx);
+  
+    if(token) {
+      try {
+        const response = await axios.post('/validate-token', {
+            token
+        });
+
+        const respost: ValidateTokenResults = response.data;
+
+        if(!respost.error) {
+            return {
+                props: {
+                    results: respost.results[0]
+                }
+            }
+        }
+        
+        if(respost.error) {
+            return {
+                redirect: {
+                  destination: '/',
+                  permanent: false
+                }
+            }
+        }
+        
+      } catch(error) {
+        return {
+          redirect: {
+            destination: '/',
+            permanent: false
+          }
+        }
+      }
+    }
+  
+    if(!token) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false
+        }
+      }
+    }
+  
+    return {
+      props: {}
+    }
 }

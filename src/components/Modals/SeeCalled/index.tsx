@@ -28,7 +28,7 @@ export function ModalDeleteUser({ description, closeModalSeeCalled }: ModalDelet
         <ContainerModalDeleteUser>
             <ModalModalDeleteUser>
                 <HeaderModalDeleteUser>
-                    <h3>Deletar um usuario</h3>
+                    <h3>Ver o chamado</h3>
                 </HeaderModalDeleteUser>
                 <MainModalDeleteUser>
                     <span>{ description }</span>
