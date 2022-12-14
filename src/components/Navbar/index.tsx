@@ -26,7 +26,8 @@ import {
     ItemsNavbar,
     ContainerLogo,
     ContainerMiniNavbar,
-    ItemTitleNavbar
+    ItemTitleNavbar,
+    FeitoPorNavbar
 } from "./style";
 import Image from 'next/image';
 
@@ -54,14 +55,14 @@ export function Navbar() {
             <ContainerNavbar isMenuResponsive={isMenuResponsive} isMiniNavbar={isMiniNavbar}>
                 <ContainerLogo>
                     { isMiniNavbar ? 
-                    <Image src='/logo_final_pq.png'
+                    <Image src='/loogo.png'
                         alt="Logo Instituto Manasses"
                         width={40}
-                        height={40} /> : 
-                        <Image src='/logo_final.png'
+                        height={30} /> : 
+                        <Image src='/logo_branca.png'
                         alt="Logo Instituto Manasses"
-                        width={150}
-                        height={35} /> 
+                        width={70}
+                        height={50} /> 
                     }
                 </ContainerLogo>
 
@@ -134,6 +135,11 @@ export function Navbar() {
                     </button>
                 </ContainerMiniNavbar>
 
+                { !isMiniNavbar &&
+                    <FeitoPorNavbar>
+                        Feito por: <strong>Instituto Online</strong>
+                    </FeitoPorNavbar>
+                }
             </ContainerNavbar>
         </>
     )

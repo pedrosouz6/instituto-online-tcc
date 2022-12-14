@@ -14,17 +14,18 @@ export const ContainerCards = styled.div `
     flex-wrap: wrap;
     justify-content: center;
     gap: 1.5rem;
+    padding: 1rem 0;
 `
 
 export const Card = styled.div `
     flex: 1 1 280px;
     max-width: 300px;
     height: 120px;
-    background: linear-gradient(45deg, rgb(42, 171, 175), teal);
+    background: linear-gradient(45deg, #c5d43b, rgb(226, 226, 3));
 
     padding: 10px;
     border-radius: 5px;
-    border-left:teal 3px solid;
+    border-left: yellow 3px solid;
 `
 
 export const CardHeader = styled.div `
@@ -37,6 +38,7 @@ export const CardHeader = styled.div `
 export const CardBody = styled.div `
     span, p {
         color: white;
+        text-shadow: 0 0 1px rgba(0,0,0.1);
     }
 
     span {

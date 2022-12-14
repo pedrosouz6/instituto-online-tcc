@@ -23,7 +23,7 @@ export const ContainerNavbar = styled.div `
 
     transition: ${props => props.theme.animation.main};
 
-    background: teal;
+    background: #555;
     color: #cbd2d6;
 
     @media (max-width: 1100px) {
@@ -110,7 +110,7 @@ export const ItemsNavbar = styled.nav `
             }
 
             .active {
-                background-color: rgb(0, 92, 92);
+                background-color: #666;
                 color: #cbd2d6;
             }
         }
@@ -140,5 +140,17 @@ export const ContainerMiniNavbar = styled.div `
 
     @media (max-width: 1100px) {
         display: ${(props: ContainerMiniNavbarProps) => props.isMenuResponsive && 'none'};
+    }
+`
+
+export const FeitoPorNavbar = styled.p `
+    position: fixed;
+    bottom: 20px;
+    left: 115px;
+    transform: translateX(-50%);
+    font-size: 10pt;
+
+    a {
+        color: white;
     }
 `

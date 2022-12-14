@@ -2,7 +2,7 @@ export default {
     title: 'light',
 
     colors: {
-        primary: '#008080',
+        primary: '#555',
         background: '#f1f5f7',
         backgroundDesigner: 'rgb(230, 230, 230)',
         backgroundTable: 'rgb(210, 210, 210)',
