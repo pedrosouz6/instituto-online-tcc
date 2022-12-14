@@ -21,7 +21,7 @@ export const Card = styled.div `
     flex: 1 1 280px;
     max-width: 300px;
     height: 120px;
-    background: linear-gradient(45deg, #c5d43b, rgb(226, 226, 3));
+    background: linear-gradient(45deg, #ffbb00, #ffbb00);
 
     padding: 10px;
     border-radius: 5px;
