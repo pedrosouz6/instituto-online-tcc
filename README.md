@@ -4,7 +4,7 @@
 
 ### Algumas imagens do sistema
 
-<img src="./public/home_gh.png" alt="Imagem da home" />
+<img src="./public/inicio_gh.png" alt="Imagem da home" />
 
 First, run the development server:
 
