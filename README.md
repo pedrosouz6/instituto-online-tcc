@@ -1,6 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Projeto para o TCC
 
-## Getting Started
+#### Esse foi um sistema desenvolvido para o meu curso técnico em Informática para Internet
+
+### Algumas imagens do sistema
+
+<img src="./public/home_gh.png" alt="Imagem da home" />
 
 First, run the development server:
 
